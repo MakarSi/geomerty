@@ -115,11 +115,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="Dot&amp;Line.h" />
     <ClInclude Include="polygon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dot&amp;Line.cpp" />
+=======
+    <ClInclude Include="circle.h" />
+    <ClInclude Include="polygon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="circle.cpp" />
+>>>>>>> 5af08dd179666d3fba75749f4c32ca16add9ec80
     <ClCompile Include="polygon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
