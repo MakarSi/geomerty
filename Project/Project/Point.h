@@ -1,20 +1,26 @@
 #pragma once
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
 class Point
 {
-public: 
+public:
 	Point(double x = 0, double y = 0);
-	double GetX();
-	void SetX(double);
-	double GetY();
-	void SetY(double);
-	void PrintCoordinate();
-	bool operator== (const Point& a);
-	bool operator!= (const Point& a);
-	Point operator+ (const Point& a);
-	Point operator- (const Point& a);
-	//friend ostream operator<<(ostream & out,const Point& a);
-private: 
+	double get_x();
+	void set_x(double);
+	double get_y();
+	void set_y(double);
+	void print_coordinate(); //Печатает точку
+	bool operator== (const Point& a); //Перегрузка оператора равенства
+	bool operator!= (const Point& a); //Перегрузка оператора неравнества
+	Point operator+ (const Point& a); //Перегрузка оператора сложения
+	Point operator- (const Point& a); //Перегрузка оператора вычитания
+	friend istream& operator>> (istream&, Point& a); //Ввод точки
+	friend ostream& operator<< (ostream&, const Point& a); //Печатает точку
+	friend double distance(Point a, Point b); //Расстояние между двумя точками
+private:
 	double _x, _y;
 };
-double Distance(Point a, Point b);
 
