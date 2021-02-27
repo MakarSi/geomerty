@@ -1,4 +1,5 @@
 #include "circle.h"
+#define _USE_MATH_DEFINES 
 #include <iostream>
 #include <math.h>
 
@@ -32,8 +33,8 @@ Circle::Circle(Point center = 0, double _rad = 1) {
 void print_equation(Circle c1) {
 	Point t;
 	t = c1.get_center();
-	double xc = t.GetX();
-	double yc = t.GetY();
+	double xc = t.get_x();
+	double yc = t.get_y();
 	double r = c1.get_rad();
 	cout << "(x";
 	if (xc < 0) cout << "+" << abs(xc) << ")^2+(y";
@@ -45,6 +46,6 @@ void print_equation(Circle c1) {
 //Длина окружности (дуги)
 double length_circle(Circle c1) {
 	double r = c1.get_rad();
-	double l = 2 * 3.14 * r;
+	double l = 2 * M_PI * r;
 	return l;
 }
