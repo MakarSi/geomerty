@@ -1,7 +1,6 @@
 #include "Dot&Line.h"
-int k;
 
-
+int kn;
 point::point()
 {
 }
