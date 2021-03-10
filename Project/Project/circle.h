@@ -12,6 +12,7 @@ public:
 	void set_rad(double _rad);
 
 	Circle(Point center, double _rad);
+	~Circle();
 
 	void print_eq_standart(Circle c1);
 	void print_eq(Circle c1);
