@@ -1,5 +1,7 @@
 #pragma once
-#include "point.h"
+#include "Point.h"
+#include <iostream>
+#include <math.h>
 
 class Circle {
 public:
@@ -10,11 +12,11 @@ public:
 	void set_rad(double _rad);
 
 	Circle(Point center, double _rad);
+
+	void print_eq_standart(Circle c1);
+	void print_eq(Circle c1);
+	double length(Circle c1);
 private:
 	Point _center;
 	double _rad;
 };
-
-void print_equation(Circle c1);
-
-double length_circle(Circle c1);

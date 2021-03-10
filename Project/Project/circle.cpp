@@ -1,5 +1,5 @@
-#include "circle.h"
 #define _USE_MATH_DEFINES 
+#include "circle.h"
 #include <iostream>
 #include <math.h>
 
@@ -16,7 +16,7 @@ Point Circle::get_center() {
 void Circle::set_rad(double rad) {
 	if (rad <= 0) {
 		cout << "Error assigning a negative or zero value to the radius" << endl;
-		_rad = 1;     //при неправильном вводе радиуса ставится радиус равный 1
+		_rad = 1;     //В случае неправильного ввода - присваивается радиусу 1
 	}
 	else _rad = rad;
 }
@@ -25,12 +25,16 @@ double Circle::get_rad() {
 	return _rad;
 }
 
-Circle::Circle(Point center = 0, double _rad = 1) {
+Circle::Circle(Point center, double _rad) {
 	set_center(center), set_rad(_rad);
 }
 
-//Печать уравнение окружности
-void print_equation(Circle c1) {
+Circle::~Circle() {
+
+}
+
+//Печать уравнения в стандартном виде
+void Circle::print_eq_standart(Circle c1) {
 	Point t;
 	t = c1.get_center();
 	double xc = t.get_x();
@@ -43,8 +47,24 @@ void print_equation(Circle c1) {
 	else if (yc > 0) cout << "-" << yc << ")^2=" << r * r;
 }
 
-//Длина окружности (дуги)
-double length_circle(Circle c1) {
+//Печать уравнения - скобки раскрыты
+void Circle::print_eq(Circle c1) {
+	Point t;
+	t = c1.get_center();
+	double xc = t.get_x();
+	double yc = t.get_y();
+	double r = c1.get_rad();
+	double A = -2 * xc;
+	double B = -2 * yc;
+	double C = xc * xc + yc * yc - r * r;
+	cout << "x^2+y^2 ";
+	if (A > 0) cout << "+" << A << "x"; else cout << A << "x";
+	if (B > 0) cout << "+" << B << "y"; else cout << B << "y";
+	if (C > 0) cout << "+" << C << "=0"; else cout << C << "=0";
+}
+
+//Длина окружности
+double Circle::length(Circle c1) {
 	double r = c1.get_rad();
 	double l = 2 * M_PI * r;
 	return l;
