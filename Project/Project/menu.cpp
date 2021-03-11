@@ -68,7 +68,21 @@ int main() {
 		    else if (key == 3);
 		      else if (key == 4);
 		        else if (key == 5);
-		          else if (key == 6);
+				else if (key == 6) {
+			int n;
+			cout << "Enter num of vertexes of ur polygon: ";
+			cin >> n;
+			cout << "Enter all vertexes: ";
+			vector<Point> vertexes;
+			double x, y;
+			for (int i = 0; i < n; i++) {
+				cin >> x >> y;
+				Point t = { x, y };
+				vertexes.push_back(t);
+			}
+			polygon::Polygon p = vertexes;
+			p.print_all_info();
+		}
 		            else if (key == 7);
 		              else if (key == 8);
 		                else break;
