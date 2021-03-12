@@ -69,3 +69,36 @@ double Circle::length(Circle c1) {
 	double l = 2 * M_PI * r;
 	return l;
 }
+
+void Circle::set_ABC() {
+	double x = get_center().get_x();
+	double y = get_center().get_y();
+	_A = -2 * x;
+	_B = -2 * y;
+	_C = x * x + y * y - get_rad() * get_rad();
+}
+
+double Circle::get_A() {
+	return _A;
+}
+
+double Circle::get_B() {
+	return _B;
+}
+
+double Circle::get_C() {
+	return _C;
+}
+
+Line tangent_line(Point& a, Circle& b) {
+	double x0 = b.get_center().get_x();
+	double y0 = b.get_center().get_y();
+	double x = a.get_x(), y = a.get_y();
+	if ((x - x0) * (x - x0) + (y - y0) * (y - y0) <= b.get_rad() * b.get_rad())
+		throw invalid_argument("Point is not out of circle");
+	double A = x0 + b.get_A() / 2;
+	double B = y0 + b.get_B() / 2;
+	double C = (x0 * b.get_A() + y0 * b.get_B()) / 2 + b.get_C();
+	Line line = { A, B, C };
+	return line;
+}
