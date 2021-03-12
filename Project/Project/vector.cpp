@@ -41,8 +41,8 @@ bool Vector::operator!= (Vector& v) {
 	Point p1, p2;
 	p1 = this->_p1;
 	p2 = this->_p2;
-	bool f = this->length() == v.length() || distance(p1, v._p1) == distance(p2, v._p2) ||
-		distance(p1, v._p1) <= distance(p1, v._p2) || distance(p2, v._p2) <= distance(p2, v._p1);
+	bool f = this->length() != v.length() || distance(p1, v._p1) != distance(p2, v._p2) ||
+		distance(p1, v._p1) > distance(p1, v._p2) || distance(p2, v._p2) > distance(p2, v._p1);
 	return f;
 }
 
