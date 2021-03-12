@@ -81,8 +81,31 @@ int main() {
 			cout << "Perimeter: ";
 			cout << per << " Square: " << sq << endl;
 		}
-		      else if (key == 4);
-		        else if (key == 5);
+		  else if (key == 4) {
+			double x1, y1, rad;
+			cout << "Введите координаты центра и радиус окружности" << endl;
+			cin >> x1 >> y1 >> rad;
+			Point p(x1, y1);
+			Circle c(p, rad);
+			cout << "Уравнение окружности" << endl;
+			c.print_eq_standart(c);
+			cout << "Длина окружности";
+			cout << c.length(c) << endl;
+		}
+			  else if (key == 5) {
+			double x1, y1, rad;
+			cout << "Введите координаты центра и радиус круга" << endl;
+			cin >> x1 >> y1 >> rad;
+			Point p(x1, y1);
+			Ring c(p, rad);
+			cout << "Площадь круга" << endl;
+			cout << c.square(c) << endl;
+			cout << "Введите угол для вычисления площади сегмента" << endl;
+			double angle;
+			cin >> angle;
+			cout << "Площадь сегмента" << endl;
+			cout << c.sector(c, angle) << endl;
+		}
 				else if (key == 6) {
 			polygon::Polygon p;
 			cin >> p;
