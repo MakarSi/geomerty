@@ -9,7 +9,6 @@ namespace polygon {
 		set_perimeter();
 	}
 
-
 	Point Polygon::get_vertex(int i)const {
 		if (i >= 0 && i < _vertexes.size())
 			return _vertexes[i];
@@ -30,7 +29,7 @@ namespace polygon {
 	}
 
 	void Polygon::set_vertexes(vector<Point> vertexes) {
-		if (vertexes.size() < 3)
+		if (vertexes.size() < 3 && vertexes.size() != 0)
 			throw invalid_argument("Not enough vertexes");
 		/*перед добавлением новой вершины проверяем, не является ли
 		многогранник самопересекающимся*/
@@ -54,6 +53,10 @@ namespace polygon {
 	}
 
 	void Polygon::set_perimeter() {
+		if (get_dim() == 0) {
+			_perimeter = 0;
+			return;
+		}
 		double res = 0;
 		for (int i = 0; i < get_dim() - 1; i++)
 			res += distance(get_vertex(i), get_vertex(i + 1));
@@ -62,6 +65,10 @@ namespace polygon {
 	}
 
 	void Polygon::set_area() {
+		if (get_dim() == 0) {
+			_area = 0;
+			return;
+		}
 		//воспользуемся формулой площади Гаусса
 		double res = 0;
 		if (get_dim() < 3) {
@@ -90,5 +97,21 @@ namespace polygon {
 		print_coords();
 		cout << "Area: " << get_area() << endl;
 		cout << "Perimeter: " << get_perimeter() << endl;
+	}
+
+	istream& operator>>(istream& in, Polygon& p) {
+		int n;
+		cout << "Enter num of vertexes of polygon: ";
+		cin >> n;
+		cout << "Enter all vertexes: ";
+		vector<Point> vertexes;
+		double x, y;
+		for (int i = 0; i < n; i++) {
+			cin >> x >> y;
+			Point t = { x, y };
+			vertexes.push_back(t);
+		}
+		p = vertexes;
+		return in;
 	}
 }

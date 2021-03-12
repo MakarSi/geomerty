@@ -20,8 +20,8 @@ namespace polygon {
 		Point get_vertex(int)const;
 		double get_area()const;
 		double get_perimeter()const;
-		
 
+		friend istream& operator>> (istream&, Polygon&);
 		//вывод координат всех вершин в консоль
 		void print_coords();
 		//вывод всей информации о четырехугольнике
