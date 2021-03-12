@@ -66,18 +66,18 @@ void Triangle::shift_up_or_down(double k) {
 
 bool Triangle::operator== (const Triangle& t) {
 	Point p1, p2, p3;
-	p1 = this->get_point1;
-	p2 = this->get_point2;
-	p3 = this->get_point3;
+	p1 = this->get_point1();
+	p2 = this->get_point2();
+	p3 = this->get_point3();
 	bool f = distance(p1, p2) == distance(t._p1, t._p2) && distance(p2, p3) == distance(t._p2, t._p3) && distance(p1, p3) == distance(t._p1, t._p3);
 	return f;
 }
 
 bool Triangle::operator!= (const Triangle& t) {
 	Point p1, p2, p3;
-	p1 = this->get_point1;
-	p2 = this->get_point2;
-	p3 = this->get_point3;
+	p1 = this->get_point1();
+	p2 = this->get_point2();
+	p3 = this->get_point3();
 	bool f = distance(p1, p2) != distance(t._p1, t._p2) || distance(p2, p3) != distance(t._p2, t._p3) || distance(p1, p3) != distance(t._p1, t._p3);
 	return f;
 }

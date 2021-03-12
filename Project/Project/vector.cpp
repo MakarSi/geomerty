@@ -21,13 +21,6 @@ double Vector::y_coordinate_of_vector() {
 	return _p2.get_y() - _p1.get_y();
 }
 
-void Vector::print_coordinates() {
-	_p1.print_coordinate();
-	cout << ' ';
-	_p2.print_coordinate();
-	cout << ' ' << endl;
-}
-
 bool Vector::operator== (Vector& v) {
 	Point p1, p2;
 	p1 = this->_p1;
@@ -61,6 +54,6 @@ void Vector::multiplying_by_a_number(double a) {
 }
 
 double Vector::vector_product(Vector& v) {
-	return this->x_coordinate_of_vector() * v.x_coordinate_of_vector() -
-		v.y_coordinate_of_vector() * this->y_coordinate_of_vector();
+	return this->x_coordinate_of_vector() * v.y_coordinate_of_vector() -
+		v.x_coordinate_of_vector() * this->y_coordinate_of_vector();
 }

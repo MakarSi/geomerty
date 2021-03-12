@@ -10,7 +10,6 @@ public:
 	double x_coordinate_of_vector(); //нахождение х координаты вектора
 	double y_coordinate_of_vector(); //нахождение у координаты вектора
 
-	void print_coordinates(); //выводит координаты вектора
 	double length(); //подсчет длины вектора
 	double scalar_product(Vector& v); //вычисление скалярного произведения двух векторов
 	void multiplying_by_a_number(double a); //умножение вектора на число
