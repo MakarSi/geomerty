@@ -64,7 +64,36 @@ int main() {
 
 	while (true) {
 		int key = print_menu(A);
-		if (key == 1);
+		if (key == 1)
+		{
+			Point a, b;
+			Line c, d;
+			int k;
+			bool f = false;
+			cout << "Input two points to get a line\n";
+			cin >> a >> b;
+			c = Line(a, b);
+			cout << "The equation of this line: " << c << endl;
+			cout << "Input a point\n";
+			cin >> a;
+			k = point_in_halfplane(a, c);
+			if (k == 1) cout << "The point belongs to the positive half-plane\n";
+			else if (k == 0) cout << "The point belongs to the line\n";
+			else if (k == -1) cout << "The point belongs to the negative half-plane\n";
+			cout << "\nInput two more point to get another line\n";
+			cin >> a >> b;
+			d = Line(a, b);
+			cout << "The equation of the second line: " << d << endl;
+			if (if_parallel(c, d))
+			{
+				if (c == d) f = true;
+				if (!f) cout << "These two line are parallel\n";
+				else cout << "These two lines are equal\n";
+			}
+			else cout << "Here's the intersection point of this two lines: " << intersection_point(c, d) << endl;
+			cout << "The angle between these two line is: " << angle_between_lines(c, d) << endl;
+
+		}
 		  else if (key == 2);
 		  else if (key == 3) {
 			double x1, y1, x2, y2, x3, y3;

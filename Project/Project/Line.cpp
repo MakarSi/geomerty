@@ -9,34 +9,22 @@ using namespace std;
 void Line::print_equation()
 {
 	double a = _a, b = _b, c = _c;
-	if (a > 0 && a == 1) cout << "x ";
-	else if (a > 0 && a != 1) cout << a << "x ";
-	if (a < 0 && a == -1) cout << "-x ";
-	else if (a < 0 && a != -1) cout << a << "x ";
-	if (b > 0 && a != 0)
-		if (b == 1) cout << "+ y ";
-		else cout << "+ " << b << "y ";
-	if (b < 0 && a != 0)
-		if (b == -1) cout << "- y ";
-		else cout << "- " << -b << "y ";
-	if (a == 0 && b != 0)
-		if (b > 0 && b != 1) cout << b << "y ";
-		else if (b > 0 && b == 1) cout << "y ";
-	if (b < 0) cout << "- " << -b << "y ";
-	else if (b < 0 && b == -1) cout << "- y ";
-	if (a != 0 || b != 0)
+	if (a > 0) cout << a << "x ";
+	else if (a < 0) cout << "-" << -a << "x ";
+	if (a != 0)
 	{
-		if (c > 0) cout << "+ " << c << " ";
-		else if (c < 0) cout << "- " << -c << " ";
+		if (b > 0) cout << "+ " << b << "y ";
+		else if (b < 0) cout << "- " << -b << "y ";
 	}
-	else if (c != 0)
+	else
 	{
-		cout << c << " != 0\n";
-		Line(a, b, c);
+		if (b > 0) cout << b << "y ";
+		else if (b < 0) cout << "-" << -b << "y ";
 	}
+	if (c > 0) cout << "+ " << c << " ";
+	else if (c < 0) cout << "- " << -c << " ";
 	if (a == 0 && b == 0 && c == 0) cout << "0 ";
 	cout << "= 0";
-
 }
 
 Line::Line(double a, double b, double c)
@@ -112,7 +100,16 @@ Point intersection_point(Line d, Line e)
 bool if_parallel(Line d, Line e)
 {
 	double a1 = d.get_a(), b1 = d.get_b(), a2 = e.get_a(), b2 = e.get_b();
-	if (a1 * b2 == b1 * a2) return true;
+	if (a1 * b2 == b1 * a2)
+	{
+		if (a1 * b2 == 0)
+		{
+			if (a1 != 0 && a2 != 0 || b1 != 0 && b2 != 0)
+				return true;
+			else return false;
+		}
+		else return true;
+	}
 	else return false;
 }
 
@@ -120,6 +117,11 @@ bool operator==(Line d, Line e)
 {
 	double a1 = d.get_a(), b1 = d.get_b(), c1 = d.get_c(), a2 = e.get_a(), b2 = e.get_b(), c2 = e.get_c();
 	bool f = ((double)a1 / a2 == (double)b1 / b2 && (double)b1 / b2 == (double)c1 / c2);
+	if (if_parallel)
+	{
+		if (a1 * c2 == a2 * c1 || b1 * c2 == b2 * c1) f = true;
+	}
+	else f = false;
 	return f;
 }
 
