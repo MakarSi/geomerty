@@ -6,6 +6,7 @@ using namespace std;
 void Triangle::set_point1(Point p1) {
 	_p1 = p1;
 }
+
 Point Triangle::get_point1() {
 	return _p1;
 }
@@ -13,6 +14,7 @@ Point Triangle::get_point1() {
 void Triangle::set_point2(Point p2) {
 	_p2 = p2;
 }
+
 Point Triangle::get_point2() {
 	return _p2;
 }
@@ -20,6 +22,7 @@ Point Triangle::get_point2() {
 void Triangle::set_point3(Point p3) {
 	_p3 = p3;
 }
+
 Point Triangle::get_point3() {
 	return _p3;
 }
@@ -29,6 +32,10 @@ Triangle::Triangle(Point p1, Point p2, Point p3) {
 		throw "Error: A degenerate triangle!";
 	}
 	set_point1(p1); set_point2(p2); set_point3(p3);
+}
+
+Triangle::~Triangle() {
+
 }
 
 void Triangle::print_coordinate_of_tops() {
