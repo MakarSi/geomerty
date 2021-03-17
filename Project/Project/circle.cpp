@@ -33,8 +33,7 @@ Circle::~Circle() {
 
 }
 
-//Печать уравнения в стандартном виде
-void Circle::print_eq_standart(Circle c1) {
+void Circle::print_eq(Circle c1) {
 	Point t;
 	t = c1.get_center();
 	double xc = t.get_x();
@@ -47,23 +46,6 @@ void Circle::print_eq_standart(Circle c1) {
 	else if (yc > 0) cout << "(y-" << yc << ")^2=" << r * r;
 }
 
-//Печать уравнения - скобки раскрыты
-void Circle::print_eq(Circle c1) {
-	Point t;
-	t = c1.get_center();
-	double xc = t.get_x();
-	double yc = t.get_y();
-	double r = c1.get_rad();
-	double A = -2 * xc;
-	double B = -2 * yc;
-	double C = xc * xc + yc * yc - r * r;
-	cout << "x^2+y^2 ";
-	if (A > 0) cout << "+" << A << "x"; else cout << A << "x";
-	if (B > 0) cout << "+" << B << "y"; else cout << B << "y";
-	if (C > 0) cout << "+" << C << "=0"; else cout << C << "=0";
-}
-
-//Длина окружности
 double Circle::length(Circle c1) {
 	double r = c1.get_rad();
 	double l = 2 * M_PI * r;
