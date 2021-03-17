@@ -26,7 +26,9 @@ double Circle::get_rad() {
 }
 
 Circle::Circle(Point center, double _rad) {
-	set_center(center), set_rad(_rad);
+	set_center(center); 
+	set_rad(_rad);
+	set_ABC();
 }
 
 Circle::~Circle() {
@@ -90,15 +92,55 @@ double Circle::get_C() {
 	return _C;
 }
 
-Line tangent_line(Point& a, Circle& b) {
+Line tangent_line(Point a, Circle b) {
+	Line line;
 	double x0 = b.get_center().get_x();
 	double y0 = b.get_center().get_y();
-	double x = a.get_x(), y = a.get_y();
-	if ((x - x0) * (x - x0) + (y - y0) * (y - y0) <= b.get_rad() * b.get_rad())
-		throw invalid_argument("Point is not out of circle");
-	double A = x0 + b.get_A() / 2;
-	double B = y0 + b.get_B() / 2;
-	double C = (x0 * b.get_A() + y0 * b.get_B()) / 2 + b.get_C();
-	Line line = { A, B, C };
+	double x1 = a.get_x(), y1 = a.get_y();
+	double r = b.get_rad();
+	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) != r * r)
+		throw invalid_argument("Point is not on the circle");
+	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) == r * r) {
+		double A = x1 + b.get_A() / 2;
+		double B = y1 + b.get_B() / 2;
+		double C = (x1 * b.get_A() + y1 * b.get_B()) / 2 + b.get_C();
+		line = { A, B, C };
+	}
 	return line;
+}
+
+void tangent_lines(Point a, Circle b, Line& l1, Line& l2) {
+	double x0 = b.get_center().get_x();
+	double y0 = b.get_center().get_y();
+	double x1 = a.get_x(), y1 = -a.get_y();
+	double r = b.get_rad();
+	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) <= r * r)
+		throw invalid_argument("Point is not on the circle");
+	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) > r * r) {
+		//y = k1 (x-x1) + y1
+		//y = k2 (x-x1) + y1
+		Line line1, line2;
+		double k1, k2;
+		if (x0 - x1 == r) {
+			k2 = -((y1 - y0) * (y1 - y0) - r * r) / (2 * r * (y1 - y0));
+			l1 = { 1, 0, -x1 };
+			l2 = { k2, 1, y1 - k2 * x1 };
+			return;
+		}
+		if (x0 - x1 == -r) {
+			k2 = ((y1 - y0) * (y1 - y0) - r * r) / (2 * r * (y1 - y0));
+			l1 = { 1, 0, -x1 };
+			l2 = { k2, 1, y1 - k2 * x1 };
+			return;
+		}
+
+		k1 = (x1 - x0) * (y1 - y0) + r * sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r);
+		k1 /= (x1 - x0) * (x1 - x0) - r * r;
+
+		k2 = (x1 - x0) * (y1 - y0) - r * sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r);
+		k2 /= (x1 - x0) * (x1 - x0) - r * r;
+		l1 = { k1, 1, y1 - k1 * x1 };
+		l2 = { k2, 1, y1 - k2 * x1 };
+		return;
+	}
 }

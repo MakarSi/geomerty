@@ -24,8 +24,12 @@ public:
 	void print_eq_standart(Circle c1);
 	void print_eq(Circle c1);
 	double length(Circle c1);
-	//возварщаем касательную к окружности, проходящую через точку
-	friend Line tangent_line(Point&, Circle&);
+	/*возвращаем касательную к окружности, проходящую через точку,
+	лежащую на окр-ти*/
+	friend Line tangent_line(Point, Circle);
+	/*находим две касательные к окружности, проходящие через точку,
+	не лежащую на окр-ти, ответ храним в переданных по ссылке объектах класса Line*/
+	friend void tangent_lines(Point, Circle, Line&, Line&);
 private:
 	Point _center;
 	double _rad;

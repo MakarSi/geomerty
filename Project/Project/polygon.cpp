@@ -98,16 +98,52 @@ namespace polygon {
 		cout << "Area: " << get_area() << endl;
 		cout << "Perimeter: " << get_perimeter() << endl;
 	}
+	
+	/*
+	bool Polygon::operator==(const Polygon& p) {
+		if (get_dim() != p.get_dim())
+			return false;
+		int dim = get_dim();
+		for (int i = 0; i < dim; i++) {
+			bool equal = true;
+			for (int j = 0; j < dim; j++) {
+				if (get_vertex(j) != p.get_vertex(j + i)) {
+					equal = false;
+					break;
+				}
+				
+			}
+			if (equal) return equal;
+		}
+		return false;
+	}
 
+	bool Polygon::operator!=(const Polygon& p) {
+		if (get_dim() != p.get_dim())
+			return true;
+		int dim = get_dim();
+		for (int i = 0; i < dim; i++) {
+			bool equal = false;
+			for (int j = 0; j < dim; j++) {
+				if (get_vertex(j) != p.get_vertex(j + i)) {
+					equal = true;
+					break;
+				}
+			}
+			if (!equal) return equal;
+		}
+		return true;
+	}
+	*/
 	istream& operator>>(istream& in, Polygon& p) {
 		int n;
 		cout << "Enter num of vertexes of polygon: ";
-		cin >> n;
-		cout << "Enter all vertexes: ";
+		in >> n;
 		vector<Point> vertexes;
 		double x, y;
+		cout << "Enter all vertexes" << endl;
 		for (int i = 0; i < n; i++) {
-			cin >> x >> y;
+			in >> x >> y;
 			Point t = { x, y };
 			vertexes.push_back(t);
 		}

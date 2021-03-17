@@ -22,6 +22,8 @@ namespace polygon {
 		double get_perimeter()const;
 
 		friend istream& operator>> (istream&, Polygon&);
+		/*bool operator== (const Polygon&);
+		bool operator!= (const Polygon&);*/
 		//вывод координат всех вершин в консоль
 		void print_coords();
 		//вывод всей информации о четырехугольнике
