@@ -64,8 +64,7 @@ int main() {
 
 	while (true) {
 		int key = print_menu(A);
-		if (key == 1)
-		{
+		if (key == 1){
 			Point a, b;
 			Line c, d;
 			int k;
@@ -95,7 +94,7 @@ int main() {
 
 		}
 		  else if (key == 2);
-		  else if (key == 3) {
+		    else if (key == 3) {
 			double x1, y1, x2, y2, x3, y3;
 			cout << "Enter the coordinates of the vertices of the triangle: ";
 			cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
@@ -110,38 +109,38 @@ int main() {
 			cout << "Perimeter: ";
 			cout << per << " Square: " << sq << endl;
 		}
-		  else if (key == 4) {
+		      else if (key == 4) {
 			double x1, y1, rad;
-			cout << "Введите координаты центра и радиус окружности" << endl;
+			cout << "Enter the center and radius of the circle" << endl;
 			cin >> x1 >> y1 >> rad;
 			Point p(x1, y1);
 			Circle c(p, rad);
-			cout << "Уравнение окружности" << endl;
-			c.print_eq_standart(c);
-			cout << "Длина окружности";
+			cout << "Circle equation" << endl;
+			c.print_eq(c);
+			cout << "Length of the circle";
 			cout << c.length(c) << endl;
 		}
-			  else if (key == 5) {
+			    else if (key == 5) {
 			double x1, y1, rad;
-			cout << "Введите координаты центра и радиус круга" << endl;
+			cout << "Enter the center and radius of the ring" << endl;
 			cin >> x1 >> y1 >> rad;
 			Point p(x1, y1);
 			Ring c(p, rad);
-			cout << "Площадь круга" << endl;
+			cout << "Area of ring" << endl;
 			cout << c.square(c) << endl;
-			cout << "Введите угол для вычисления площади сегмента" << endl;
+			cout << "Enter an angle to calculate the area of the segment" << endl;
 			double angle;
 			cin >> angle;
-			cout << "Площадь сегмента" << endl;
+			cout << "Area of serment" << endl;
 			cout << c.sector(c, angle) << endl;
 		}
-				else if (key == 6) {
+				  else if (key == 6) {
 			polygon::Polygon p;
 			cin >> p;
 			p.print_all_info();
 		}
 		            else if (key == 7);
-					else if (key == 8) {
+					  else if (key == 8) {
 			double x1, y1, x2, y2;
 			cout << "Enter the coordinates of the vertices of the vector: ";
 			cin >> x1 >> y1 >> x2 >> y2;
