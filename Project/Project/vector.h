@@ -5,18 +5,28 @@ public:
 	void set_points(Point& p1, Point& p2);
 	Point get_point1();
 	Point get_point2();
-	Vector(Point p1 = 0, Point p2 = 0); //создаем вектор по двум точкам
+
+	/*Создаем вектор по двум точкам*/
+	Vector(Point p1 = 0, Point p2 = 0); 
 	~Vector();
-	double x_coordinate_of_vector(); //нахождение х координаты вектора
-	double y_coordinate_of_vector(); //нахождение у координаты вектора
 
-	double length(); //подсчет длины вектора
-	double scalar_product(Vector& v); //вычисление скалярного произведения двух векторов
-	void multiplying_by_a_number(double a); //умножение вектора на число
-	double vector_product(Vector& v); //вычисление векторного произведение векторов на плоскости
+	/*Нахождение х - координаты вектора*/
+	double x_coordinate_of_vector(); 
+	/*Нахождение у координаты вектора*/
+	double y_coordinate_of_vector(); 
+	/*Нахождение длины вектора*/
+	double length(); 
+	/*Нахождение скалярного произведения 2-х векторов*/
+	double scalar_product(Vector& v); 
+	/*Умножение вектора на число*/
+	void multiplying_by_a_number(double a);
+	/*Нахождение векторного произведения 2-х векторов на плоскости*/
+	double vector_product(Vector& v); 
 
-	bool operator== (Vector& v);//Перегрузка оператора равенства
-	bool operator!= (Vector& v);//Перегрузка оператора неравнества
+	/*Перегрузка оператора равенства*/
+	bool operator== (Vector& v);
+	/*Перегрузка оператора неравнества*/
+	bool operator!= (Vector& v);
 private:
 	Point _p1, _p2;
 };
