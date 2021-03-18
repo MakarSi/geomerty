@@ -14,7 +14,9 @@ public:
 	double get_rad();
 	void set_rad(double _rad);
 
+	/*Нахождение площади круга*/
 	double square(Ring c1);
+	/*Нахождение площади сегмента*/
 	double sector(Ring c1, double cor);
 private:
 	Point _center;

@@ -11,17 +11,27 @@ public:
 	void set_point3(Point p3);
 	Point get_point3();
 
-	Triangle(Point p1 = 0, Point p2 = 0, Point p3 = 0);//по точкам создаем треугольник
+	/*Задание треугольника по трем точкам*/
+	Triangle(Point p1 = 0, Point p2 = 0, Point p3 = 0);
+	~Triangle();
+
+	/*Печать координат вершин треугольника*/
 	void print_coordinate_of_tops();//печатает координаты вершин треугольника
 
-	double perimeter();//находит периметр треугольника
-	double square();//находит площадь треугольника
+	/*Периметр треугольника*/
+	double perimeter();
+	/*Площадь треугольника*/
+	double square();
 
-	void shift_right_or_left(double k);//при k>0 сдвиг вправо, иначе влево
-	void shift_up_or_down(double k);//при k>0 сдвиг вверх, иначе вниз
+	/*При k>0 сдвиг вправо, иначе влево*/
+	void shift_right_or_left(double k);
+	/*При k>0 сдвиг вверх, иначе вниз*/
+	void shift_up_or_down(double k);
 
-	bool operator== (const Triangle& t);//Перегрузка оператора равенства
-	bool operator!= (const Triangle& t);//Перегрузка оператора неравнества
+	/*Перегрузка оператора равенства*/
+	bool operator== (const Triangle& t);
+	/*Перегрузка оператора неравнества*/
+	bool operator!= (const Triangle& t);
 private:
 	Point _p1, _p2, _p3;
 };

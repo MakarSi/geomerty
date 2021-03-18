@@ -11,8 +11,8 @@ public:
 
 	double get_rad();
 	void set_rad(double _rad);
-	//устанавливаем коэфициенты уравнения вида 
-	//x^2 + y^2 + Ax + By + C = 0
+
+	/*Устанавливаем коэффициенты ур-ния вида x^2 + y^2 + Ax + By + C = 0*/
 	void set_ABC();
 	double get_A();
 	double get_B();
@@ -21,8 +21,9 @@ public:
 	Circle(Point center, double _rad);
 	~Circle();
 
-	void print_eq_standart(Circle c1);
+	/*Печать ур-ния в стандартном виде*/
 	void print_eq(Circle c1);
+	/*Нахождение длины окружности*/
 	double length(Circle c1);
 	/*возвращаем касательную к окружности, проходящую через точку,
 	лежащую на окр-ти*/
@@ -33,6 +34,6 @@ public:
 private:
 	Point _center;
 	double _rad;
-	//x^2 + y^2 + Ax + By + C = 0
+	/*Коэффициенты А, В, С в ур-ние x^2 + y^2 + Ax + By + C = 0*/
 	double _A, _B, _C;
 };

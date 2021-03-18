@@ -32,14 +32,12 @@ Ring::~Ring() {
 
 }
 
-/*Площадь круга*/
 double Ring::square(Ring c1) {
 	double r = c1.get_rad();
 	double l = M_PI * r * r;
 	return l;
 }
 
-/*Площадь кругового сектора - в функции передается фигура и угол в градусах*/
 double Ring::sector(Ring c1, double cor) {
 	double r = c1.get_rad();
 	if (cor > 360) {
