@@ -16,7 +16,7 @@ namespace polygon {
 			throw invalid_argument("Index out of bounds");
 	}
 
-	int Polygon::get_dim()const {
+	size_t Polygon::get_dim()const {
 		return _vertexes.size();
 	}
 
@@ -33,15 +33,15 @@ namespace polygon {
 			throw invalid_argument("Not enough vertexes");
 		/*перед добавлением новой вершины проверяем, не является ли
 		многогранник самопересекающимся*/
-		for (int i = 0; i < vertexes.size(); i++) {
-			for (int j = 1; j < i - 1; j++) {
+		for (size_t i = 0; i < vertexes.size(); i++) {
+			for (size_t j = 1; j < i - 1; j++) {
 				Segment a = { vertexes[j - 1], vertexes[j] };
 				Segment b = { vertexes[i - 1], vertexes[i] };
 				if (intersection(a, b))
 					throw invalid_argument("Intersection found");
 			}
 			if (i == vertexes.size() - 1) {
-				for (int j = 1; j < i; j++) {
+				for (size_t j = 1; j < i; j++) {
 					Segment a = { vertexes[j - 1], vertexes[j] };
 					Segment b = { vertexes[0], vertexes[i] };
 					if (intersection(a, b))
@@ -85,18 +85,18 @@ namespace polygon {
 		_area = res;
 	}
 
-	void Polygon::print_coords() {
+	void Polygon::print_coords(ostream& out) {
 		int size = get_dim();
 		for (int i = 0; i < size - 1; i++)
-			cout << get_vertex(i) << ", ";
-		cout << get_vertex(size - 1) << endl;
+			out << get_vertex(i) << ", ";
+		out << get_vertex(size - 1) << endl;
 	}
 
-	void Polygon::print_all_info() {
-		cout << "Coords of all vertexes: ";
-		print_coords();
-		cout << "Area: " << get_area() << endl;
-		cout << "Perimeter: " << get_perimeter() << endl;
+	void Polygon::print_all_info(ostream& out) {
+		out << "Coords of all vertexes: ";
+		print_coords(out);
+		out << "Area: " << get_area() << endl;
+		out << "Perimeter: " << get_perimeter() << endl;
 	}
 	
 	/*
@@ -135,13 +135,12 @@ namespace polygon {
 		return true;
 	}
 	*/
+
 	istream& operator>>(istream& in, Polygon& p) {
 		int n;
-		cout << "Enter num of vertexes of polygon: ";
 		in >> n;
 		vector<Point> vertexes;
 		double x, y;
-		cout << "Enter all vertexes" << endl;
 		for (int i = 0; i < n; i++) {
 			in >> x >> y;
 			Point t = { x, y };

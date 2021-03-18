@@ -18,7 +18,7 @@ public:
 	double get_B();
 	double get_C();
 
-	Circle(Point center, double _rad);
+	Circle(Point center = {0, 0}, double _rad = 1);
 	~Circle();
 
 	/*Печать ур-ния в стандартном виде*/
