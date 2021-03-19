@@ -126,6 +126,11 @@ int main() {
 			c.print_eq(c);
 			cout << endl << "Length of the circle ";
 			cout << c.length(c) << endl;
+			cout << "Enter coordinates of point" << endl;
+			cin >> x1 >> y1;
+			Point p1(x1, y1);
+			double dist = c.dist_circle(c, p1);
+			if (dist != 0) cout << "Distance from this point to the circle" << endl << dist << endl;
 		}
 			    else if (key == 5) {
 			double x1, y1, rad;

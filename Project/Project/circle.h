@@ -1,8 +1,7 @@
 #pragma once
 #include <iostream>
-#include <math.h>
-#include "Line.h"
-#include "Point.h"
+#include "point.h"
+#include "line.h"
 
 class Circle {
 public:
@@ -18,19 +17,24 @@ public:
 	double get_B();
 	double get_C();
 
-	Circle(Point center = {0, 0}, double _rad = 1);
+	Circle(Point center = { 0, 0 }, double _rad = 1);
 	~Circle();
 
 	/*ѕечать ур-ни€ в стандартном виде*/
 	void print_eq(Circle c1);
 	/*Ќахождение длины окружности*/
 	double length(Circle c1);
+	/*Ќахождение рассто€ние от точки до окружности*/
+	double dist_circle(Circle c1, Point p1);
+
 	/*возвращаем касательную к окружности, проход€щую через точку,
 	лежащую на окр-ти*/
 	friend Line tangent_line(Point, Circle);
 	/*находим две касательные к окружности, проход€щие через точку,
 	не лежащую на окр-ти, ответ храним в переданных по ссылке объектах класса Line*/
 	friend void tangent_lines(Point, Circle, Line&, Line&);
+
+
 private:
 	Point _center;
 	double _rad;
