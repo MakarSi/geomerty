@@ -142,9 +142,11 @@
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="Dot&amp;Line.cpp" />
     <ClCompile Include="Line.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="polygon.cpp" />
+    <ClCompile Include="ring.cpp" />
     <ClCompile Include="segment.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="vector.cpp" />
@@ -155,6 +157,7 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="polygon.h" />
+    <ClInclude Include="ring.h" />
     <ClInclude Include="segment.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="vector.h" />
