@@ -9,6 +9,8 @@ public:
 	Point get_v1()const;
 	Point get_v2()const;
 	Segment(Point v1 = (0, 0), Point v2 = (0, 0));
+	/*Нахождение координаты середины отрезка*/
+	Point midpoint(Segment a);
 	//проверяем пересекаются ли два отрезка
 	friend bool intersection(const Segment&, const Segment&);
 private:

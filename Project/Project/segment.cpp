@@ -23,6 +23,16 @@ Point Segment::get_v2()const {
 	return _v2;
 }
 
+Point Segment::midpoint(Segment a) {
+	Point p1, p2;
+	p1 = get_v1();
+	p2 = get_v2();
+	double x = (p1.get_x() + p2.get_x()) / 2;
+	double y = (p1.get_y() + p2.get_y()) / 2;
+	Point p(x, y);
+	return p;
+}
+
 bool intersection(const Segment& a, const Segment& b) {
 	/*проверяем необходимое и достаточное условие персечения двух отрезков
 	(две точки второго из них лежат по разные стороны от прямой на которой лежит первый)*/
