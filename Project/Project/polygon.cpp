@@ -34,7 +34,7 @@ namespace polygon {
 		/*перед добавлением новой вершины проверяем, не является ли
 		многогранник самопересекающимся*/
 		for (size_t i = 0; i < vertexes.size(); i++) {
-			for (size_t j = 1; j < i - 1; j++) {
+			for (size_t j = 1; j < i; j++) {
 				Segment a = { vertexes[j - 1], vertexes[j] };
 				Segment b = { vertexes[i - 1], vertexes[i] };
 				if (intersection(a, b))

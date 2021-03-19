@@ -19,12 +19,19 @@ const int N = 8; // Количество элементов в меню
 int print_menu(string* a) {
 	int key = 0, move;
 	while (true) {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		cout << "Выберите пункт меню:\n\n";
 		cout << "Введите ESC, чтобы выйти\n";
 
 		for (int i = 0; i < N; i++) {
-			if (i != key) cout << i + 1 << ". " << a[i] << endl;
-			else cout << "\x1B[34m" << i + 1 << ". " << a[i] << "\033[0m\n";
+			if (i != key) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << i + 1 << ". " << a[i] << endl;
+			}//else cout << "\x1B[34m" << i + 1 << ". " << a[i] << "\033[0m\n";
+			else {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+				cout << i + 1 << ". " << a[i] << endl;
+			}
 		}
 
 		cout << '\n';

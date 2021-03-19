@@ -44,8 +44,10 @@ void Circle::print_eq(Circle c1) {
 	cout << "(x";
 	if (xc < 0) cout << "+" << abs(xc) << ")^2+";
 	else if (xc > 0) cout << "-" << xc << ")^2+";
+	else if (xc == 0) cout << ")^2+";
 	if (yc < 0) cout << "(y+" << abs(yc) << ")^2=" << r * r;
 	else if (yc > 0) cout << "(y-" << yc << ")^2=" << r * r;
+	else if (yc == 0) cout << "(y)^2=" << r * r;
 }
 
 double Circle::length(Circle c1) {
