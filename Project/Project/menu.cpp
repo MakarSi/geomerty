@@ -117,7 +117,7 @@ int main() {
 			Circle c(p, rad);
 			cout << "Circle equation" << endl;
 			c.print_eq(c);
-			cout << "Length of the circle";
+			cout << endl << "Length of the circle ";
 			cout << c.length(c) << endl;
 		}
 			    else if (key == 5) {
@@ -136,8 +136,10 @@ int main() {
 		}
 				  else if (key == 6) {
 			polygon::Polygon p;
+			cout << "Enter num of vertexes" << endl;
+			cout << "Then enter coords of each vertexes in the right order" << endl;
 			cin >> p;
-			p.print_all_info();
+			p.print_all_info(cout);
 		}
 		            else if (key == 7);
 					  else if (key == 8) {
