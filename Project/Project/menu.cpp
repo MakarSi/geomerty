@@ -11,6 +11,7 @@
 #include "segment.h"
 #include "ring.h"
 #include "vector.h"
+#include "Ray.h"
 
 using namespace std;
 
@@ -100,7 +101,26 @@ int main() {
 			cout << "The angle between these two line is: " << angle_between_lines(c, d) << endl;
 
 		}
-		  else if (key == 2);
+		else if (key == 2)
+		{
+			Point p1, p2, k1, k2, k3, k4;
+			cout << "Input a point to get the start of the first ray\n";
+			cin >> p1;
+			cout << "Input two points to get the vector for the first ray\n";
+			cin >> k1 >> k2;
+			cout << "Input a point to get the start of the second ray\n";
+			cin >> p2;
+			cout << "Input two points to get the vector for the second ray\n";
+			cin >> k3 >> k4;
+			Vector v1 = Vector(k1, k2);
+			Vector v2 = Vector(k3, k4);
+			Ray r1 = Ray(p1, v1), r2 = Ray(p2, v2);
+			bool f = intersectrion_point_existence(r1, r2);
+			if (f)
+				cout << "These two rays have the intersection point: " << ray_intersection_point(r1, r2) << endl;
+			else cout << "These two rays have no intersection point\n";
+			cout << "Angle between these two rays is: " << angle_between_rays(r1, r2) << endl;
+		}
 		    else if (key == 3) {
 			double x1, y1, x2, y2, x3, y3;
 			cout << "Enter the coordinates of the vertices of the triangle: ";

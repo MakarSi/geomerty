@@ -87,12 +87,13 @@ double angle_between_lines(Line d, Line e)
 Point intersection_point(Line d, Line e)
 {
 	bool f = if_parallel(d, e);
+	double a1 = d.get_a(), b1 = d.get_b(), c1 = d.get_c(), a2 = e.get_a(), b2 = e.get_b(), c2 = e.get_c();
 	if (!f)
 	{
-		double a1 = d.get_a(), b1 = d.get_b(), c1 = d.get_c(), a2 = e.get_a(), b2 = e.get_b(), c2 = e.get_c();
 		double det = a1 * b2 - a2 * b1, xdet = c1 * b2 - b1 * c2, ydet = a1 * c2 - a2 * c1;
 		return { -(double)xdet / det,-(double)ydet / det };
 	}
+	else if (d == e) return { 0, c2 };
 	else cout << "\nThose two lines have no intersection point\n";
 	return { INT_MAX, INT_MAX };
 }
