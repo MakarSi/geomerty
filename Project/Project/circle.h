@@ -2,6 +2,7 @@
 #include <iostream>
 #include "point.h"
 #include "line.h"
+#include "segment.h"
 
 class Circle {
 public:
@@ -34,6 +35,8 @@ public:
 	не лежащую на окр-ти, ответ храним в переданных по ссылке объектах класса Line*/
 	friend void tangent_lines(Point, Circle, Line&, Line&);
 
+	/*возвращает отрезок, концы которого - точки песечения окружностей*/
+	friend Segment cirlce_intersection(Circle, Circle);
 
 private:
 	Point _center;

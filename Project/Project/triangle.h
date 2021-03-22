@@ -1,5 +1,6 @@
 #pragma once
 #include "point.h"
+#include "segment.h"
 class Triangle {
 public:
 	void set_point1(Point p1);
@@ -32,6 +33,9 @@ public:
 	bool operator== (const Triangle& t);
 	/*ѕерегрузка оператора неравнества*/
 	bool operator!= (const Triangle& t);
+
+	/*—редн€€ лини€ треугольника*/
+	friend Segment middle_line(Triangle t);
 private:
 	Point _p1, _p2, _p3;
 };

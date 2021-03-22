@@ -159,3 +159,52 @@ void tangent_lines(Point a, Circle b, Line& l1, Line& l2) {
 		return;
 	}
 }
+
+Segment cirlce_intersection(Circle d1, Circle d2)
+{
+	Point p1 = d1.get_center(); double r1 = d1.get_rad();
+	Point p2 = d2.get_center(); double r2 = d2.get_rad();
+	Point diff = p2 - p1;
+	Point res1 = { INT_MAX - p1.get_x(), INT_MAX - p1.get_y() }, res2 = { INT_MAX - p1.get_x(), INT_MAX - p1.get_y() };
+	double a = 2 * diff.get_x(); double b = 2 * diff.get_y(); double c = r2 * r2 - r1 * r1 - diff.get_x() * diff.get_x() - diff.get_y() * diff.get_y();
+	if (a == 0 && b == 0 && c == 0)
+	{
+		res1 = { p1.get_x() + r1, p1.get_y() };
+		res2 = { p1.get_x() - r1, p1.get_y() };
+		return Segment(res1, res2);
+	}
+	if (b != 0)
+	{
+		double a1 = 1 + pow(a / b, 2);
+		double b1 = 2 * a * c / (b * b);
+		double c1 = pow(c / b, 2) - r1 * r1;
+		double D = b1 * b1 - 4 * a1 * c1;
+		if (D >= 0)
+		{
+			double x1 = (-b1 - sqrt(D)) / (2 * a1);
+			double x2 = (-b1 + sqrt(D)) / (2 * a1);
+			double y1 = -c / b - a * x1 / b;
+			double y2 = -c / b - a * x2 / b;
+			res1.set_x(x1); res1.set_y(y1);
+			res2.set_x(x2); res2.set_y(y2);
+		}
+	}
+	else if (a != 0)
+	{
+		double a1 = 1 + pow(b / a, 2);
+		double b1 = 2 * b * c / (a * a);
+		double c1 = pow(c / a, 2) - r1 * r1;
+		double D = b1 * b1 - 4 * a1 * c1;
+		if (D >= 0)
+		{
+
+			double y1 = (-b1 - sqrt(D)) / (2 * a1);
+			double y2 = (-b1 + sqrt(D)) / (2 * a1);
+			double x1 = -c / a - b * y1 / a;
+			double x2 = -c / a - b * y2 / a;
+			res1.set_x(x1); res1.set_y(y1);
+			res2.set_x(x2); res2.set_y(y2);
+		}
+	}
+	return Segment(res1 + p1, res2 + p1);
+}
