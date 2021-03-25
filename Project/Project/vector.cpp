@@ -10,6 +10,11 @@ Vector::Vector(Point p) {
 	set_y(p.get_y());
 }
 
+Vector::Vector(double x, double y) {
+	set_x(x);
+	set_y(y);
+}
+
 double Vector::length() {
 	Point a = { 0, 0 };
 	Point b = {_x, _y };

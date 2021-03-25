@@ -33,7 +33,8 @@ namespace polygon {
 		friend istream& operator>> (istream&, Polygon&);
 		/*bool operator== (const Polygon&);
 		bool operator!= (const Polygon&);*/
-
+		//смещение на вектор
+		Polygon operator+ (const Vector& v);
 		//вывод координат всех вершин
 		void print_coords(ostream&)const;
 		//вывод всей информации о четырехугольнике

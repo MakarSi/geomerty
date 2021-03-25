@@ -1,11 +1,12 @@
 #pragma once
 #include "Point.h"
-class Vector: Point {
+class Vector: public Point {
 public:
 	//констуктор по двум точкам
 	Vector(Point p1, Point p2);
 	//кеонструктор по одной точке (как координаты свободного вектора)
-	Vector(Point p = 0);
+	Vector(Point p);
+	Vector(double x = 0, double y = 0);
 
 	//сеттеры
 	void set_x(double x) { _x = x; }

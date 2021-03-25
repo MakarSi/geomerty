@@ -131,6 +131,13 @@ namespace polygon {
 	}
 	*/
 
+	Polygon Polygon::operator+ (const Vector& v) {
+		vector<Point> vertexes;
+		for (int i = 0; i < get_dim(); i++)
+			vertexes.push_back(_vertexes[i] + v);
+		return Polygon(vertexes);
+	}
+
 	istream& operator>>(istream& in, Polygon& p) {
 		int n;
 		in >> n;
