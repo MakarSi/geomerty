@@ -1,7 +1,8 @@
 #pragma once
+#include <vector>
 #include "Line.h"
 #include "segment.h"
-#include <vector>
+#include "vector.h"
 
 using namespace std;
 

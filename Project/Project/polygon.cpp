@@ -53,7 +53,7 @@ namespace polygon {
 	}
 
 	void Polygon::init_perimeter() {
-		size_t dim = get_dim();
+		int dim = get_dim();
 		if (dim == 0) {
 			_perimeter = 0;
 			return;
@@ -93,7 +93,7 @@ namespace polygon {
 		out << "Area: " << get_area() << endl;
 		out << "Perimeter: " << get_perimeter() << endl;
 	}
-	
+
 	/*
 	bool Polygon::operator==(const Polygon& p) {
 		if (get_dim() != p.get_dim())

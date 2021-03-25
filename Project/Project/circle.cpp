@@ -72,7 +72,7 @@ double Circle::length(Circle const& c1) {
 	return l;
 }
 
-double Circle::dist_circle(Circle const& c1, Point  const& p1) {
+double Circle::dist_circle(Circle const& c1, const Point& p1) {
 	Point t;
 	t = c1.get_center();
 	double xc = t.get_x();

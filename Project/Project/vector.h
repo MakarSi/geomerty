@@ -1,37 +1,27 @@
 #pragma once
 #include "Point.h"
-class Vector {
+class Vector: Point {
 public:
 	//констуктор по двум точкам
-	Vector(Point p1 = 0, Point p2 = 0); 
-	~Vector();
+	Vector(Point p1, Point p2);
+	//кеонструктор по одной точке (как координаты свободного вектора)
+	Vector(Point p = 0);
 
 	//сеттеры
-	void set_points(Point& const p1, Point& const p2);
+	void set_x(double x) { _x = x; }
+	void set_y(double y) { _y = y; }
 
 	//геттеры
-	Point get_start() const;
-	Point get_finish() const;
+	double get_x() const { return _x; }
+	double get_y() const { return _y; }
 
-	/*Перегрузка оператора равенства*/
-	bool operator== (Vector& const v);
-	/*Перегрузка оператора неравнества*/
-	bool operator!= (Vector& const v);
-
-	/*Нахождение х - координаты вектора*/
-	double x_coord(); 
-	/*Нахождение у координаты вектора*/
-	double y_coord(); 
 	/*Нахождение длины вектора*/
 	double length(); 
 	/*Нахождение скалярного произведения 2-х векторов*/
-	double scalar_product(Vector& const v); 
+	double scalar_product(const Vector&); 
 	/*Умножение вектора на число*/
-	void multipl_by_num(double const &a);
+	void multipl_by_num(double a);
 	/*Нахождение векторного произведения 2-х векторов на плоскости*/
-	double vector_product(Vector& const v); 
+	double vector_product(const Vector&); 
 	void print_all_info();
-
-private:
-	Point _p1, _p2;
 };

@@ -35,7 +35,7 @@ Point::Point(double x, double y)
 	set_x(x); set_y(y);
 }
 
-double Point::get_x()
+double Point::get_x()const
 {
 	return _x;
 }
@@ -45,7 +45,7 @@ void Point::set_x(double x)
 	_x = x;
 }
 
-double Point::get_y()
+double Point::get_y()const
 {
 	return _y;
 }
