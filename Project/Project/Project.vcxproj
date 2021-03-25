@@ -142,7 +142,6 @@
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="Dot&amp;Line.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="polygon.cpp" />
