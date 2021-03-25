@@ -3,12 +3,16 @@
 
 using namespace std;
 
-void Circle::set_center(Point center) {
-	_center = center;
+Circle::Circle(Point center, double _rad) {
+	set_center(center), set_rad(_rad);
 }
 
-Point Circle::get_center() {
-	return _center;
+Circle::~Circle() {
+
+}
+
+void Circle::set_center(Point center) {
+	_center = center;
 }
 
 void Circle::set_rad(double rad) {
@@ -20,19 +24,35 @@ void Circle::set_rad(double rad) {
 	else _rad = rad;
 }
 
-double Circle::get_rad() {
+void Circle::set_ABC() {
+	double x = get_center().get_x();
+	double y = get_center().get_y();
+	_A = -2 * x;
+	_B = -2 * y;
+	_C = x * x + y * y - get_rad() * get_rad();
+}
+
+Point Circle::get_center() const {
+	return _center;
+}
+
+double Circle::get_rad() const {
 	return _rad;
 }
 
-Circle::Circle(Point center, double _rad) {
-	set_center(center), set_rad(_rad);
+double Circle::get_A() const {
+	return _A;
 }
 
-Circle::~Circle() {
-
+double Circle::get_B() const {
+	return _B;
 }
 
-void Circle::print_eq(Circle c1) {
+double Circle::get_C() const {
+	return _C;
+}
+
+void Circle::print_eq(Circle const& c1) {
 	Point t;
 	t = c1.get_center();
 	double xc = t.get_x();
@@ -46,33 +66,13 @@ void Circle::print_eq(Circle c1) {
 	else if (yc == 0) cout << "y^2=" << r * r << endl;
 }
 
-double Circle::length(Circle c1) {
+double Circle::length(Circle const& c1) {
 	double r = c1.get_rad();
 	double l = 2 * M_PI * r;
 	return l;
 }
 
-double Circle::get_A() {
-	return _A;
-}
-
-double Circle::get_B() {
-	return _B;
-}
-
-double Circle::get_C() {
-	return _C;
-}
-
-void Circle::set_ABC() {
-	double x = get_center().get_x();
-	double y = get_center().get_y();
-	_A = -2 * x;
-	_B = -2 * y;
-	_C = x * x + y * y - get_rad() * get_rad();
-}
-
-double Circle::dist_circle(Circle c1, Point p1) {
+double Circle::dist_circle(Circle const& c1, Point  const& p1) {
 	Point t;
 	t = c1.get_center();
 	double xc = t.get_x();
@@ -90,7 +90,7 @@ double Circle::dist_circle(Circle c1, Point p1) {
 	else if (dist > r) return dist - r;
 }
 
-Line tangent_line(Point a, Circle b) {
+Line tangent_line(Point a, Circle b){
 	Line line;
 	double x0 = b.get_center().get_x();
 	double y0 = b.get_center().get_y();
@@ -107,7 +107,7 @@ Line tangent_line(Point a, Circle b) {
 	return line;
 }
 
-void tangent_lines(Point a, Circle b, Line& l1, Line& l2) {
+void tangent_lines(Point a, Circle b, Line& l1, Line& l2){
 	double x0 = b.get_center().get_x();
 	double y0 = b.get_center().get_y();
 	double x1 = a.get_x(), y1 = -a.get_y();
@@ -143,8 +143,7 @@ void tangent_lines(Point a, Circle b, Line& l1, Line& l2) {
 	}
 }
 
-Segment cirlce_intersection(Circle d1, Circle d2)
-{
+Segment cirlce_intersection(Circle d1, Circle d2){
 	Point p1 = d1.get_center(); double r1 = d1.get_rad();
 	Point p2 = d2.get_center(); double r2 = d2.get_rad();
 	Point diff = p2 - p1;
