@@ -176,18 +176,7 @@ int main() {
 			Point p1(x1, y1);
 			Point p2(x2, y2);
 			Vector v1(p1, p2);
-			cout << "Given a vector with corodnites: (";
-			cout << v1.x_coordinate_of_vector() << ", " << v1.y_coordinate_of_vector() << ')' << endl;
-			cout << "Vector length: " << v1.length() << endl;
-			cout << "Scalar product with vector " << endl;
-			cout << "Enter the coordinates of the vertices of the vector: ";
-			double x3, y3, x4, y4;
-			cin >> x3 >> y3 >> x4 >> y4;
-			Point p3(x3, y3);
-			Point p4(x4, y4);
-			Vector v2(p3, p4);
-			cout << endl << "Scalar product: " << v1.scalar_product(v2) << endl;
-			cout << "vector product with the same vector :" << v1.vector_product(v2) << endl;
+			v1.print_all_info();
 		}
 		                else break;
 	}
