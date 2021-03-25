@@ -107,23 +107,6 @@ Line tangent_line(Point a, Circle b) {
 	return line;
 }
 
-Line tangent_line(Point a, Circle b) {
-	Line line;
-	double x0 = b.get_center().get_x();
-	double y0 = b.get_center().get_y();
-	double x1 = a.get_x(), y1 = a.get_y();
-	double r = b.get_rad();
-	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) != r * r)
-		throw invalid_argument("Point is not on the circle");
-	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) == r * r) {
-		double A = x1 + b.get_A() / 2;
-		double B = y1 + b.get_B() / 2;
-		double C = (x1 * b.get_A() + y1 * b.get_B()) / 2 + b.get_C();
-		line = { A, B, C };
-	}
-	return line;
-}
-
 void tangent_lines(Point a, Circle b, Line& l1, Line& l2) {
 	double x0 = b.get_center().get_x();
 	double y0 = b.get_center().get_y();
