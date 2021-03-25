@@ -129,12 +129,7 @@ int main() {
 			Point p2(x2, y2);
 			Point p3(x3, y3);
 			Triangle t1(p1, p2, p3);
-			cout << "Given a triangle with vertices with corodnites: ";
-			t1.print_coordinate_of_tops();
-			double per = t1.perimeter();
-			double sq = t1.square();
-			cout << "Perimeter: ";
-			cout << per << " Square: " << sq << endl;
+			t1.print_all_info();
 		}
 		      else if (key == 4) {
 			double x1, y1, rad;
