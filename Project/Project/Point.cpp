@@ -20,7 +20,7 @@ ostream& operator<<(ostream& out, const Point& p)
 	return out;
 }
 
-double distance(Point a, Point b)
+double distance(const Point& a, const Point& b)
 {
 	double d1x = a.get_x();
 	double d2x = b.get_x();
