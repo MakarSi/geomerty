@@ -10,16 +10,22 @@ class Ray
 {
 public:
 	Ray(Point p = { 0, 0 }, Vector v = {});
+
 	void set_point(Point p);
-	Point get_point();
 	void set_vector(Vector v);
-	Vector get_vector();
+
+	Point get_point() const;
+	Vector get_vector() const;
+
 	//Если существует точка пересечения между лучами возвращает true, иначе - false
-	friend bool intersectrion_point_existence(Ray r1, Ray r2);
-	//Возвращает точку пересечения лучей
-	friend Point ray_intersection_point(Ray r1, Ray r2);
+	friend bool intersection_point_existence(const Ray& r1, const Ray& r2);
+	//Возвращает точку пересечения лучей. Если её нет, то возвращает точку (INT_MAX, INT_MAX)
+	friend Point ray_intersection_point(const Ray& r1, const Ray& r2);
 	//Возвращает угол между лучами
-	friend double angle_between_rays(Ray r1, Ray r2);
+	friend double angle_between_rays(const Ray& r1, const Ray& r2);
+
+	//Печатает информацию о работе с лучами
+	static void print_ray_information();
 private:
 	Point _p; Vector _v;
 };
