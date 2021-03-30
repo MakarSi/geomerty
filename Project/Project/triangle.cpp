@@ -76,10 +76,11 @@ void Triangle::shift_to_vector(double const x, double const y) {
 	_p2.set_y(_p2.get_y() + y);
 	_p3.set_y(_p3.get_y() + y);
 }
-Segment middle_line(Triangle const &t)
+Segment middle_line(Triangle const& t)
 {
 	int k;
 	Point p1 = t.get_point1(), p2 = t.get_point2(), p3 = t.get_point3();
+	Point k1, k2;
 	Segment s1 = Segment(p1, p2), s2 = Segment(p2, p3), s3 = Segment(p3, p1);
 	cout << "Input the side you want the middle line be parallel to\n";
 	cout << "1." << p1 << " " << p2 << endl;
@@ -90,19 +91,20 @@ Segment middle_line(Triangle const &t)
 	{
 		if (k == 1)
 		{
-			Point k1 = s3.midpoint(s3), k2 = s2.midpoint(s2);
-			return Segment(k1, k2);
+			k1 = s3.midpoint(s3);
+			k2 = s2.midpoint(s2);
 		}
 		else if (k == 2)
 		{
-			Point k1 = s1.midpoint(s1), k2 = s3.midpoint(s3);
-			return Segment(k1, k2);
+			k1 = s1.midpoint(s1);
+			k2 = s3.midpoint(s3);
 		}
 		else if (k == 3)
 		{
-			Point k1 = s2.midpoint(s2), k2 = s1.midpoint(s1);
-			return Segment(k1, k2);
+			k1 = s2.midpoint(s2);
+			k2 = s1.midpoint(s1);
 		}
+		return Segment(k1, k2);
 	}
 	return Segment();
 }

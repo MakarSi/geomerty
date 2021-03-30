@@ -35,8 +35,10 @@ public:
 	/*Ќаходит две касательные к окружности, проход€щие через точку,
 	не лежащую на окр-ти, ответ храним в переданных по ссылке объектах класса Line*/
 	friend void tangent_lines(Point, Circle, Line&, Line&);
-	/*ѕоиск точек пересечени€ двух окружностей*/
-	friend Segment cirlce_intersection(Circle, Circle);
+	/*ѕоиск точек пересечени€ двух окружностей.
+	¬озвращает отрезок, концы которого - точки пересечени€.
+	≈сли точек пересечени€ нет, то возвращает отрезок, координаты x и y концов которого имеют значение INT_MAX*/
+	friend Segment cirlce_intersection(const Circle&, const Circle&);
 private:
 	Point _center;
 	double _rad;
