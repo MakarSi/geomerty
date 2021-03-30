@@ -69,7 +69,7 @@ int main() {
 	A[5] = "Действия с многоугольником";
 	A[6] = "Действия с четырехугольником";
 	A[7] = "Действия с векторами";
-
+	vector<Object> objects;
 	while (true) {
 		int key = print_menu(A);
 		if (key == 1){
@@ -140,11 +140,11 @@ int main() {
 			cout << "Circle equation" << endl;
 			c.print_eq(c);
 			cout << endl << "Length of the circle ";
-			cout << c.length(c) << endl;
+			cout << c.length() << endl;
 			cout << "Enter coordinates of point" << endl;
 			cin >> x1 >> y1;
 			Point p1(x1, y1);
-			double dist = c.dist_circle(c, p1);
+			double dist = distance(c, p1);
 			if (dist != 0) cout << "Distance from this point to the circle" << endl << dist << endl;
 		}
 			    else if (key == 5) {
@@ -162,11 +162,9 @@ int main() {
 			cout << c.sector(c, angle) << endl;
 		}
 				  else if (key == 6) {
-			polygon::Polygon p;
+			objects.push_back(polygon::Polygon{});
 			cout << "Enter num of vertexes" << endl;
 			cout << "Then enter coords of each vertexes in the right order" << endl;
-			cin >> p;
-			p.print_all_info(cout);
 		}
 		            else if (key == 7);
 					  else if (key == 8) {

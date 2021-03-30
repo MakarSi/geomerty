@@ -1,10 +1,11 @@
 #pragma once
 #include <sstream>
 #include <iostream>
+#include "object.h"
 
 using namespace std;
 
-class Point
+class Point: public Object
 {
 public:
 	Point(double x = 0, double y = 0);
@@ -19,6 +20,7 @@ public:
 	Point operator- (const Point& a); //Перегрузка оператора вычитания
 	friend istream& operator>> (istream&, Point& a); //Ввод точки
 	friend ostream& operator<< (ostream&, const Point& a); //Печатает точку
+private:
 	friend double distance(Point a, Point b); //Расстояние между двумя точками
 protected:
 	double _x, _y;

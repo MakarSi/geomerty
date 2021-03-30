@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Line
+class Line: public Object
 {
 public:
 	friend double angle_between_lines(Line a, Line b);//”гол между пр€мыми

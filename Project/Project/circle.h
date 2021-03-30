@@ -5,7 +5,7 @@
 #include "line.h"
 #include "segment.h"
 
-class Circle {
+class Circle: public Object {
 public:
 	/*Конструктор по точке центра и радиусу*/
 	Circle(Point center = { 0, 0 }, double _rad = 1);
@@ -14,12 +14,11 @@ public:
 	/*Сеттеры*/
 	void set_center(Point center);
 	void set_rad(double _rad);
-	void set_ABC();
 
 	/*Геттеры*/
 	Point get_center() const;
 	double get_rad() const;
-	/*Установление коэффициенты ур-ния вида x^2 + y^2 + Ax + By + C = 0*/
+	/*коэффициенты ур-ния вида x^2 + y^2 + Ax + By + C = 0*/
 	double get_A() const;
 	double get_B() const;
 	double get_C() const;
@@ -28,11 +27,11 @@ public:
 	/*Печать ур-ния в стандартном виде*/
 	void print_eq(Circle const& c1);
 	/*Нахождение длины окружности*/
-	double length(Circle const& c1);
+	double length()const;
 	/*Нахождение расстояния от точки до окружности*/
-	double dist_circle(Circle const& c1, Point const& p1);
+	friend double distance(const Circle& c, const Point& p);
 	/*Возвращает касательную к окружности, проходящую через точку, лежащую на окр-ти*/
-	friend Line tangent_line(Point, Circle);
+	friend Line tangent_line(const Point&, const Circle&);
 	/*Находит две касательные к окружности, проходящие через точку,
 	не лежащую на окр-ти, ответ храним в переданных по ссылке объектах класса Line*/
 	friend void tangent_lines(Point, Circle, Line&, Line&);
@@ -42,4 +41,5 @@ private:
 	Point _center;
 	double _rad;
 	double _A, _B, _C;
+	void init_ABC();
 };

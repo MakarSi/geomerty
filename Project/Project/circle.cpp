@@ -1,18 +1,13 @@
 #define _USE_MATH_DEFINES 
 #include "circle.h"
 
-using namespace std;
-
 Circle::Circle(Point center, double _rad) {
 	set_center(center), set_rad(_rad);
 }
 
-Circle::~Circle() {
-
-}
-
 void Circle::set_center(Point center) {
 	_center = center;
+	init_ABC();
 }
 
 void Circle::set_rad(double rad) {
@@ -22,9 +17,10 @@ void Circle::set_rad(double rad) {
 		_rad = 1;     //В случае неправильного ввода - присваивается радиусу 1
 	}
 	else _rad = rad;
+	init_ABC();
 }
 
-void Circle::set_ABC() {
+void Circle::init_ABC() {
 	double x = get_center().get_x();
 	double y = get_center().get_y();
 	_A = -2 * x;
@@ -66,13 +62,11 @@ void Circle::print_eq(Circle const& c1) {
 	else if (yc == 0) cout << "y^2=" << r * r << endl;
 }
 
-double Circle::length(Circle const& c1) {
-	double r = c1.get_rad();
-	double l = 2 * M_PI * r;
-	return l;
+double Circle::length()const {
+	return 2 * M_PI * _rad;
 }
 
-double Circle::dist_circle(Circle const& c1, const Point& p1) {
+double distance(const Circle& c1, const Point& p1) {
 	Point t;
 	t = c1.get_center();
 	double xc = t.get_x();
@@ -90,20 +84,18 @@ double Circle::dist_circle(Circle const& c1, const Point& p1) {
 	else if (dist > r) return dist - r;
 }
 
-Line tangent_line(Point a, Circle b){
+Line tangent_line(const Point& p, const Circle& c){
 	Line line;
-	double x0 = b.get_center().get_x();
-	double y0 = b.get_center().get_y();
-	double x1 = a.get_x(), y1 = a.get_y();
-	double r = b.get_rad();
-	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) != r * r)
+	double x0 = c._center.get_x();
+	double y0 = c._center.get_y();
+	double x1 = p.get_x(), y1 = p.get_y();
+	double r = c._rad;
+	if (abs((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r) > eps)
 		throw invalid_argument("Point is not on the circle");
-	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) == r * r) {
-		double A = x1 + b.get_A() / 2;
-		double B = y1 + b.get_B() / 2;
-		double C = (x1 * b.get_A() + y1 * b.get_B()) / 2 + b.get_C();
-		line = { A, B, C };
-	}
+	double A = x1 + c._A / 2;
+	double B = y1 + c._B / 2;
+	double C = (x1 * c._A + y1 * c._B) / 2 + c._C;
+	line = { A, B, C };
 	return line;
 }
 

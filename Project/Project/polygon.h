@@ -6,8 +6,8 @@
 
 using namespace std;
 
-namespace polygon {
-	class Polygon
+namespace polygon{
+	class Polygon: public Object
 	{	
 	private:
 		//многограник храним как упорядоченный набор его вершин

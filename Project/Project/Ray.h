@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Ray
+class Ray: public Object
 {
 public:
 	Ray(Point p = { 0, 0 }, Vector v = {});

@@ -1,7 +1,7 @@
 #pragma once
 #include "point.h"
 #include "segment.h"
-class Triangle {
+class Triangle: public Object {
 public:
 	//Конструктор по 3 точкам
 	Triangle(Point p1 = 0, Point p2 = 0, Point p3 = 0);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Point.h"
 
-class Segment
+class Segment: public Object
 {
 public:
 	void set_v1(Point);
