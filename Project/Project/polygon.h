@@ -9,7 +9,7 @@ using namespace std;
 namespace polygon{
 	class Polygon: public Object
 	{	
-	private:
+	protected:
 		//многограник храним как упорядоченный набор его вершин
 		double _area, _perimeter;
 		vector<Point> _vertexes;

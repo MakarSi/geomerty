@@ -146,6 +146,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="polygon.cpp" />
+    <ClCompile Include="quadrangle.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ring.cpp" />
     <ClCompile Include="segment.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="polygon.h" />
+    <ClInclude Include="quadrangle.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="ring.h" />
     <ClInclude Include="segment.h" />
