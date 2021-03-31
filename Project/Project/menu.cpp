@@ -69,12 +69,18 @@ int main() {
 	A[5] = "Действия с многоугольником";
 	A[6] = "Действия с четырехугольником";
 	A[7] = "Действия с векторами";
-	vector<Object> objects;
 	while (true) {
 		int key = print_menu(A);
-		if (key == 1) Line::print_line_information();
-		else if (key == 2) Ray::print_ray_information();
-		    else if (key == 3) {
+		switch (key) {
+		case 1: {
+			Line::print_line_information();
+			break;
+		}
+		case 2: {
+			Ray::print_ray_information();
+			break;
+		}
+		case 3: {
 			double x1, y1, x2, y2, x3, y3;
 			cout << "Enter the coordinates of the vertices of the triangle: ";
 			cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
@@ -83,15 +89,16 @@ int main() {
 			Point p3(x3, y3);
 			Triangle t1(p1, p2, p3);
 			t1.print_all_info();
+			break;
 		}
-		      else if (key == 4) {
+		case 4: {
 			double x1, y1, rad;
 			cout << "Enter the center and radius of the circle" << endl;
 			cin >> x1 >> y1 >> rad;
 			Point p(x1, y1);
 			Circle c(p, rad);
 			cout << "Circle equation" << endl;
-			c.print_eq(c);
+			c.print_eq();
 			cout << endl << "Length of the circle ";
 			cout << c.length() << endl;
 			cout << "Enter coordinates of point" << endl;
@@ -99,8 +106,9 @@ int main() {
 			Point p1(x1, y1);
 			double dist = distance(c, p1);
 			if (dist != 0) cout << "Distance from this point to the circle" << endl << dist << endl;
+			break;
 		}
-			    else if (key == 5) {
+		case 5: {
 			double x1, y1, rad;
 			cout << "Enter the center and radius of the ring" << endl;
 			cin >> x1 >> y1 >> rad;
@@ -114,13 +122,16 @@ int main() {
 			cout << "Area of serment" << endl;
 			cout << c.sector(c, angle) << endl;
 		}
-				  else if (key == 6) {
-			objects.push_back(polygon::Polygon{});
+		case 6: {
+			polygon::Polygon p;
 			cout << "Enter num of vertexes" << endl;
 			cout << "Then enter coords of each vertexes in the right order" << endl;
+			cin >> p;
+			p.print_all_info(cout);
 		}
-		            else if (key == 7);
-					  else if (key == 8) {
+		case 7:
+			break;
+		case 8: {
 			double x1, y1, x2, y2;
 			cout << "Enter the coordinates of the vertices of the vector: ";
 			cin >> x1 >> y1 >> x2 >> y2;
@@ -128,7 +139,9 @@ int main() {
 			Point p2(x2, y2);
 			Vector v1(p1, p2);
 			v1.print_all_info();
+			break;
 		}
-		                else break;
+		default: break;
+		}
 	}
 }

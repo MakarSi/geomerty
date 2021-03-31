@@ -6,10 +6,14 @@
 #include "segment.h"
 
 class Circle: public Object {
+private:
+	Point _center;
+	double _rad;
+	double _A, _B, _C;
+	void init_ABC();
 public:
 	/*Конструктор по точке центра и радиусу*/
 	Circle(Point center = { 0, 0 }, double _rad = 1);
-	~Circle();
 
 	/*Сеттеры*/
 	void set_center(Point center);
@@ -23,25 +27,21 @@ public:
 	double get_B() const;
 	double get_C() const;
 
-	/*Вспомогательные функции*/
 	/*Печать ур-ния в стандартном виде*/
-	void print_eq(Circle const& c1);
+	void print_eq();
 	/*Нахождение длины окружности*/
 	double length()const;
-	/*Нахождение расстояния от точки до окружности*/
-	friend double distance(const Circle& c, const Point& p);
-	/*Возвращает касательную к окружности, проходящую через точку, лежащую на окр-ти*/
+	/*Нахождение расстояния от точки до окружности
+	В случае, если точка внутри окружности возвращает -1 */
+	friend double distance(const Circle&, const Point&);
+	/*Возвращает касательную к окружности, проходящую через точку, лежащую на окр-ти
+	Если точка не на окружности, возвращает прямую с коорд-ми INT_MAX*/
 	friend Line tangent_line(const Point&, const Circle&);
 	/*Находит две касательные к окружности, проходящие через точку,
-	не лежащую на окр-ти, ответ храним в переданных по ссылке объектах класса Line*/
-	friend void tangent_lines(Point, Circle, Line&, Line&);
+	не лежащую на окр-ти, если точка некорректна то прямые с коорд-ми INT_MAX*/
+	friend pair<Line, Line> tangent_lines(const Point&, const Circle&);
 	/*Поиск точек пересечения двух окружностей.
 	Возвращает отрезок, концы которого - точки пересечения.
 	Если точек пересечения нет, то возвращает отрезок, координаты x и y концов которого имеют значение INT_MAX*/
 	friend Segment cirlce_intersection(const Circle&, const Circle&);
-private:
-	Point _center;
-	double _rad;
-	double _A, _B, _C;
-	void init_ABC();
 };
