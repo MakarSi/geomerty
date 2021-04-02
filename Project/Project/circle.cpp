@@ -23,11 +23,11 @@ void Circle::set_rad(double rad) {
 }
 
 void Circle::init_ABC() {
-	double x = get_center().get_x();
-	double y = get_center().get_y();
+	double x = _center.get_x();
+	double y = _center.get_y();
 	_A = -2 * x;
 	_B = -2 * y;
-	_C = x * x + y * y - get_rad() * get_rad();
+	_C = x * x + y * y - _rad * _rad;
 }
 
 Point Circle::get_center() const {
@@ -199,7 +199,7 @@ pair<Point, Point> cirlce_intersection(const Circle& c1, const Circle& c2) {
 }
 
 pair<Point, Point> line_circle_inter(const Line& l, const Circle& c){
-	/*double A = l.get_a();
+	double A = l.get_a();
 	double B = l.get_b();
 	double C = l.get_c();
 	double r = c._rad;
@@ -225,9 +225,6 @@ pair<Point, Point> line_circle_inter(const Line& l, const Circle& c){
 	ay = y0 - A * mult;
 	by = y0 + A* mult;
 	p1 = { ax, ay }, p2 = { bx, by };
-	pair<Point, Point> res = { p1, p2 };
-	return res;*/
-	Point p1 = { INT_MAX, INT_MAX }, p2 = p1;
 	pair<Point, Point> res = { p1, p2 };
 	return res;
 }

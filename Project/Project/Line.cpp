@@ -1,5 +1,6 @@
 #include "Line.h"
 #include "Point.h"
+#include "vector.h"
 #define _USE_MATH_DEFINES 
 #include <iostream>
 #include <math.h>
@@ -29,32 +30,44 @@ void Line::print_equation()
 
 Line::Line(double a, double b, double c)
 {
+	set_abc(a, b, c);
+}
+
+Line::Line(const Point& p1, const Point& p2)
+{
+	set_points(p1, p2);
+}
+
+void Line::set_abc(double a, double b, double c)
+{
 	if (a == 0 && b == 0)
 		throw invalid_argument("This is not a line. Try to input coefficients once again.\n");
-	set_a(a); set_b(b); set_c(c);
+	_a = a; _b = b; _c = c;
+	//Будем делить на a или b чтобы получить точки, проверяем корректность операции
+	Point p1, p2;
+	if (a == 0) {
+		p1 = { 0, c / b };
+		p2 = { 1, c / b };
+	}
+	if (b == 0) {
+		p1 = { c / a, 0 };
+		p2 = { c / a, 1 };
+	}
+	if (a != 0 && b != 0) {
+		p1 = {0, c/b};
+		p2 = {c/a, 0};
+	}
+	_p1 = p1; _p2 = p1;
 }
 
-Line::Line(const Point& c, const Point& d)
-{
-	double x1 = c.get_x(), x2 = d.get_x(), y1 = c.get_y(), y2 = d.get_y();
-	set_a(y1 - y2);
-	set_b(x2 - x1);
-	set_c(x1 * y2 - x2 * y1);
-}
-
-void Line::set_a(double a)
-{
-	this->_a = a;
-}
-
-void Line::set_b(double b)
-{
-	this->_b = b;
-}
-
-void Line::set_c(double c)
-{
-	this->_c = c;
+void Line::set_points(const Point& p1, const Point& p2) {
+	if (p1.get_x() == p2.get_x() && p1.get_y() == p2.get_y())
+		throw invalid_argument("This two points are same\n");
+	double x1 = p1.get_x(), x2 = p2.get_x(), y1 = p1.get_y(), y2 = p2.get_y();
+	_a = y1 - y2;
+	_b = x2 - x1;
+	_c = x1 * y2 - x2 * y1;
+	_p1 = p1; _p2 = p2;
 }
 
 double Line::get_a() const
@@ -129,7 +142,7 @@ istream& operator>>(istream& in, Line& d)
 	in >> a >> b >> c;
 	if (a == 0 && b == 0)
 		throw invalid_argument("This is not a line. Try to input coefficients once again.\n");
-	d.set_a(a); d.set_b(b); d.set_c(c);
+	d.set_abc(a, b, c);
 	return in;
 }
 
@@ -140,6 +153,12 @@ ostream& operator<<(ostream& out, const Line& a)
 	return out;
 }
 
+Line Line::operator+ (const Vector& v) {
+	Point new_p1 = _p1 + v;
+	Point new_p2 = _p2 + v;
+	Line l = { new_p1, new_p2 };
+	return l;
+}
 
 int point_in_halfplane(const Point& e, const Line& d)
 {

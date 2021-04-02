@@ -1,5 +1,6 @@
 #pragma once
 #include "Point.h"
+#include "vector.h"
 #include <iostream>
 #include <math.h>
 
@@ -14,6 +15,7 @@ public:
 	friend bool operator==(const Line&, const Line&);
 	friend istream& operator>> (istream&, Line&);
 	friend ostream& operator<< (ostream&, const Line&);
+	Line operator+ (const Vector& v);
 
 	//Угол между прямыми
 	friend double angle_between_lines(const Line& a, const Line& b);
@@ -24,9 +26,8 @@ public:
 	//Если прямая лежит в отрицательной полуплоскости, то функция возвращает -1, если лежит на прямой - 0, в положительной полуплоскости - 1.
 	friend int point_in_halfplane(const Point&, const Line&);
 
-	void set_a(double a);
-	void set_b(double b);
-	void set_c(double c);
+	void set_abc(double, double, double);
+	void set_points(const Point&, const Point&);
 
 	double get_a() const;
 	double get_b() const;
@@ -38,6 +39,7 @@ public:
 	static void print_line_information();
 
 private:
+	Point _p1, _p2;
 	double _a, _b, _c;
 };
 

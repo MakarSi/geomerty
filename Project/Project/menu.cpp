@@ -12,6 +12,7 @@
 #include "ring.h"
 #include "vector.h"
 #include "Ray.h"
+#include "quadrangle.h"
 
 using namespace std;
 

@@ -11,9 +11,14 @@ Quadrangle::Quadrangle(vector<Point> vertexes)
 	init_perimeter();
 }
 
-void Quadrangle::Quadrangle::set_vertexes(vector<Point> vertexes) {
+void Quadrangle::set_vertexes(vector<Point> vertexes) {
 	/*перед добавлением новой вершины проверяем, не является ли
 	многогранник самопересекающимся*/
+	if(vertexes.size() != 4 && vertexes.size() != 0)
+		throw invalid_argument("Not 4 vertexes");
+	if (vertexes.size() == 0) {
+		return;
+	}
 	for (size_t i = 0; i < 4; i++) {
 		for (size_t j = 1; j < i; j++) {
 			Segment a = { vertexes[j - 1], vertexes[j] };
