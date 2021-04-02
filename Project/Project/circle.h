@@ -41,8 +41,11 @@ public:
 	не лежащую на окр-ти, если точка некорректна то пр€мые с коорд-ми INT_MAX*/
 	friend pair<Line, Line> tangent_lines(const Point&, const Circle&);
 	/*ѕоиск точек пересечени€ двух окружностей.
-	¬озвращает отрезок, концы которого - точки пересечени€.
-	≈сли точек пересечени€ нет, то возвращает отрезок, координаты x и y концов которого имеют значение INT_MAX*/
-	friend pair<Point, Point> cirlce_intersection(const Circle&, const Circle&);
-	friend pair<Point, Point> line_circle_inter(const Line&, const Circle&);
+	¬озвращает пару точек пересечени€, если точка одна - то возвращает две одинаковые.
+	≈сли точек пресечени€ 0 или беск. много возвращает точки INT_MAX*/
+	friend pair<Point, Point> intersection(const Circle&, const Circle&);
+	/*ѕоиск точек пересечени€ пр€мой и окружности.
+	¬озвращает пару точек пересечени€, если точка одна - то возвращает две одинаковые.
+	≈сли точек пресечени€ 0 возвращает точки INT_MAX*/
+	friend pair<Point, Point> intersection(const Line&, const Circle&);
 };

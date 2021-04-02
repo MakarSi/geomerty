@@ -46,18 +46,18 @@ void Line::set_abc(double a, double b, double c)
 	//Будем делить на a или b чтобы получить точки, проверяем корректность операции
 	Point p1, p2;
 	if (a == 0) {
-		p1 = { 0, c / b };
-		p2 = { 1, c / b };
+		p1 = { 0, - c / b };
+		p2 = { 1, - c / b };
 	}
 	if (b == 0) {
-		p1 = { c / a, 0 };
-		p2 = { c / a, 1 };
+		p1 = { -c / a, 0 };
+		p2 = {- c / a, 1 };
 	}
 	if (a != 0 && b != 0) {
-		p1 = {0, c/b};
-		p2 = {c/a, 0};
+		p1 = {0, -c/b};
+		p2 = {-c/a, 0};
 	}
-	_p1 = p1; _p2 = p1;
+	_p1 = p1; _p2 = p2;
 }
 
 void Line::set_points(const Point& p1, const Point& p2) {

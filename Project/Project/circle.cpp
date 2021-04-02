@@ -128,58 +128,10 @@ pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
 	lines.second = { -k2, 1, k2 * x1 - y1};
 	return lines;
 }
-/*
-Segment cirlce_intersection(const Circle& d1, const Circle& d2) {
-	Point p1 = d1._center; double r1 = d1._rad;
-	Point p2 = d2._center; double r2 = d2._rad;
-	Point diff = p2 - p1;
-	Point res1 = { INT_MAX - p1.get_x(), INT_MAX - p1.get_y() }, res2 = { INT_MAX - p1.get_x(), INT_MAX - p1.get_y() };
-	double a = 2 * diff.get_x(); double b = 2 * diff.get_y(); double c = r2 * r2 - r1 * r1 - diff.get_x() * diff.get_x() - diff.get_y() * diff.get_y();
-	if (a == 0 && b == 0 && c == 0)//Если окружности совпадают
-	{
-		res1 = { p1.get_x() + r1, p1.get_y() };
-		res2 = { p1.get_x() - r1, p1.get_y() };
-		return Segment(res1, res2);
-	}
-	if (b != 0)
-	{
-		double a1 = 1 + pow(a / b, 2);
-		double b1 = 2 * a * c / (b * b);
-		double c1 = pow(c / b, 2) - r1 * r1;
-		double D = b1 * b1 - 4 * a1 * c1;
-		if (D >= 0)
-		{
-			double x1 = (-b1 - sqrt(D)) / (2 * a1);
-			double x2 = (-b1 + sqrt(D)) / (2 * a1);
-			double y1 = -c / b - a * x1 / b;
-			double y2 = -c / b - a * x2 / b;
-			res1 = { x1, y1 };
-			res2 = { x2, y2 };
-		}
-	}
-	else if (a != 0)
-	{
-		double a1 = 1 + pow(b / a, 2);
-		double b1 = 2 * b * c / (a * a);
-		double c1 = pow(c / a, 2) - r1 * r1;
-		double D = b1 * b1 - 4 * a1 * c1;
-		if (D >= 0)
-		{
-			double y1 = (-b1 - sqrt(D)) / (2 * a1);
-			double y2 = (-b1 + sqrt(D)) / (2 * a1);
-			double x1 = -c / a - b * y1 / a;
-			double x2 = -c / a - b * y2 / a;
-			res1 = { x1, y1 };
-			res2 = { x2, y2 };
-		}
-	}
-	return Segment(res1 + p1, res2 + p1);
-}
-*/
 
 /*если точек пересечения нет или бесконечно много возвращаем две точки с 
 коорд-ми INT_MAX, если точка одна - вернем две одиниаковые точки*/
-pair<Point, Point> cirlce_intersection(const Circle& c1, const Circle& c2) {
+pair<Point, Point> intersection(const Circle& c1, const Circle& c2) {
 	/*проверим необходимое и достаточное условие пересечения окр-тей
 	если окружности имеют общий центр - */
 	if (distance(c1._center, c2._center) < abs(c2._rad - c1._rad)
@@ -195,10 +147,13 @@ pair<Point, Point> cirlce_intersection(const Circle& c1, const Circle& c2) {
 	double B = c1._B - c2._B;
 	double C = c1._C - c2._C;
 	Line line = {A, B, C};
-	return line_circle_inter(line, c1);
+	return intersection(line, c1);
 }
 
-pair<Point, Point> line_circle_inter(const Line& l, const Circle& c){
+pair<Point, Point> intersection(const Line& l1, const Circle& c){
+	Vector v { -c._center.get_x(), -c._center.get_y() };
+	Line l = l1;
+	l = l + v;
 	double A = l.get_a();
 	double B = l.get_b();
 	double C = l.get_c();
