@@ -43,5 +43,6 @@ public:
 	/*ѕоиск точек пересечени€ двух окружностей.
 	¬озвращает отрезок, концы которого - точки пересечени€.
 	≈сли точек пересечени€ нет, то возвращает отрезок, координаты x и y концов которого имеют значение INT_MAX*/
-	friend Segment cirlce_intersection(const Circle&, const Circle&);
+	friend pair<Point, Point> cirlce_intersection(const Circle&, const Circle&);
+	friend pair<Point, Point> line_circle_inter(const Line&, const Circle&);
 };

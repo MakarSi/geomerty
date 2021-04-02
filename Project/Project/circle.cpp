@@ -128,7 +128,7 @@ pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
 	lines.second = { -k2, 1, k2 * x1 - y1};
 	return lines;
 }
-
+/*
 Segment cirlce_intersection(const Circle& d1, const Circle& d2) {
 	Point p1 = d1._center; double r1 = d1._rad;
 	Point p2 = d2._center; double r2 = d2._rad;
@@ -174,4 +174,60 @@ Segment cirlce_intersection(const Circle& d1, const Circle& d2) {
 		}
 	}
 	return Segment(res1 + p1, res2 + p1);
+}
+*/
+
+/*если точек пересечения нет или бесконечно много возвращаем две точки с 
+коорд-ми INT_MAX, если точка одна - вернем две одиниаковые точки*/
+pair<Point, Point> cirlce_intersection(const Circle& c1, const Circle& c2) {
+	/*проверим необходимое и достаточное условие пересечения окр-тей
+	если окружности имеют общий центр - */
+	if (distance(c1._center, c2._center) < abs(c2._rad - c1._rad)
+		|| distance(c1._center, c2._center) > c2._rad + c1._rad 
+		|| distance(c1._center, c2._center) == 0) {
+		Point p1 = {INT_MAX, INT_MAX }, p2 = p1;
+		pair<Point, Point> res = { p1, p2 };
+		return res;
+	}
+	
+	//получим прямую, которая проходит через точки персечения окр-тей
+	double A = c1._A - c2._A;
+	double B = c1._B - c2._B;
+	double C = c1._C - c2._C;
+	Line line = {A, B, C};
+	return line_circle_inter(line, c1);
+}
+
+pair<Point, Point> line_circle_inter(const Line& l, const Circle& c){
+	/*double A = l.get_a();
+	double B = l.get_b();
+	double C = l.get_c();
+	double r = c._rad;
+	double x0 = -A * C / (A * A + B * B), y0 = -B * C / (A * A + B * B);
+	Point p1, p2;
+
+	if (C * C > r * r * (A * A + B * B) + eps) {
+		p1 = { INT_MAX, INT_MAX }, p2 = p1;
+		pair<Point, Point> res = { p1, p2 };
+		return res;
+	}
+
+	else if (abs(C * C - r * r * (A * A + B * B)) < eps) {
+		p1 = { x0, y0}, p2 = p1;
+		pair<Point, Point> res = { p1, p2 };
+		return res;
+	}
+	double d = r * r - C * C / (A * A + B * B);
+	double mult = sqrt(d / (A * A + B * B));
+	double ax, ay, bx, by;
+	ax = x0 + B * mult;
+	bx = x0 - B * mult;
+	ay = y0 - A * mult;
+	by = y0 + A* mult;
+	p1 = { ax, ay }, p2 = { bx, by };
+	pair<Point, Point> res = { p1, p2 };
+	return res;*/
+	Point p1 = { INT_MAX, INT_MAX }, p2 = p1;
+	pair<Point, Point> res = { p1, p2 };
+	return res;
 }

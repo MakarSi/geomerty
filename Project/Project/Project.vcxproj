@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="circle.cpp" />
-    <ClCompile Include="Dot&amp;Line.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="object.cpp" />
