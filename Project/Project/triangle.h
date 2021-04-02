@@ -1,20 +1,20 @@
-#pragma once
+п»ї#pragma once
 #include "point.h"
 #include "segment.h"
 #include "polygon.h"
-class Triangle: public polygon::Polygon {
+class Triangle : public polygon::Polygon {
 public:
-	//Конструктор по 3 точкам
+	//ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЇГ® 3 ГІГ®Г·ГЄГ Г¬
 	Triangle(vector<Point> vertexes = {});
 	~Triangle();
 
-	/*Перегрузка оператора равенства*/
+	/*ГЏГҐГ°ГҐГЈГ°ГіГ§ГЄГ  Г®ГЇГҐГ°Г ГІГ®Г°Г  Г°Г ГўГҐГ­Г±ГІГўГ */
 	bool operator== (const Triangle& t) const;
-	/*Перегрузка оператора неравнества*/
+	/*ГЏГҐГ°ГҐГЈГ°ГіГ§ГЄГ  Г®ГЇГҐГ°Г ГІГ®Г°Г  Г­ГҐГ°Г ГўГ­ГҐГ±ГІГўГ */
 	bool operator!= (const Triangle& t) const;
 
-	//вспомогательные функции
-	//Средняя линия треугольника
+	//ГўГ±ГЇГ®Г¬Г®ГЈГ ГІГҐГ«ГјГ­Г»ГҐ ГґГіГ­ГЄГ¶ГЁГЁ
+	//Г‘Г°ГҐГ¤Г­ГїГї Г«ГЁГ­ГЁГї ГІГ°ГҐГіГЈГ®Г«ГјГ­ГЁГЄГ 
 	friend Segment middle_line(Triangle const &t);
 
 private:

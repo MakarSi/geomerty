@@ -88,8 +88,6 @@ int main() {
 			Point p1(x1, y1);
 			Point p2(x2, y2);
 			Point p3(x3, y3);
-			Triangle t1(p1, p2, p3);
-			t1.print_all_info();
 			break;
 		}
 		case 4: {
