@@ -40,34 +40,57 @@ Line::Line(const Point& p1, const Point& p2)
 
 void Line::set_abc(double a, double b, double c)
 {
-	if (a == 0 && b == 0)
-		throw invalid_argument("This is not a line. Try to input coefficients once again.\n");
-	_a = a; _b = b; _c = c;
-	//Ѕудем делить на a или b чтобы получить точки, провер€ем корректность операции
-	Point p1, p2;
-	if (a == 0) {
-		p1 = { 0, - c / b };
-		p2 = { 1, - c / b };
+	try {
+		if (a == 0 && b == 0)
+			throw "This is not a line. Try to input coefficients once again.";
+		_a = a; _b = b; _c = c;
+		//Ѕудем делить на a или b чтобы получить точки, провер€ем корректность операции
+		Point p1, p2;
+		if (a == 0) {
+			p1 = { 0, -c / b };
+			p2 = { 1, -c / b };
+		}
+		if (b == 0) {
+			p1 = { -c / a, 0 };
+			p2 = { -c / a, 1 };
+		}
+		if (a != 0 && b != 0) {
+			p1 = { 0, -c / b };
+			p2 = { -c / a, 0 };
+		}
+		_p1 = p1; _p2 = p2;
 	}
-	if (b == 0) {
-		p1 = { -c / a, 0 };
-		p2 = {- c / a, 1 };
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		cout << "Try again"<<endl;
+		cin >> a >> b >> c;
+		set_abc(a, b, c);
 	}
-	if (a != 0 && b != 0) {
-		p1 = {0, -c/b};
-		p2 = {-c/a, 0};
-	}
-	_p1 = p1; _p2 = p2;
 }
 
 void Line::set_points(const Point& p1, const Point& p2) {
-	if (p1.get_x() == p2.get_x() && p1.get_y() == p2.get_y())
-		throw invalid_argument("This two points are same\n");
-	double x1 = p1.get_x(), x2 = p2.get_x(), y1 = p1.get_y(), y2 = p2.get_y();
-	_a = y1 - y2;
-	_b = x2 - x1;
-	_c = x1 * y2 - x2 * y1;
-	_p1 = p1; _p2 = p2;
+	try {
+		if (p1.get_x() == p2.get_x() && p1.get_y() == p2.get_y())
+			throw "This two points are same.";
+		double x1 = p1.get_x(), x2 = p2.get_x(), y1 = p1.get_y(), y2 = p2.get_y();
+		_a = y1 - y2;
+		_b = x2 - x1;
+		_c = x1 * y2 - x2 * y1;
+		_p1 = p1; _p2 = p2;
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		cout << "Try again" << endl;
+		cout << "Input coordinates two vertexes:" << endl;
+		double x1, x2, y1, y2;
+		cin >> x1 >> y1 >> x2 >> y2;
+		Point p3, p4;
+		p3.set_x(x1);
+		p3.set_y(y1);
+		p4.set_x(x2);
+		p4.set_y(y2);
+		set_points(p3,p4);
+	}
 }
 
 double Line::get_a() const
@@ -85,35 +108,35 @@ double Line::get_c() const
 	return _c;
 }
 
-double angle_between_lines(const Line& d, const Line& e)
+double angle_between_lines(const Line& l1, const Line& l2)
 {
-	bool f = if_parallel(d, e);
+	bool f = if_parallel(l1, l2);
 	if (f) return 0;
 	else
 	{
-		double res, a1 = d.get_a(), b1 = d.get_b(), a2 = e.get_a(), b2 = e.get_b();
-		res = abs(float(a1 * a2 + b1 * b2)) / (sqrt(pow(a1, 2) + pow(b1, 2)) * sqrt(pow(a2, 2) + pow(b2, 2)));
+		double res, a1 = l1.get_a(), b1 = l1.get_b(), a2 = l2.get_a(), b2 = l2.get_b();
+		res = abs(a1 * a2 + b1 * b2) / (sqrt(pow(a1, 2) + pow(b1, 2)) * sqrt(pow(a2, 2) + pow(b2, 2)));
 		return acos(res) * 180.0 / M_PI;
 	}
-}
+} 
 
-Point intersection_point(const Line& d, const Line& e)
+Point intersection_point(const Line& l1, const Line& l2) 
 {
-	bool f = if_parallel(d, e);
-	double a1 = d.get_a(), b1 = d.get_b(), c1 = d.get_c(), a2 = e.get_a(), b2 = e.get_b(), c2 = e.get_c();
+	bool f = if_parallel(l1, l2);
+	double a1 = l1.get_a(), b1 = l1.get_b(), c1 = l1.get_c(), a2 = l2.get_a(), b2 = l2.get_b(), c2 = l2.get_c();
 	if (!f)
 	{
 		double det = a1 * b2 - a2 * b1, xdet = c1 * b2 - b1 * c2, ydet = a1 * c2 - a2 * c1;
-		return { -(double)xdet / det,-(double)ydet / det };
+		return { -1*xdet / det,-1*ydet / det };
 	}
-	else if (d == e) return { 0, c2 };
+	else if (l1 == l2) return { 0, c2 };
 	else cout << "\nThose two lines have no intersection point\n";
 	return { INT_MAX, INT_MAX };
 }
 
-bool if_parallel(const Line& d, const Line& e)
+bool if_parallel(const Line& l1, const Line& l2)
 {
-	double a1 = d.get_a(), b1 = d.get_b(), a2 = e.get_a(), b2 = e.get_b();
+	double a1 = l1.get_a(), b1 = l1.get_b(), a2 = l2.get_a(), b2 = l2.get_b();
 	if (a1 * b2 == b1 * a2)
 	{
 		if (a1 * b2 == 0)
@@ -127,28 +150,27 @@ bool if_parallel(const Line& d, const Line& e)
 	else return false;
 }
 
-bool operator==(const Line& d, const Line& e)
+bool operator==(const Line& l1, const Line& l2)
 {
-	double a1 = d.get_a(), b1 = d.get_b(), c1 = d.get_c(), a2 = e.get_a(), b2 = e.get_b(), c2 = e.get_c();
+	double a1 = l1.get_a(), b1 = l1.get_b(), c1 = l1.get_c(), a2 = l2.get_a(), b2 = l2.get_b(), c2 = l2.get_c();
 	bool f = false;
-	if (if_parallel(d, e))
+	if (if_parallel(l1, l2))
 		if (a1 * c2 == a2 * c1 || b1 * c2 == b2 * c1) f = true;
 	return f;
 }
 
-istream& operator>>(istream& in, Line& d)
+istream& operator>>(istream& in, Line& l)
 {
 	double a, b, c;
 	in >> a >> b >> c;
-	if (a == 0 && b == 0)
-		throw invalid_argument("This is not a line. Try to input coefficients once again.\n");
-	d.set_abc(a, b, c);
+	//обработка случа€, когда пр€ма€ не существует в set_abc
+	l.set_abc(a, b, c);
 	return in;
 }
 
-ostream& operator<<(ostream& out, const Line& a)
+ostream& operator<<(ostream& out, const Line& l)
 {
-	Line p = a;
+	Line p = l;
 	p.print_equation();
 	return out;
 }
@@ -160,9 +182,9 @@ Line Line::operator+ (const Vector& v) {
 	return l;
 }
 
-int point_in_halfplane(const Point& e, const Line& d)
+int point_in_halfplane(const Point& p, const Line& l)
 {
-	double x = e.get_x(), y = e.get_y(), a = d.get_a(), b = d.get_b(), c = d.get_c();
+	double x = p.get_x(), y = p.get_y(), a = l.get_a(), b = l.get_b(), c = l.get_c();
 	double sign = a * x + b * y + c;
 	if (sign > 0) return 1;
 	else if (sign < 0) return -1;
@@ -171,30 +193,35 @@ int point_in_halfplane(const Point& e, const Line& d)
 
 void Line::print_line_information()
 {
-	Point a, b;
-	Line c, d;
+	cout << "Input the coefficients of the line" << endl;
+	double a1, b1, c1;
+	cin >> a1 >> b1 >> c1;
+	Line l = Line(a1, b1, c1);
+	cout << l << endl;
+	Point p1, p2;
+	Line l1, l2;
 	int k;
 	bool f = false;
 	cout << "Input two points to get a line\n";
-	cin >> a >> b;
-	c = Line(a, b);
-	cout << "The equation of this line: " << c << endl;
+	cin >> p1 >> p2;
+	l1 = Line(p1, p2);
+	cout << "The equation of this line: " << l1 << endl;
 	cout << "Input a point\n";
-	cin >> a;
-	k = point_in_halfplane(a, c);
+	cin >> p1;
+	k = point_in_halfplane(p1, l1);
 	if (k == 1) cout << "The point belongs to the positive half-plane\n";
 	else if (k == 0) cout << "The point belongs to the line\n";
 	else if (k == -1) cout << "The point belongs to the negative half-plane\n";
 	cout << "\nInput two more point to get another line\n";
-	cin >> a >> b;
-	d = Line(a, b);
-	cout << "The equation of the second line: " << d << endl;
-	if (if_parallel(c, d))
+	cin >> p1 >> p2;
+	l2 = Line(p1, p2);
+	cout << "The equation of the second line: " << l2 << endl;
+	if (if_parallel(l1, l2))
 	{
-		if (c == d) f = true;
+		if (l1 == l2) f = true;
 		if (!f) cout << "These two line are parallel\n";
 		else cout << "These two lines are equal\n";
 	}
-	else cout << "Here's the intersection point of this two lines: " << intersection_point(c, d) << endl;
-	cout << "The angle between these two line is: " << angle_between_lines(c, d) << endl;
+	else cout << "Here's the intersection point of this two lines: " << intersection_point(l1, l2) << endl;
+	cout << "The angle between these two line is: " << angle_between_lines(l1, l2) << endl;
 }
