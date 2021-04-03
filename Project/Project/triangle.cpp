@@ -1,14 +1,15 @@
 #include"triangle.h"
 #include <math.h>
 #include <iostream>
+
 using namespace std;
 
-Triangle::Triangle(vector<Point> vertexes)
-{
+Triangle::Triangle(vector<Point> vertexes) {
 	set_vertexes(vertexes);
 	init_area();
 	init_perimeter();
 }
+
 Triangle::~Triangle() {
 
 }
@@ -44,6 +45,7 @@ bool Triangle::operator== (const Triangle& t) const {
 		get_vertex(2)) && distance(p1, p3) == distance(get_vertex(0), get_vertex(2));
 	return f;
 }
+
 bool Triangle::operator!= (const Triangle& t) const {
 	Point p1, p2, p3;
 	p1 = t.get_vertex(0);
@@ -54,8 +56,7 @@ bool Triangle::operator!= (const Triangle& t) const {
 	return f;
 }
 
-Segment middle_line(Triangle const& t, int const& k)
-{
+Segment middle_line(const Triangle& t, int const& k) {
 	Point p1 = t.get_vertex(0), p2 = t.get_vertex(1), p3 = t.get_vertex(2);
 	Point k1, k2;
 	Segment s1 = Segment(p1, p2), s2 = Segment(p2, p3), s3 = Segment(p3, p1);
