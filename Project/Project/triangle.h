@@ -4,19 +4,18 @@
 #include "polygon.h"
 class Triangle : public polygon::Polygon {
 public:
-	//Êîíñòðóêòîð ïî 3 òî÷êàì
+	//Конструктор по 3 точкам
 	Triangle(vector<Point> vertexes = {});
 	~Triangle();
 
-	/*Ïåðåãðóçêà îïåðàòîðà ðàâåíñòâà*/
+	void set_vertexes(vector<Point>);
+
+	/*Перегрузка оператора равенства*/
 	bool operator== (const Triangle& t) const;
-	/*Ïåðåãðóçêà îïåðàòîðà íåðàâíåñòâà*/
+	/*Перегрузка оператора неравнества*/
 	bool operator!= (const Triangle& t) const;
 
-	//âñïîìîãàòåëüíûå ôóíêöèè
-	//Ñðåäíÿÿ ëèíèÿ òðåóãîëüíèêà
-	friend Segment middle_line(Triangle const &t);
-
-private:
-	Point _p1, _p2, _p3;
+	//вспомогательные функции
+	//Средняя линия треугольника
+	friend Segment middle_line(Triangle const& t);
 };

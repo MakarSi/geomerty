@@ -13,12 +13,44 @@ Triangle::~Triangle() {
 
 }
 
+void Triangle::set_vertexes(vector<Point> vertexes) {
+	try
+	{
+		if (vertexes.size() > 3 || vertexes.size() == 0)
+			throw "Try input vertexes again";
+		if (vertexes.size() == 3 && (vertexes[2].get_x() - vertexes[0].get_x()) * (vertexes[1].get_y() - vertexes[0].get_y())
+			== (vertexes[1].get_x() - vertexes[0].get_x()) * (vertexes[2].get_y() - vertexes[0].get_y()))
+			throw "Error: A degenerate triangle!";
+
+		for (size_t i = 0; i < vertexes.size(); i++)
+			_vertexes.push_back(vertexes[i]);
+
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		Point p(0, 0);
+		_vertexes.push_back(p);
+		_vertexes.push_back(p);
+		_vertexes.push_back(p);
+	}
+}
+
 bool Triangle::operator== (const Triangle& t) const {
-	bool f = distance(_p1, _p2) == distance(t._p1, t._p2) && distance(_p2, _p3) == distance(t._p2, t._p3) && distance(_p1, _p3) == distance(t._p1, t._p3);
+	Point p1, p2, p3;
+	p1 = t.get_vertex(0);
+	p2 = t.get_vertex(1);
+	p3 = t.get_vertex(2);
+	bool f = distance(p1, p2) == distance(t.get_vertex(0), t.get_vertex(1)) && distance(p2, p3) == distance(get_vertex(1),
+		get_vertex(2)) && distance(p1, p3) == distance(get_vertex(0), get_vertex(2));
 	return f;
 }
 bool Triangle::operator!= (const Triangle& t) const {
-	bool f = distance(_p1, _p2) != distance(t._p1, t._p2) || distance(_p2, _p3) != distance(t._p2, t._p3) || distance(_p1, _p3) != distance(t._p1, t._p3);
+	Point p1, p2, p3;
+	p1 = t.get_vertex(0);
+	p2 = t.get_vertex(1);
+	p3 = t.get_vertex(2);
+	bool f = distance(p1, p2) != distance(t.get_vertex(0), t.get_vertex(1)) || distance(p2, p3) != distance(t.get_vertex(1),
+		t.get_vertex(2)) || distance(p1, p3) != distance(t.get_vertex(0), t.get_vertex(2));
 	return f;
 }
 

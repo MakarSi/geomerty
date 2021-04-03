@@ -88,6 +88,12 @@ int main() {
 			Point p1(x1, y1);
 			Point p2(x2, y2);
 			Point p3(x3, y3);
+			vector<Point>v = { p1,p2,p3 };
+			Triangle t1 = Triangle(v);
+			if (t1.get_area() == 0) {
+				break;
+			}
+			t1.print_all_info(cout);
 			break;
 		}
 		case 4: {
