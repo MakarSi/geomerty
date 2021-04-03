@@ -99,20 +99,7 @@ int main() {
 			break;
 		}
 		case 4: {
-			double x1, y1, rad;
-			cout << "Enter the center and radius of the circle" << endl;
-			cin >> x1 >> y1 >> rad;
-			Point p(x1, y1);
-			Circle c(p, rad);
-			cout << "Circle equation" << endl;
-			c.print_eq();
-			cout << endl << "Length of the circle ";
-			cout << c.length() << endl;
-			cout << "Enter coordinates of point" << endl;
-			cin >> x1 >> y1;
-			Point p1(x1, y1);
-			double dist = distance(c, p1);
-			if (dist != 0) cout << "Distance from this point to the circle" << endl << dist << endl;
+			Circle::print_circle_info();
 			break;
 		}
 		case 5: {

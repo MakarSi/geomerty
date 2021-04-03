@@ -5,7 +5,7 @@
 #include "line.h"
 #include "segment.h"
 
-class Circle: public Object {
+class Circle : public Object {
 private:
 	Point _center;
 	double _rad;
@@ -48,4 +48,6 @@ public:
 	¬озвращает пару точек пересечени€, если точка одна - то возвращает две одинаковые.
 	≈сли точек пресечени€ 0 возвращает точки INT_MAX*/
 	friend pair<Point, Point> intersection(const Line&, const Circle&);
+	/*ѕечать информации об окружности*/
+	static void print_circle_info();
 };
