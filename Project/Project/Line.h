@@ -37,7 +37,7 @@ public:
 	//Печатает уравнение прямой
 	void print_equation();
 	//Печатает инфомацию о работе с прямыми
-	static void print_line_information();
+	void print_all_info() const;
 
 private:
 	Point _p1, _p2;

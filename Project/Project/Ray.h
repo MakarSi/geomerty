@@ -9,7 +9,7 @@ using namespace std;
 class Ray: public Object
 {
 public:
-	Ray(Point p = { 0, 0 }, Vector v = {});
+	Ray(Point p = { 0, 0 }, Vector v = {1, 0});
 
 	void set_point(Point p);
 	void set_vector(Vector v);
@@ -25,7 +25,7 @@ public:
 	friend double angle_between_rays(const Ray& r1, const Ray& r2);
 
 	//Печатает информацию о работе с лучами
-	static void print_ray_information();
+	void print_all_info() const;
 private:
 	Point _p; Vector _v;
 };

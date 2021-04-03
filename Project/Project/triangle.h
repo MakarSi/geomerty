@@ -16,6 +16,9 @@ public:
 	bool operator!= (const Triangle& t) const;
 
 	//вспомогательные функции
-	//Средняя линия треугольника
-	friend Segment middle_line(Triangle const& t);
+	/*Средняя линия
+	Для средней линии, параллельной стороне P1P2, k = 1
+	Для средней линии, параллельной стороне P2P3, k = 2
+	Для средней линии, параллельной стороне P1P3, k = 3*/
+	friend Segment middle_line(Triangle const& t, int const& k);
 };

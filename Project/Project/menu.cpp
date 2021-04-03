@@ -74,11 +74,13 @@ int main() {
 		int key = print_menu(A);
 		switch (key) {
 		case 1: {
-			Line::print_line_information();
+			Line l;
+			l.print_all_info();
 			break;
 		}
 		case 2: {
-			Ray::print_ray_information();
+			Ray r;
+			r.print_all_info();
 			break;
 		}
 		case 3: {

@@ -81,15 +81,10 @@ void Line::set_points(const Point& p1, const Point& p2) {
 	catch (const char* exception) {
 		cout << "Error: " << exception << endl;
 		cout << "Try again" << endl;
-		cout << "Input coordinates two vertexes:" << endl;
-		double x1, x2, y1, y2;
-		cin >> x1 >> y1 >> x2 >> y2;
+		cout << "Input two points:" << endl;
 		Point p3, p4;
-		p3.set_x(x1);
-		p3.set_y(y1);
-		p4.set_x(x2);
-		p4.set_y(y2);
-		set_points(p3,p4);
+		cin >> p3 >> p4;
+		set_points(p3, p4);
 	}
 }
 
@@ -191,7 +186,7 @@ int point_in_halfplane(const Point& p, const Line& l)
 	if (sign == 0) return 0;
 }
 
-void Line::print_line_information()
+void Line::print_all_info() const
 {
 	cout << "Input the coefficients of the line" << endl;
 	double a1, b1, c1;
