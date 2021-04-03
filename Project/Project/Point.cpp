@@ -5,11 +5,11 @@
 
 using namespace std;
 
-istream& operator>>(istream& in, Point& a)
+istream& operator>>(istream& in, Point& p)
 {
 	double x, y;
 	in >> x >> y;
-	a.set_x(x); a.set_y(y);
+	p.set_x(x); p.set_y(y);
 	return in;
 }
 
@@ -20,12 +20,12 @@ ostream& operator<<(ostream& out, const Point& p)
 	return out;
 }
 
-double distance(const Point& a, const Point& b)
+double distance(const Point& p1, const Point& p2)
 {
-	double d1x = a.get_x();
-	double d2x = b.get_x();
-	double d1y = a.get_y();
-	double d2y = b.get_y();
+	double d1x = p1.get_x();
+	double d2x = p2.get_x();
+	double d1y = p1.get_y();
+	double d2y = p2.get_y();
 	double d = sqrt(pow(d1x - d2x, 2) + pow(d1y - d2y, 2));
 	return d;
 }
@@ -60,30 +60,30 @@ void Point::print_coordinate()
 	cout << "(" << _x << "," << _y << ")";
 }
 
-bool Point::operator==(const Point& a)
+bool Point::operator==(const Point& p)
 {
-	bool f = this->_x == a._x && this->_y == a._y;
+	bool f = this->_x == p._x && this->_y == p._y;
 	return f;
 }
 
-bool Point::operator!=(const Point& a)
+bool Point::operator!=(const Point& p)
 {
-	bool f = this->_x != a._x || this->_y != a._y;
+	bool f = this->_x != p._x || this->_y != p._y;
 	return f;
 }
 
-Point Point::operator+(const Point& a)
+Point Point::operator+(const Point& p)
 {
 	Point c;
-	c._x = this->_x + a._x;
-	c._y = this->_y + a._y;
+	c._x = this->_x + p._x;
+	c._y = this->_y + p._y;
 	return c;
 }
 
-Point Point::operator-(const Point& a)
+Point Point::operator-(const Point& p)
 {
 	Point c;
-	c._x = this->_x - a._x;
-	c._y = this->_y - a._y;
+	c._x = this->_x - p._x;
+	c._y = this->_y - p._y;
 	return c;
 }
