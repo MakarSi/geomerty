@@ -3,6 +3,7 @@
 #include "Line.h"
 #include "segment.h"
 #include "vector.h"
+#include "Ray.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ namespace polygon{
 		void init_area();
 
 	public:
-		Polygon(vector<Point> vertexes = {});
+		Polygon(const vector<Point>& vertexes = {});
 
 		//установление вершин, самопересекающийся многоугольник считаем невалидным
 		void set_vertexes(vector<Point>);
@@ -39,5 +40,7 @@ namespace polygon{
 		void print_coords(ostream&)const;
 		//вывод всей информации о четырехугольнике
 		void print_all_info(ostream&)const;
+		//нахождение биссектрисы угла, относящегося к вершине
+		Ray bisector(Point vertex);
 	};
 }

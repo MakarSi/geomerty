@@ -35,6 +35,11 @@ double Vector::vector_product(const Vector& v) {
 	return _x * v._y - v._x * _y;
 }
 
+void Vector::normalize() {
+	_x /= length();
+	_y /= length();
+}
+
 void Vector::print_all_info() {
 	cout << "Given a vector with corodnites: (";
 	cout << this->_x << ", " << this->_y << ')' << endl;

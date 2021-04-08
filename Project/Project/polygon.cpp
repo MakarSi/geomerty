@@ -2,7 +2,7 @@
 #include "Line.h"
 
 namespace polygon {
-	Polygon::Polygon(vector<Point> vertexes)
+	Polygon::Polygon(const vector<Point>& vertexes)
 	{
 		set_vertexes(vertexes);
 		init_area();
@@ -151,4 +151,22 @@ namespace polygon {
 		p = vertexes;
 		return in;
 	}
+	
+	Ray Polygon::bisector(Point vertex) {
+		size_t num = -1;
+		for (int i = 0; i < get_dim(); i++)
+			if (_vertexes[i] == vertex) num = i;
+		if (num == -1)
+			throw invalid_argument("Point is not a vertex");
+		//строим два вектора выходящих из вершины и нормируем их
+		Vector v1(_vertexes[num], _vertexes[(num + 1) % get_dim()]);
+		Vector v2(_vertexes[num], _vertexes[(num - 1) % get_dim()]);
+		v1.normalize(); 
+		v2.normalize();
+		//вектор биссектрисы есть сумма этих норм. векторов
+		Vector v3 = v1 + v2;
+		Ray res(vertex, v3);
+		return res;
+	}
 }
+

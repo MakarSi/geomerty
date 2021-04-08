@@ -24,5 +24,7 @@ public:
 	void multipl_by_num(double a);
 	/*Ќахождение векторного произведени€ 2-х векторов на плоскости*/
 	double vector_product(const Vector&); 
+	//Ќормирование вектора
+	void normalize();
 	void print_all_info();
 };
