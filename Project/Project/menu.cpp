@@ -13,12 +13,11 @@
 #include "vector.h"
 #include "Ray.h"
 #include "quadrangle.h"
+#include "menu.h"
 
 using namespace std;
 
-const int N = 8; // Количество элементов в меню
-
-int print_menu(string* a) {
+int print_menu(string* a, int N) {
 	int key = 0, move;
 	while (true) {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -59,9 +58,9 @@ int print_menu(string* a) {
 	return key;
 }
 
-int main() {
+int menu() {
 	setlocale(LC_ALL, "");
-	string* A = new string[N];
+	string* A = new string[8];
 	A[0] = "Действия с прямыми";
 	A[1] = "Действия с лучом";
 	A[2] = "Действия с треугольником";
@@ -71,7 +70,7 @@ int main() {
 	A[6] = "Действия с четырехугольником";
 	A[7] = "Действия с векторами";
 	while (true) {
-		int key = print_menu(A);
+		int key = print_menu(A, 8);
 		switch (key) {
 		case 1: {
 			Line l;
@@ -95,7 +94,7 @@ int main() {
 			if (t1.get_area() == 0) {
 				break;
 			}
-			t1.print_all_info(cout);
+			print_info(t1, cout);
 			break;
 		}
 		case 4: {
@@ -117,11 +116,7 @@ int main() {
 			cout << c.sector(c, angle) << endl;
 		}
 		case 6: {
-			polygon::Polygon p;
-			cout << "Enter num of vertexes" << endl;
-			cout << "Then enter coords of each vertexes in the right order" << endl;
-			cin >> p;
-			p.print_all_info(cout);
+			polygon_menu();
 		}
 		case 7:
 			break;
@@ -138,4 +133,76 @@ int main() {
 		default: break;
 		}
 	}
+}
+
+int polygon_menu() {
+	setlocale(LC_ALL, "");
+	string* A = new string[3];
+	A[0] = "Add new polygon";
+	A[1] = "Print info about polygon";
+	A[2] = "Shift polygon by vector";
+
+	vector<polygon::Polygon> polygons;
+
+	while (true) {
+		int key = print_menu(A, 3);
+		switch (key) {
+		case 1: {
+			polygon::Polygon p;
+			input_polygon(p);
+			polygons.push_back(p);
+			break;
+		}
+		case 2: {
+			int n;
+			cin >> n;
+			while (n < 0 || n >= polygons.size()) {
+				cout << "Enter num from 0 to " << polygons.size() - 1;
+				cin >> n;
+			}
+			print_info(polygons[n], cout);
+			break;
+		}
+		case 3: {
+			int n;
+			cin >> n;
+			while (n < 0 || n >= polygons.size()) {
+				cout << "Enter num from 0 to " << polygons.size()-1;
+				cin >> n;
+			}
+			Vector v;
+			cin >> v;
+			polygons[n] + v;
+			break;
+		}
+		default: break;
+		}
+	}
+}
+
+void input_polygon(polygon::Polygon& p) {
+	cout << "Enter num of vertexes" << endl;
+	cout << "Then enter coords of each vertexes in the right order" << endl;
+	try {
+		cin >> p;
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		p = {};
+	}
+}
+
+void print_coords(const polygon::Polygon& p, ostream& out) {
+	int size = p.get_dim();
+	for (int i = 0; i < size - 1; i++)
+		out << p.get_vertex(i) << ", ";
+	if (size >= 1 ) out << p.get_vertex(size - 1);
+	out << endl;
+}
+
+void print_info(const polygon::Polygon& p, ostream& out){
+	out << "Coords of all vertexes: ";
+	print_coords(p, out);
+	out << "Area: " << p.get_area() << endl;
+	out << "Perimeter: " << p.get_perimeter() << endl;
 }

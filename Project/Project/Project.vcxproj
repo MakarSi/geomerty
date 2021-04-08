@@ -149,6 +149,7 @@
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ring.cpp" />
     <ClCompile Include="segment.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="circle.h" />
     <ClInclude Include="Dot&amp;Line.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="polygon.h" />

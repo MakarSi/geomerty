@@ -26,21 +26,17 @@ namespace polygon{
 		//установление вершин, самопересекающийся многоугольник считаем невалидным
 		void set_vertexes(vector<Point>);
 
-		size_t get_dim()const;
+		size_t get_dim()const { return _vertexes.size(); }
 		Point get_vertex(int)const;
-		double get_area()const;
-		double get_perimeter()const;
+		double get_area()const { return _area; }
+		double get_perimeter()const { return _perimeter; }
 
 		friend istream& operator>> (istream&, Polygon&);
 		/*bool operator== (const Polygon&);
 		bool operator!= (const Polygon&);*/
 		//смещение на вектор
 		Polygon operator+ (const Vector& v);
-		//вывод координат всех вершин
-		void print_coords(ostream&)const;
-		//вывод всей информации о четырехугольнике
-		void print_all_info(ostream&)const;
 		//нахождение биссектрисы угла, относящегося к вершине
-		Ray bisector(Point vertex);
+		Ray bisector(Point);
 	};
 }
