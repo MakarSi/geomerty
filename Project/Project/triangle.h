@@ -1,7 +1,8 @@
 ﻿#pragma once
-#include "point.h"
+#include "Point.h"
 #include "segment.h"
 #include "polygon.h"
+
 class Triangle : public polygon::Polygon {
 public:
 	//Конструктор по 3 точкам
@@ -20,6 +21,9 @@ public:
 
 	/*Вспомогательные функции*/
 	/*Нахождение средней линии треугольника
-	Выбор стороны, к которой будет искаться происходит внутри программы*/
-	friend Segment middle_line(const Triangle& t, const int& k);
+	Для средней линии, параллельной стороне P1P2, k = 1
+	Для средней линии, параллельной стороне P2P3, k = 2
+	Для средней линии, параллельной стороне P1P3, k = 3*/
+	friend Segment middle_line(const Triangle& t, int const& k);
+	
 };

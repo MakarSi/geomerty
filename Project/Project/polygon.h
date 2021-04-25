@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <algorithm>
 #include "Line.h"
 #include "segment.h"
 #include "vector.h"
@@ -38,5 +39,13 @@ namespace polygon{
 		Polygon operator+ (const Vector& v);
 		//нахождение биссектрисы угла, относящегося к вершине
 		Ray bisector(Point);
+
+		/*Определение ориентации треугольника*/
+		int rotation(Point p1, Point p2, Point p3);
+
+		/*Построение выпуклой оболочки по точкам
+		Используется алгоритм Грэхема
+		Подробно можно изучить по ссылке: https://algorithmica.org/ru/convex-hulls*/
+		//vector<Point> convex_shell(vector<Point> points);
 	};
 }

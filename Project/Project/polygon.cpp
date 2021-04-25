@@ -1,5 +1,6 @@
 #include "polygon.h"
 #include "Line.h"
+#include "Point.h"
 
 namespace polygon {
 	Polygon::Polygon(const vector<Point>& vertexes)
@@ -125,6 +126,15 @@ namespace polygon {
 		p = vertexes;
 		return in;
 	}
+
+	int Polygon::rotation(Point p1, Point p2, Point p3) {
+		Point r1 = p2 - p1;
+		Point r2 = p3 - p2;
+		double cross = r1.get_x() * r2.get_y() - r1.get_y() * r2.get_x();
+		if (cross < 0) return -1;
+		if (cross > 0) return 1;
+		return 0;
+	}
 	
 	Ray Polygon::bisector(Point vertex) {
 		size_t num = -1;
@@ -142,4 +152,36 @@ namespace polygon {
 		Ray res(vertex, v3);
 		return res;
 	}
+
+	/*vector<Point> Polygon::convex_shell(vector<Point> points) {
+		//Сортировка по возрастанию
+		sort(points.begin(), points.end());
+		int n = points.size();
+		vector <Point> top = { points[0] };
+		vector <Point> bottom = { points[0] };
+
+		for (int i = 1; i < n; i++) {
+			if (rotation(points[0], points[n - 1], points[i]) >= 0) {
+				while (top.size() > 1 && rotation(top[top.size() - 2], top[top.size() - 1], points[i]) >= 0)
+					top.pop_back();
+				top.push_back(points[i]);
+			}
+			else {
+				while (bottom.size() > 1 && rotation(bottom[bottom.size() - 2], bottom[bottom.size() - 1], points[i]) <= 0)
+					bottom.pop_back();
+				bottom.push_back(points[i]);
+			}
+		}
+		while (bottom.size() > 1 && rotation(bottom[bottom.size() - 2], bottom[bottom.size() - 1], points[n - 1]) <= 0)
+			bottom.pop_back();
+
+		//Переворот вектора
+		reverse(bottom.begin(), bottom.end());
+
+		//Объединение двух векторов
+		for (Point u : bottom)
+			top.push_back(u);
+		top.pop_back();
+		return top;
+	}*/
 }

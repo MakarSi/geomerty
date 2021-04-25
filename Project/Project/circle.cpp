@@ -14,8 +14,7 @@ void Circle::set_center(Point center) {
 
 void Circle::set_rad(double rad) {
 	if (rad <= 0) {
-		cout << "Error assigning a negative or zero value to the radius " << endl;
-		_rad = 1;     //В случае неправильного ввода - присваивается радиусу 1
+		throw "Radius assignment error";
 	}
 	else _rad = rad;
 	init_ABC();
@@ -70,11 +69,7 @@ double distance(const Circle& c, const Point& p) {
 	double yc = c._center.get_y();
 	double r = c._rad;
 	double dist = sqrt((xc - p.get_x()) * (xc - p.get_x()) + (yc - p.get_y()) * (yc - p.get_y()));
-	if (dist < r) {
-		cout << "This point is inside the circle" << endl;
-		return -1;
-	}
-	return dist - r;
+	return dist;
 }
 
 Line tangent_line(const Point& p, const Circle& c){
@@ -197,5 +192,8 @@ void Circle::print_circle_info() {
 	cin >> x1 >> y1;
 	Point p1(x1, y1);
 	double dist = distance(c, p1);
-	if (dist != 0) cout << "Distance from this point to the circle" << endl << dist << endl;
+	if (dist > c.get_rad()) cout << "Distance from this point to the circle = " << dist - c.get_rad() << endl;
+	else if (dist == c.get_rad()) cout << "Point lies on a circle" << endl;
+	else if (dist != 0) cout << "Point lies inside a circle" << endl;
+	else cout << "Point is a center of circle" << endl;
 }
