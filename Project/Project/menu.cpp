@@ -98,22 +98,12 @@ int menu() {
 			break;
 		}
 		case 4: {
-			Circle::print_circle_info();
+			circle_menu();
 			break;
 		}
 		case 5: {
-			double x1, y1, rad;
-			cout << "Enter the center and radius of the ring" << endl;
-			cin >> x1 >> y1 >> rad;
-			Point p(x1, y1);
-			Ring c(p, rad);
-			cout << "Area of ring" << endl;
-			cout << c.square(c) << endl;
-			cout << "Enter an angle to calculate the area of the segment" << endl;
-			double angle;
-			cin >> angle;
-			cout << "Area of serment" << endl;
-			cout << c.sector(c, angle) << endl;
+			//ring_menu();
+			break;
 		}
 		case 6: {
 			polygon_menu();
@@ -206,3 +196,133 @@ void print_info(const polygon::Polygon& p, ostream& out){
 	out << "Area: " << p.get_area() << endl;
 	out << "Perimeter: " << p.get_perimeter() << endl;
 }
+
+int circle_menu() {
+	setlocale(LC_ALL, "");
+	string* A = new string[4];
+	A[0] = "Add new circle";
+	A[1] = "Print info about circle";
+	A[2] = "Shift circle by vector";
+	A[3] = "Finding tangents to a circle";
+
+	vector<Circle> circles;
+
+	while (true) {
+		int key = print_menu(A, 4);
+		switch (key) {
+		case 1: {
+			Circle c;
+			input_circle(c);
+			circles.push_back(c);
+			break;
+		}
+		case 2: {
+			int n=-1;
+			int r = circles.size();
+			while (n < 0 || n >= r) {
+				cout << "Enter num from 0 to " << r - 1 << endl;
+				cin >> n;
+			}
+			print_info(circles[n], cout);
+			break;
+		}
+		case 3: {
+			/*
+			*/
+			break;
+		}
+		case 4: {
+			int n = -1;
+			int r = circles.size();
+			while (n < 0 || n >= r) {
+				cout << "Enter num from 0 to " << r - 1 << endl;
+				cin >> n;
+			}
+			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
+			Point p;
+			cin >> p;
+			Line line;
+			double ras=distance(circles[n],p);
+			if (ras < circles[n].get_rad()) cout<<"The point is located inside the circle - it's impossible to construct tangents"<<endl;
+			else if (ras == circles[n].get_rad()) {
+				line = tangent_line(p,circles[n]);
+			} else {
+				/*
+				*/
+			}
+			break;
+		}
+		default: break;
+		}
+	}
+}
+
+void input_circle(Circle& c) {
+	cout << "Enter the center coordinates and the radius value" << endl;
+	try {
+		cin >> c;
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		c = {};
+	}
+}
+
+void print_info(Circle c, ostream& out) {
+	out << "The circle equation" << endl;
+	c.print_eq();
+	out << "Length of the circle = ";
+	out<<c.length()<<endl;
+}
+
+//int ring_menu() {
+//	setlocale(LC_ALL, "");
+//	string* A = new string[4];
+//	A[0] = "Add new circle";
+//	A[1] = "Print info about circle";
+//	A[2] = "Shift circle by vector";
+//
+//	vector<Ring> rings;
+//
+//	while (true) {
+//		int key = print_menu(A, 3);
+//		switch (key) {
+//		case 1: {
+//			Ring r;
+//			input_ring(r);
+//			rings.push_back(r);
+//			break;
+//		}
+//		case 2: {
+//			int n = -1;
+//			int r = rings.size();
+//			while (n < 0 || n >= r) {
+//				cout << "Enter num from 0 to " << r - 1 << endl;
+//				cin >> n;
+//			}
+//			print_info(rings[n]);
+//			break;
+//		}
+//		default: break;
+//		}
+//	}
+//};
+//
+//void input_ring(Ring& r) {
+//	cout << "Enter the center coordinates and the radius value" << endl;
+//	try {
+//		cin >> r;
+//	}
+//	catch (const char* exception) {
+//		cout << "Error: " << exception << endl;
+//		r = {};
+//	}
+//}
+//
+//void print_info(Ring r) {
+//	cout << "Area of ring =" <<r.square()<<endl;
+//	cout << "Enter the degree measure to calculate the circular segment"<<endl;
+//	double angle;
+//	cin >> angle;
+//	cout << "Area of circular segment =" << r.sector(angle) << endl;
+//};

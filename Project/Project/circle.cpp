@@ -124,7 +124,7 @@ pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
 }
 
 /*если точек пересечения нет или бесконечно много возвращаем две точки с 
-коорд-ми INT_MAX, если точка одна - вернем две одиниаковые точки*/
+коорд-ми INT_MAX, если точка одна - вернем две одинаковые точки*/
 pair<Point, Point> intersection(const Circle& c1, const Circle& c2) {
 	/*проверим необходимое и достаточное условие пересечения окр-тей
 	если окружности имеют общий центр - */
@@ -178,22 +178,16 @@ pair<Point, Point> intersection(const Line& l1, const Circle& c){
 	return res;
 }
 
-void Circle::print_circle_info() {
-	double x1, y1, rad;
-	cout << "Enter the center and radius of the circle" << endl;
-	cin >> x1 >> y1 >> rad;
-	Point p(x1, y1);
-	Circle c(p, rad);
-	cout << "Circle equation" << endl;
+istream& operator>>(istream& in, Circle& c){
+	double x, y, r;
+	in >> x >> y>>r;
+	Point p(x, y);
+	c.set_center(p);
+	c.set_rad(r);
+	return in;
+}
+
+ostream& operator<<(ostream& out, Circle c){
 	c.print_eq();
-	cout << "Length of the circle ";
-	cout << c.length() << endl;
-	cout << "Enter coordinates of point" << endl;
-	cin >> x1 >> y1;
-	Point p1(x1, y1);
-	double dist = distance(c, p1);
-	if (dist > c.get_rad()) cout << "Distance from this point to the circle = " << dist - c.get_rad() << endl;
-	else if (dist == c.get_rad()) cout << "Point lies on a circle" << endl;
-	else if (dist != 0) cout << "Point lies inside a circle" << endl;
-	else cout << "Point is a center of circle" << endl;
+	return out;
 }

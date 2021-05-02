@@ -27,6 +27,10 @@ public:
 	double get_B() const;
 	double get_C() const;
 
+	/*Перегрузка операторов*/
+	friend istream& operator>>(istream& in, Circle& c);
+	friend ostream& operator<<(ostream& out, Circle c);
+
 	/*Печать ур-ния в стандартном виде*/
 	void print_eq();
 	/*Нахождение длины окружности*/
@@ -48,6 +52,4 @@ public:
 	Возвращает пару точек пересечения, если точка одна - то возвращает две одинаковые.
 	Если точек пресечения 0 возвращает точки INT_MAX*/
 	friend pair<Point, Point> intersection(const Line&, const Circle&);
-	/*Печать информации об окружности*/
-	static void print_circle_info();
 };
