@@ -127,15 +127,16 @@ int menu() {
 
 int polygon_menu() {
 	setlocale(LC_ALL, "");
-	string* A = new string[3];
+	string* A = new string[4];
 	A[0] = "Add new polygon";
 	A[1] = "Print info about polygon";
 	A[2] = "Shift polygon by vector";
+	A[3] = "Draw polygon";
 
 	vector<polygon::Polygon> polygons;
 
 	while (true) {
-		int key = print_menu(A, 3);
+		int key = print_menu(A, 4);
 		switch (key) {
 		case 1: {
 			polygon::Polygon p;
@@ -144,7 +145,7 @@ int polygon_menu() {
 			break;
 		}
 		case 2: {
-			int n;
+			int n = -1;
 			cin >> n;
 			while (n < 0 || n >= polygons.size()) {
 				cout << "Enter num from 0 to " << polygons.size() - 1;
@@ -154,8 +155,7 @@ int polygon_menu() {
 			break;
 		}
 		case 3: {
-			int n;
-			cin >> n;
+			int n = -1;
 			while (n < 0 || n >= polygons.size()) {
 				cout << "Enter num from 0 to " << polygons.size()-1;
 				cin >> n;
@@ -164,6 +164,14 @@ int polygon_menu() {
 			cin >> v;
 			polygons[n] + v;
 			break;
+		}
+		case 4: {
+			int n = -1;
+			while (n < 0 || n >= polygons.size()) {
+				cout << "Enter num from 0 to " << polygons.size() - 1;
+				cin >> n;
+			}
+			polygons[n].draw();
 		}
 		default: break;
 		}

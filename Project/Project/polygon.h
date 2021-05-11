@@ -24,6 +24,8 @@ namespace polygon{
 	public:
 		Polygon(const vector<Point>& vertexes = {});
 
+		void draw();
+
 		//установление вершин, самопересекающийся многоугольник считаем невалидным
 		void set_vertexes(vector<Point>);
 

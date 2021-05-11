@@ -1,6 +1,7 @@
 #include "polygon.h"
 #include "Line.h"
 #include "Point.h"
+#include "glut.h"
 
 namespace polygon {
 	Polygon::Polygon(const vector<Point>& vertexes)
@@ -184,4 +185,15 @@ namespace polygon {
 		top.pop_back();
 		return top;
 	}*/
+	void Polygon::draw() {
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glColor3d(255, 0, 0);
+		glBegin(GL_POLYGON);
+		for (int i = 0; i < this->get_dim(); i++) {
+			glVertex2d(get_vertex(i).get_x(), get_vertex(i).get_y());
+		}
+		glEnd();
+	}
 }
+

@@ -1,7 +1,10 @@
+#include <iostream>
+#include "glut.h"
 #include "menu.h"
-#include "glut-3.7.6-bin\\glut.h"
 
-int main() {
+using namespace std;
+
+int main(int argc, char* argv[]) {
 	menu();
 	return 0;
 }
