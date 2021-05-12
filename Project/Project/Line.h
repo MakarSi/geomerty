@@ -33,6 +33,8 @@ public:
 	friend bool if_parallel(const Line& l1, const Line& l2);
 	//≈сли пр€ма€ лежит в отрицательной полуплоскости, то функци€ возвращает -1, если лежит на пр€мой - 0, в положительной полуплоскости - 1.
 	friend int point_in_halfplane(const Point&, const Line&);
+	//ѕр€ма€ параллельна€ данной пр€мой, проход€ща€ через данную точку
+	friend Line parallel_line_through_point(const Line&, const Point&);
 
 	//ѕечатает уравнение пр€мой
 	void print_equation();
