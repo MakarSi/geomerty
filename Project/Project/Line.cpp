@@ -186,6 +186,12 @@ int point_in_halfplane(const Point& p, const Line& l)
 	if (sign == 0) return 0;
 }
 
+Line parallel_line_through_point(const Line& l, const Point& p)
+{
+	int c = -(l.get_a() * p.get_x() + l.get_b() * p.get_y());
+	return Line(l.get_a(), l.get_b(), c);
+}
+
 void Line::print_all_info() const
 {
 	cout << "Input the coefficients of the line" << endl;
