@@ -14,6 +14,7 @@ public:
 	Point midpoint(Segment const& a);
 	//проверяем пересекаются ли два отрезка
 	friend bool intersection(const Segment&, const Segment&);
+	virtual void draw();
 private:
 	Point _v1, _v2;
 };

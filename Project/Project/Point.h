@@ -26,7 +26,7 @@ public:
 	Point operator- (const Point&); //Перегрузка оператора вычитания
 	friend istream& operator>> (istream&, Point&); //Ввод точки
 	friend ostream& operator<< (ostream&, const Point&); //Печатает точку
-
+	virtual void draw();
 protected:
 	double _x, _y;
 };

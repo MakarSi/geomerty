@@ -43,3 +43,11 @@ bool intersection(const Segment& a, const Segment& b) {
 		return true;
 	else return false;
 }
+
+void Segment::draw() {
+	glColor3d(color.R, color.G, color.B);
+	glBegin(GL_LINES);
+	glVertex2d(_v1.get_x(), _v1.get_y());
+	glVertex2d(_v2.get_x(), _v2.get_y());
+	glEnd();
+}

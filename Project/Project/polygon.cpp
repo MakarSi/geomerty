@@ -186,13 +186,10 @@ namespace polygon {
 		return top;
 	}*/
 	void Polygon::draw() {
-		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glColor3d(255, 0, 0);
+		glColor3d(color.R, color.G, color.B);
 		glBegin(GL_POLYGON);
-		for (int i = 0; i < this->get_dim(); i++) {
+		for (int i = 0; i < this->get_dim(); i++)
 			glVertex2d(get_vertex(i).get_x(), get_vertex(i).get_y());
-		}
 		glEnd();
 	}
 }

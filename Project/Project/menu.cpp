@@ -60,7 +60,7 @@ int print_menu(string* a, int N) {
 
 int menu() {
 	setlocale(LC_ALL, "");
-	string* A = new string[8];
+	string* A = new string[9];
 	A[0] = "Действия с прямыми";
 	A[1] = "Действия с лучом";
 	A[2] = "Действия с треугольником";
@@ -69,8 +69,9 @@ int menu() {
 	A[5] = "Действия с многоугольником";
 	A[6] = "Действия с четырехугольником";
 	A[7] = "Действия с векторами";
+	A[8] = "Выйти из меню в glut";
 	while (true) {
-		int key = print_menu(A, 8);
+		int key = print_menu(A, 9);
 		switch (key) {
 		case 1: {
 			Line l;
@@ -119,6 +120,9 @@ int menu() {
 			Vector v1(p1, p2);
 			v1.print_all_info();
 			break;
+		}
+		case 9: {
+			return 0;
 		}
 		default: break;
 		}

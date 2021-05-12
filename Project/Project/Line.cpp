@@ -220,3 +220,11 @@ void Line::print_all_info() const
 	else cout << "Here's the intersection point of this two lines: " << intersection_point(l1, l2) << endl;
 	cout << "The angle between these two line is: " << angle_between_lines(l1, l2) << endl;
 }
+
+void Line::draw() {
+	glColor3d(color.R, color.G, color.B);
+	glBegin(GL_LINES);
+	glVertex2d(_p1.get_x(), _p1.get_y());
+	glVertex2d(_p2.get_x(), _p2.get_y());
+	glEnd();
+}

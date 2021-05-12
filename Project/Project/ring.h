@@ -3,7 +3,7 @@
 #include <iostream>
 #include <math.h>
 
-class Ring: public Object {
+class Ring{
 public:
 	/*Конструктор по точке центра и радиусу*/
 	Ring(Point center = 0, double _rad = 1);

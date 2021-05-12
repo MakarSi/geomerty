@@ -1,4 +1,5 @@
 #include "Point.h"
+#include "glut.h"
 #include <sstream>
 #include <iostream>
 #include <cmath>
@@ -86,4 +87,13 @@ Point Point::operator-(const Point& p)
 	c._x = this->_x - p._x;
 	c._y = this->_y - p._y;
 	return c;
+}
+
+void Point::draw() {
+	glPointSize(3);
+	glColor3d(color.R, color.G, color.B);
+	glEnable(GL_POINT_SMOOTH);
+	glBegin(GL_POINTS);
+		glVertex2d(_x, _y);
+	glEnd();
 }

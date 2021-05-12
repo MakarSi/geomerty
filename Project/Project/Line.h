@@ -38,7 +38,7 @@ public:
 	void print_equation();
 	//Печатает инфомацию о работе с прямыми
 	void print_all_info() const;
-
+	virtual void draw();
 private:
 	Point _p1, _p2;
 	double _a, _b, _c;
