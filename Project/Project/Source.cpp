@@ -22,10 +22,10 @@ void Reshape(GLint w, GLint h)
 {
 	Width = w;
 	Height = h;
-	glViewport(0, 0, w, h);
+	//glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, w, 0, h, -1.0, 1.0);
+	gluOrtho2D(-Width / 2, Width / 2, -Height / 2, Height / 2);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -35,15 +35,17 @@ void dummy_test() {
 	vector<Point> v = { p1, p2, p3, p4 };
 	Point* p = new Point(800, 800);
 	polygon::Polygon* poly = new polygon::Polygon(v);
-	p1 = { 800, 100 }; p2 = { 1100, 100 };
-	Line* l = new Line(p1, p2);	
-	p1 = {1200, 200}; p2 = {1400, 500};
+	p1 = { 1000, 0 }; p2 = { -1000, 0 };
+	Line* l1 = new Line(p1, p2);	
+	p1 = {0, -600}; p2 = {0, 600};
+	Line* l2 = new Line(p1, p2);
 	Segment* s = new Segment(p1, p2);
 	p3 = { 500, 400 };
 	Circle* c = new Circle(p3, 25);
 	objects.push_back(poly);
 	objects.push_back(p);
-	objects.push_back(l);
+	objects.push_back(l1);
+	objects.push_back(l2);
 	objects.push_back(s);
 	objects.push_back(c);
 }
