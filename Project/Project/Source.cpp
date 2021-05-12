@@ -3,10 +3,10 @@
 #include "menu.h"
 #include <deque>
 
-deque<Object*> objects;
-GLint Width = 1920, Height = 1080;
-
 using namespace std;
+
+GLint Width = 1920, Height = 1080;
+deque<Object*> objects;
 
 void Display(void)
 {
@@ -31,9 +31,9 @@ void Reshape(GLint w, GLint h)
 }
 
 void dummy_test() {
-	Point p1(100, 100), p2(300, 400), p3(200, 500), p4(100, 500);
+	Point p1(-100, -100), p2(200, -100), p3(200, 200), p4(-100, 200);
 	vector<Point> v = { p1, p2, p3, p4 };
-	Point* p = new Point(800, 800);
+	Point* p = new Point(-400, -400);
 	polygon::Polygon* poly = new polygon::Polygon(v);
 	p1 = { 1000, 0 }; p2 = { -1000, 0 };
 	Line* l1 = new Line(p1, p2);	
@@ -51,8 +51,9 @@ void dummy_test() {
 }
 
 int main(int argc, char* argv[]) {
-	menu();
-	dummy_test();
+	deque<Object*>* ptr = &objects;
+	menu(ptr);
+	//dummy_test();
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);

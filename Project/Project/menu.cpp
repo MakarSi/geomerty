@@ -16,7 +16,7 @@
 #include "menu.h"
 
 using namespace std;
-
+vector<polygon::Polygon> polygons;
 int print_menu(string* a, int N) {
 	int key = 0, move;
 	while (true) {
@@ -58,7 +58,7 @@ int print_menu(string* a, int N) {
 	return key;
 }
 
-int menu() {
+int menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[9];
 	A[0] = "Действия с прямыми";
@@ -107,7 +107,7 @@ int menu() {
 			break;
 		}
 		case 6: {
-			polygon_menu();
+			polygon_menu(ptr);
 		}
 		case 7:
 			break;
@@ -129,53 +129,45 @@ int menu() {
 	}
 }
 
-int polygon_menu() {
+int polygon_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[4];
 	A[0] = "Add new polygon";
 	A[1] = "Print info about polygon";
 	A[2] = "Shift polygon by vector";
-	A[3] = "Draw polygon";
-
-	vector<polygon::Polygon> polygons;
+	A[3] = "Go back";
 
 	while (true) {
 		int key = print_menu(A, 4);
 		switch (key) {
 		case 1: {
-			polygon::Polygon p;
-			input_polygon(p);
-			polygons.push_back(p);
+			polygon::Polygon* p = new polygon::Polygon;
+			input_polygon(*p);
+			(*ptr).push_back(p);
 			break;
 		}
 		case 2: {
-			int n = -1;
-			cin >> n;
-			while (n < 0 || n >= polygons.size()) {
-				cout << "Enter num from 0 to " << polygons.size() - 1;
+			/*int n = -1;
+			while (n < 0 || n >= (*ptr).size()) {
+				cout << "Enter num from 0 to " << (*ptr).size() - 1;
 				cin >> n;
 			}
-			print_info(polygons[n], cout);
+			print_info(static_cast<polygon::Polygon>((*ptr)[n]), cout);*/
 			break;
 		}
 		case 3: {
-			int n = -1;
+			/*int n = -1;
 			while (n < 0 || n >= polygons.size()) {
 				cout << "Enter num from 0 to " << polygons.size()-1;
 				cin >> n;
 			}
 			Vector v;
 			cin >> v;
-			polygons[n] + v;
+			polygons[n] = polygons[n] + v;*/
 			break;
 		}
 		case 4: {
-			int n = -1;
-			while (n < 0 || n >= polygons.size()) {
-				cout << "Enter num from 0 to " << polygons.size() - 1;
-				cin >> n;
-			}
-			polygons[n].draw();
+			return 0;
 		}
 		default: break;
 		}

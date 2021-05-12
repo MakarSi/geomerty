@@ -2,13 +2,13 @@
 #include <string>
 #include "polygon.h"
 #include "circle.h"
-
+#include <deque>
 using namespace std;
 
 int print_menu(string*, int);
-int polygon_menu();
-int menu();
+int menu(deque<Object*>*);
 
+int polygon_menu(deque<Object*>*);
 void print_info(const polygon::Polygon&, ostream&);
 void print_coords(const polygon::Polygon&, ostream&);
 void input_polygon(polygon::Polygon&);
