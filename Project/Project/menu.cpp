@@ -16,7 +16,7 @@
 #include "menu.h"
 
 using namespace std;
-vector<polygon::Polygon> polygons;
+
 int print_menu(string* a, int N) {
 	int key = 0, move;
 	while (true) {
@@ -99,7 +99,7 @@ int menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 4: {
-			circle_menu();
+			circle_menu(ptr);
 			break;
 		}
 		case 5: {
@@ -137,6 +137,7 @@ int polygon_menu(deque<Object*>* ptr) {
 	A[2] = "Shift polygon by vector";
 	A[3] = "Go back";
 
+	vector<polygon::Polygon> polygons;
 	while (true) {
 		int key = print_menu(A, 4);
 		switch (key) {
@@ -144,26 +145,27 @@ int polygon_menu(deque<Object*>* ptr) {
 			polygon::Polygon* p = new polygon::Polygon;
 			input_polygon(*p);
 			(*ptr).push_back(p);
+			polygons.push_back(*p);
 			break;
 		}
 		case 2: {
-			/*int n = -1;
-			while (n < 0 || n >= (*ptr).size()) {
-				cout << "Enter num from 0 to " << (*ptr).size() - 1;
+			int n = -1;
+			while (n < 0 || n >= polygons.size()) {
+				cout << "Enter num from 0 to " << polygons.size() - 1;
 				cin >> n;
 			}
-			print_info(static_cast<polygon::Polygon>((*ptr)[n]), cout);*/
+			print_info(polygons[n], cout);
 			break;
 		}
 		case 3: {
-			/*int n = -1;
+			int n = -1;
 			while (n < 0 || n >= polygons.size()) {
 				cout << "Enter num from 0 to " << polygons.size()-1;
 				cin >> n;
 			}
 			Vector v;
 			cin >> v;
-			polygons[n] = polygons[n] + v;*/
+			polygons[n] = polygons[n] + v;
 			break;
 		}
 		case 4: {
@@ -201,23 +203,24 @@ void print_info(const polygon::Polygon& p, ostream& out){
 	out << "Perimeter: " << p.get_perimeter() << endl;
 }
 
-int circle_menu() {
+int circle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[4];
+	string* A = new string[5];
 	A[0] = "Add new circle";
 	A[1] = "Print info about circle";
 	A[2] = "Shift circle by vector";
 	A[3] = "Finding tangents to a circle";
-
+	A[4] = "Go back";
 	vector<Circle> circles;
 
 	while (true) {
-		int key = print_menu(A, 4);
+		int key = print_menu(A, 5);
 		switch (key) {
 		case 1: {
-			Circle c;
-			input_circle(c);
-			circles.push_back(c);
+			Circle* c = new Circle;
+			input_circle(*c);
+			(*ptr).push_back(c);
+			circles.push_back(*c);
 			break;
 		}
 		case 2: {
@@ -255,6 +258,9 @@ int circle_menu() {
 				*/
 			}
 			break;
+		}
+		case 5: {
+			return 0;
 		}
 		default: break;
 		}

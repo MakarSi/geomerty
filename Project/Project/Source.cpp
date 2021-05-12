@@ -51,8 +51,7 @@ void dummy_test() {
 }
 
 int main(int argc, char* argv[]) {
-	deque<Object*>* ptr = &objects;
-	menu(ptr);
+	menu(&objects);
 	//dummy_test();
 
 	glutInit(&argc, argv);

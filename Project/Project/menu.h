@@ -14,7 +14,7 @@ void print_coords(const polygon::Polygon&, ostream&);
 void input_polygon(polygon::Polygon&);
 
 /*Меню выбора для окружности*/
-int circle_menu();
+int circle_menu(deque<Object*>*);
 /*Добавление новой окружности
 Если радиусу присвоено значение <=0, то автоматически ему присваивается значение 1*/
 void input_circle(Circle& c);
