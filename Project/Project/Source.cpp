@@ -10,7 +10,7 @@ deque<Object*> objects;
 
 void Display(void)
 {
-	glClearColor(0, 0, 0, 1);
+	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->draw();

@@ -187,7 +187,10 @@ namespace polygon {
 	}*/
 	void Polygon::draw() {
 		glColor3d(color.R, color.G, color.B);
-		glBegin(GL_POLYGON);
+		if (is_field)
+			glBegin(GL_POLYGON);
+		else 
+			glBegin(GL_LINE_LOOP);
 		for (int i = 0; i < this->get_dim(); i++)
 			glVertex2d(get_vertex(i).get_x(), get_vertex(i).get_y());
 		glEnd();

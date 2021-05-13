@@ -4,12 +4,13 @@
 
 struct color { 
 	double R, G, B; 
-	color() { R = 1; G = 1, B = 1; }
+	color() { R = 0; G = 0, B = 0; }
 };
 
 class Object
 {
 public:
 	color color;
+	bool is_field = false;
 	virtual void draw() = 0;
 };

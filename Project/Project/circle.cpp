@@ -201,7 +201,10 @@ Circle Circle::operator+ (const Vector& v) {
 void Circle::draw() {
 	glColor3d(color.R, color.G, color.B);
 	int N = 160;
-	glBegin(GL_TRIANGLE_FAN);
+	if (is_field)
+		glBegin(GL_TRIANGLE_FAN);
+	else
+		glBegin(GL_LINE_LOOP);
 	for (int i = 1; i <= N + 2; i++) {
 		glVertex2f(_center.get_x() + _rad * cos(2 * 3.14 / N * i), _center.get_y() + _rad * sin(2 * 3.14 / N * i));
 	}
