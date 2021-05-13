@@ -173,7 +173,7 @@ ostream& operator<<(ostream& out, const Line& l)
 Line Line::operator+ (const Vector& v) {
 	Point new_p1 = _p1 + v;
 	Point new_p2 = _p2 + v;
-	Line l = { new_p1, new_p2 };
+	Line l(new_p1, new_p2);
 	return l;
 }
 

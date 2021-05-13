@@ -192,6 +192,12 @@ ostream& operator<<(ostream& out, Circle c){
 	return out;
 }
 
+Circle Circle::operator+ (const Vector& v) {
+	Point center = _center + v;
+	Circle res(center, _rad);
+	return res;
+}
+
 void Circle::draw() {
 	glColor3d(color.R, color.G, color.B);
 	int N = 160;

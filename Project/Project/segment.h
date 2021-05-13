@@ -1,5 +1,6 @@
 #pragma once
 #include "Point.h"
+#include "vector.h"
 
 class Segment: public Object
 {
@@ -9,6 +10,8 @@ public:
 	Point get_v1()const;
 	Point get_v2()const;
 	Segment(Point v1 = (0, 0), Point v2 = (0, 0));
+	
+	Segment operator+ (const Vector&);
 
 	/*Ќахождение координаты середины отрезка*/
 	Point midpoint(Segment const& a);

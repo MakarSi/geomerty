@@ -31,7 +31,8 @@ public:
 	/*Перегрузка операторов*/
 	friend istream& operator>>(istream& in, Circle& c);
 	friend ostream& operator<<(ostream& out, Circle c);
-
+	Circle operator+ (const Vector&);
+	
 	/*Печать ур-ния в стандартном виде*/
 	void print_eq();
 	/*Нахождение длины окружности*/

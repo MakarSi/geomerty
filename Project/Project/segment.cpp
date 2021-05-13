@@ -23,6 +23,12 @@ Point Segment::get_v2()const {
 	return _v2;
 }
 
+Segment Segment::operator+ (const Vector& v) {
+	Point v1 = _v1 + v, v2 = _v2 + v;
+	Segment res(v1, v2);
+	return res;
+}
+
 Point Segment::midpoint(Segment const& a) {
 	Point p1, p2;
 	p1 = a.get_v1();
