@@ -41,11 +41,14 @@ Point Segment::midpoint(Segment const& a) {
 
 bool intersection(const Segment& a, const Segment& b) {
 	/*проверяем необходимое и достаточное условие персечения двух отрезков
-	(две точки второго из них лежат по разные стороны от прямой на которой лежит первый)*/
-	Line line = { a.get_v1(), a.get_v2() };
-	int f = point_in_halfplane(b.get_v1(), line);
-	int g = point_in_halfplane(b.get_v2(), line);
-	if (f != g && f != 0)
+	(две точки каждого из них лежат по разные стороны от прямой на которой лежит другой)*/
+	Line line1(a.get_v1(), a.get_v2());
+	Line line2(b.get_v1(), b.get_v2());
+	int f1 = point_in_halfplane(b.get_v1(), line1);
+	int g1 = point_in_halfplane(b.get_v2(), line1);
+	int f2 = point_in_halfplane(a.get_v1(), line2);
+	int g2 = point_in_halfplane(a.get_v2(), line2);
+	if (f1 != g1 && f2 != g2 && f1 != 0 && f2 != 0)
 		return true;
 	else return false;
 }
