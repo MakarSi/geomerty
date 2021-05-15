@@ -46,25 +46,20 @@ void Display(void)
 
 void net_drawing()
 {
-	Point p1, p2;
-	Line l1;
+	Line l;
 	for (int i = -1000; i <= 1000; i += 50)
 	{
 		glLineWidth(1);
-		p1 = { 1000, double(i) }, p2 = { -1000,  double(i) };
-		l1 = Line(p1, p2);
-		l1.draw();
-		p1 = { double(i), 1000 }, p2 = { double(i), -1000 };
-		l1 = Line(p1, p2);
-		l1.draw();
+		l = Line(Point(1000, double(i)), Point(-1000, double(i)));
+		l.draw();
+		l = Line(Point(double(i), 1000), Point(double(i), -1000));
+		l.draw();
 	}
-	glLineWidth(2);
-	p1 = { 1000, 0 }, p2 = { -1000, 0 };
-	l1 = Line(p1, p2);
-	l1.draw();
-	p1 = { 0, 1000 }, p2 = { 0, -1000 };
-	l1 = Line(p1, p2);
-	l1.draw();
+	glLineWidth(2);;
+	l = Line(Point(1000, 0), Point(-1000, 0));
+	l.draw();
+	l = Line(Point(0, 1000), Point(0, -1000));
+	l.draw();
 	glLineWidth(1.5);
 }
 
@@ -92,26 +87,33 @@ void mouseButton(int button, int state, int x, int y) {
 void processNormalKeys(unsigned char key, int x, int y) {
 	//клавиша а/ф - создать прямую, треугольник, многоугольник
 	if (key == 97 || key == 65 || key == 212 || key == 244) {
-		if (points_buff.size() >= 4) {
-			vector<Point> v;
-			for (int i = 0; i < points_buff.size(); i++)
-				v.push_back(*points_buff[i]);
-			polygon::Polygon* poly = new polygon::Polygon(v);
-			obj_buff.push_back(poly);
-			points_buff.clear();
-		}
-		if (points_buff.size() == 3) {
-			vector<Point> v;
-			for (int i = 0; i < points_buff.size(); i++)
-				v.push_back(*points_buff[i]);
-			Triangle* tr = new Triangle(v);
-			obj_buff.push_back(tr);
-			points_buff.clear();
-		}
-		if (points_buff.size() == 2) {
-			Line* l = new Line(*points_buff[0], *points_buff[1]);
-			obj_buff.push_back(l);
-			points_buff.clear();
+		switch (points_buff.size()) {
+			case 0: break;
+			case 1: break;
+			case 2: {
+				Line* l = new Line(*points_buff[0], *points_buff[1]);
+				obj_buff.push_back(l);
+				points_buff.clear();
+				break;
+			}
+			case 3: {
+				vector<Point> v;
+				for (int i = 0; i < points_buff.size(); i++)
+					v.push_back(*points_buff[i]);
+				Triangle* tr = new Triangle(v);
+				obj_buff.push_back(tr);
+				points_buff.clear();
+				break;
+			}
+			default: {
+				vector<Point> v;
+				for (int i = 0; i < points_buff.size(); i++)
+					v.push_back(*points_buff[i]);
+				polygon::Polygon* poly = new polygon::Polygon(v);
+				obj_buff.push_back(poly);
+				points_buff.clear();
+				break;
+			}
 		}
 	}
 	// клавиша с/с - создать окружность
@@ -136,6 +138,11 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			obj_buff.push_back(undo_obj_buff.back());
 			undo_obj_buff.pop_back();
 		}
+	}
+	//удалить точки с экрана alt + x
+	if (key == 88 || key == 120 || key == 215 || key == 247) {
+		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !points_buff.empty())
+			points_buff.pop_back();
 	}
 	// m/ь - выход в консольно меню
 	if (key == 77 || key == 109 || key == 220 || key == 252)
