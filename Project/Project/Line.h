@@ -36,6 +36,8 @@ public:
 	friend int point_in_halfplane(const Point&, const Line&);
 	//Прямая параллельная данной прямой, проходящая через данную точку
 	friend Line parallel_line_through_point(const Line&, const Point&);
+	//Получить y через x
+	friend double y_through_x(const Line&, const double&);
 
 	//Печатает уравнение прямой
 	void print_equation();

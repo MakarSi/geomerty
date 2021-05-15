@@ -135,6 +135,46 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			points_buff.clear();
 		}
 	}
+	// клавиша l/д - создать прямую
+	if (key == 76 || key == 108 || key == 228 || key == 196)
+	{
+		if (points_buff.size() == 2)
+		{
+			Line l = Line(*points_buff[0], *points_buff[1]);
+			Line* l1 = new Line;
+			double a = l.get_a(), b = l.get_b(), c = l.get_c();
+			if (b != 0)
+				*l1 = Line(Point(1000, y_through_x(l, 1000)), Point(-1000, y_through_x(l, -1000)));
+			else
+				*l1 = Line(Point(-c / a, 1000), Point(-c / a, -1000));
+			obj_buff.push_back(l1);
+			points_buff.clear();
+		}
+	}
+	// клавиша r/к - создать луч
+	if (key == 82 || key == 114 || key == 202 || key == 234)
+	{
+		if (points_buff.size() == 2)
+		{
+			Line l = Line(*points_buff[0], *points_buff[1]);
+			Line* l1 = new Line;
+			double a = l.get_a(), c = l.get_c();
+			Point p0 = *points_buff[0], p1 = *points_buff[1];
+			if (p0.get_x() - p1.get_x() > 0)
+				*l1 = Line(Point(-1000, y_through_x(l, -1000)), p0);
+			if (p0.get_x() - p1.get_x() < 0)
+				*l1 = Line(Point(1000, y_through_x(l, 1000)), p0);
+			if (p0.get_x() - p1.get_x() == 0)
+			{
+				if (p0.get_y() - p1.get_y() < 0)
+					*l1 = Line(Point(-c / a, 1000), p0);
+				else
+					*l1 = Line(Point(-c / a, -1000), p0);
+			}
+			obj_buff.push_back(l1);
+			points_buff.clear();
+		}
+	}
 	//удалить объект с экрана alt + z
 	if (key == 90 || key == 122 || key == 223 || key == 255) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !obj_buff.empty()) {

@@ -186,6 +186,15 @@ Line parallel_line_through_point(const Line& l, const Point& p)
 	return Line(l.get_a(), l.get_b(), c);
 }
 
+double y_through_x(const Line& l, const double& x)
+{
+	double a = l.get_a(), b = l.get_b(), c = l.get_c();
+	if (b != 0)
+		return -(a / b) * x - c / b;
+	else
+		return 1000;
+}
+
 void Line::print_all_info() const
 {
 	cout << "Input the coefficients of the line" << endl;
