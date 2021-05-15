@@ -91,6 +91,9 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			undo_obj_buff.pop_back();
 		}
 	}
+	// m/ь - выход в консольно меню
+	if (key == 77 || key == 109 || key == 220 || key == 252)
+		menu(&obj_buff);
 	//esc - выход
 	if (key == 27)
 		exit(0);
