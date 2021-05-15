@@ -7,14 +7,16 @@
 using namespace std;
 
 GLint Width = 1920, Height = 1080;
-deque<Object*> objects;
+deque<Object*> obj_buff;
+deque<Object*> undo_obj_buff;
 deque<Point*> points_buff;
+
 void Display(void)
 {
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->draw();
+	for (int i = 0; i < obj_buff.size(); i++)
+		obj_buff[i]->draw();
 	for (int i = 0; i < points_buff.size(); i++)
 		points_buff[i]->draw();
 	glFinish();
@@ -42,71 +44,61 @@ void mouseButton(int button, int state, int x, int y) {
 }
 
 void processNormalKeys(unsigned char key, int x, int y) {
-	//a or A
-	if (key == 97 || key == 65) {
+	//клавиша а/ф - создать прямую, треугольник, многоугольник
+	if (key == 97 || key == 65 || key == 212 || key == 244	) {
 		if (points_buff.size() >= 4) {
 			vector<Point> v;
 			for (int i = 0; i < points_buff.size(); i++)
 				v.push_back(*points_buff[i]);
 			polygon::Polygon* poly = new polygon::Polygon(v);
-			objects.push_back(poly);
+			obj_buff.push_back(poly);
 			points_buff.clear();
-			glutPostRedisplay();
 		}
 		if (points_buff.size() == 3) {
 			vector<Point> v;
 			for (int i = 0; i < points_buff.size(); i++)
 				v.push_back(*points_buff[i]);
 			Triangle* tr = new Triangle(v);
-			objects.push_back(tr);
+			obj_buff.push_back(tr);
 			points_buff.clear();
-			glutPostRedisplay();
 		}
 		if (points_buff.size() == 2) {
 			Line* l = new Line(*points_buff[0], *points_buff[1]);
-			objects.push_back(l);
+			obj_buff.push_back(l);
 			points_buff.clear();
-			glutPostRedisplay();
 		}
 	}
-	if (key == 67 || key == 99) {
+	// клавиша с/с - создать окружность
+	if (key == 67 || key == 99 || key == 209 || key == 241) {
 		if (points_buff.size() == 2){
 			double d = distance(*points_buff[0], *points_buff[1]);
 			Circle* c = new Circle(*points_buff[0], d);
-			objects.push_back(c);
+			obj_buff.push_back(c);
 			points_buff.clear();
-			glutPostRedisplay();
 		}
 	}
-	//esc
+	//удалить объект с экрана alt + z
+	if (key == 90 || key == 122 || key == 223 || key == 255) {
+		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !obj_buff.empty()) {
+			undo_obj_buff.push_back(obj_buff.back());
+			obj_buff.pop_back();
+		}
+	}
+	//вернуть объект на экран alt + y
+	if (key == 89 || key == 121 || key == 205 || key == 237) {
+		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !undo_obj_buff.empty()) {
+			obj_buff.push_back(undo_obj_buff.back());
+			undo_obj_buff.pop_back();
+		}
+	}
+	//esc - выход
 	if (key == 27)
 		exit(0);
-}
-
-void dummy_test() {
-	Point p1(-100, -100), p2(200, -100), p3(200, 200), p4(-100, 200);
-	vector<Point> v = { p1, p2, p3, p4 };
-	Point* p = new Point(-400, -400);
-	polygon::Polygon* poly = new polygon::Polygon(v);
-	p1 = { 1000, 0 }; p2 = { -1000, 0 };
-	Line* l1 = new Line(p1, p2);	
-	p1 = {0, -600}; p2 = {0, 600};
-	Line* l2 = new Line(p1, p2);
-	Segment* s = new Segment(p1, p2);
-	p3 = { 500, 400 };
-	Circle* c = new Circle(p3, 25);
-	objects.push_back(poly);
-	objects.push_back(p);
-	objects.push_back(l1);
-	objects.push_back(l2);
-	objects.push_back(s);
-	objects.push_back(c);
+	glutPostRedisplay();
 }
 
 int main(int argc, char* argv[]) {
-	menu(&objects);
-	//dummy_test();
-
+	menu(&obj_buff);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(Width, Height);
