@@ -2,18 +2,21 @@
 #include "glut.h"
 #include "menu.h"
 #include <deque>
+#include "triangle.h"
 
 using namespace std;
 
 GLint Width = 1920, Height = 1080;
 deque<Object*> objects;
-
+deque<Point*> points_buff;
 void Display(void)
 {
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->draw();
+	for (int i = 0; i < points_buff.size(); i++)
+		points_buff[i]->draw();
 	glFinish();
 	glutSwapBuffers();
 }
@@ -33,9 +36,51 @@ void Reshape(GLint w, GLint h)
 void mouseButton(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		Point* p = new Point(x - Width/2, Height/2 - y);
-		objects.push_back(p);
+		points_buff.push_back(p);
 		glutPostRedisplay();
 	}
+}
+
+void processNormalKeys(unsigned char key, int x, int y) {
+	//a or A
+	if (key == 97 || key == 65) {
+		if (points_buff.size() >= 4) {
+			vector<Point> v;
+			for (int i = 0; i < points_buff.size(); i++)
+				v.push_back(*points_buff[i]);
+			polygon::Polygon* poly = new polygon::Polygon(v);
+			objects.push_back(poly);
+			points_buff.clear();
+			glutPostRedisplay();
+		}
+		if (points_buff.size() == 3) {
+			vector<Point> v;
+			for (int i = 0; i < points_buff.size(); i++)
+				v.push_back(*points_buff[i]);
+			Triangle* tr = new Triangle(v);
+			objects.push_back(tr);
+			points_buff.clear();
+			glutPostRedisplay();
+		}
+		if (points_buff.size() == 2) {
+			Line* l = new Line(*points_buff[0], *points_buff[1]);
+			objects.push_back(l);
+			points_buff.clear();
+			glutPostRedisplay();
+		}
+	}
+	if (key == 67 || key == 99) {
+		if (points_buff.size() == 2){
+			double d = distance(*points_buff[0], *points_buff[1]);
+			Circle* c = new Circle(*points_buff[0], d);
+			objects.push_back(c);
+			points_buff.clear();
+			glutPostRedisplay();
+		}
+	}
+	//esc
+	if (key == 27)
+		exit(0);
 }
 
 void dummy_test() {
@@ -69,6 +114,7 @@ int main(int argc, char* argv[]) {
 	glutDisplayFunc(Display);
 	glutReshapeFunc(Reshape);
 	glutMouseFunc(mouseButton);
+	glutKeyboardFunc(processNormalKeys);
 	glutMainLoop();
 	return 0;
 }
