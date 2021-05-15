@@ -22,12 +22,20 @@ void Reshape(GLint w, GLint h)
 {
 	Width = w;
 	Height = h;
-	//glViewport(0, 0, w, h);
+	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-Width / 2, Width / 2, -Height / 2, Height / 2);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void mouseButton(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		Point* p = new Point(x - Width/2, Height/2 - y);
+		objects.push_back(p);
+		glutPostRedisplay();
+	}
 }
 
 void dummy_test() {
@@ -60,6 +68,7 @@ int main(int argc, char* argv[]) {
 	glutCreateWindow("geomerty");
 	glutDisplayFunc(Display);
 	glutReshapeFunc(Reshape);
+	glutMouseFunc(mouseButton);
 	glutMainLoop();
 	return 0;
 }
