@@ -109,8 +109,13 @@ void processNormalKeys(unsigned char key, int x, int y) {
 				vector<Point> v;
 				for (int i = 0; i < points_buff.size(); i++)
 					v.push_back(*points_buff[i]);
-				polygon::Polygon* poly = new polygon::Polygon(v);
-				obj_buff.push_back(poly);
+				try {
+					polygon::Polygon* poly = new polygon::Polygon(v);
+					obj_buff.push_back(poly);
+				}
+				catch (const char* exception) {
+						cerr << exception;
+				}
 				points_buff.clear();
 				break;
 			}

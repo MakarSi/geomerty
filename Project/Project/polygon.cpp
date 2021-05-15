@@ -19,7 +19,7 @@ namespace polygon {
 	}
 
 	void Polygon::set_vertexes(vector<Point> vertexes) {
-		if (vertexes.size() < 3 && vertexes.size() != 0)
+		if (vertexes.size() < 3)
 			throw "Not enough vertexes";
 		/*перед добавлением новой вершины проверяем, не является ли
 		многогранник самопересекающимся*/
