@@ -23,6 +23,7 @@ namespace polygon {
 			throw "Not enough vertexes";
 		/*перед добавлением новой вершины проверяем, не является ли
 		многогранник самопересекающимся*/
+		_vertexes.clear();
 		for (size_t i = 0; i < vertexes.size(); i++) {
 			for (size_t j = 1; j < i; j++) {
 				Segment a = { vertexes[j - 1], vertexes[j] };

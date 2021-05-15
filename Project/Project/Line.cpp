@@ -69,22 +69,16 @@ void Line::set_abc(double a, double b, double c)
 }
 
 void Line::set_points(const Point& p1, const Point& p2) {
-	try {
-		if (p1.get_x() == p2.get_x() && p1.get_y() == p2.get_y())
-			throw "This two points are same.";
+	if (p1.get_x() == p2.get_x() && p1.get_y() == p2.get_y()) {
+		_a = 1; _b = 0; _c = 0;
+		_p1 = { 0 , -INT_MAX }, _p2 = { 0, INT_MAX };
+	}
+	else{
 		double x1 = p1.get_x(), x2 = p2.get_x(), y1 = p1.get_y(), y2 = p2.get_y();
 		_a = y1 - y2;
 		_b = x2 - x1;
 		_c = x1 * y2 - x2 * y1;
 		_p1 = p1; _p2 = p2;
-	}
-	catch (const char* exception) {
-		cout << "Error: " << exception << endl;
-		cout << "Try again" << endl;
-		cout << "Input two points:" << endl;
-		Point p3, p4;
-		cin >> p3 >> p4;
-		set_points(p3, p4);
 	}
 }
 

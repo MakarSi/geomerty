@@ -31,7 +31,8 @@ public:
 	friend Point intersection_point(const Line& l1, const Line& l2);
 	//ѕроверка на параллельность двух пр€мых
 	friend bool if_parallel(const Line& l1, const Line& l2);
-	//≈сли пр€ма€ лежит в отрицательной полуплоскости, то функци€ возвращает -1, если лежит на пр€мой - 0, в положительной полуплоскости - 1.
+	//≈сли пр€ма€ лежит в отрицательной полуплоскости, то функци€ возвращает -1,
+	//если лежит на пр€мой - 0, в положительной полуплоскости - 1.
 	friend int point_in_halfplane(const Point&, const Line&);
 	//ѕр€ма€ параллельна€ данной пр€мой, проход€ща€ через данную точку
 	friend Line parallel_line_through_point(const Line&, const Point&);
@@ -40,6 +41,9 @@ public:
 	void print_equation();
 	//ѕечатает инфомацию о работе с пр€мыми
 	void print_all_info() const;
+	//провер€ем €вл€етс€ ли пр€ма€ неоределенной
+	//p1 = {0, -INT_MAX}, p2 = {0, INT_MAX}
+	bool is_undef()const { return (_p1 == Point(0, -INT_MAX) && _p2 == Point(-INT_MAX, 0)); };
 	virtual void draw();
 private:
 	Point _p1, _p2;

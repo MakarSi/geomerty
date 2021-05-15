@@ -61,7 +61,7 @@ void Point::print_coordinate()
 	cout << "(" << _x << "," << _y << ")";
 }
 
-bool Point::operator==(const Point& p)
+bool Point::operator==(const Point& p)const
 {
 	bool f = this->_x == p._x && this->_y == p._y;
 	return f;

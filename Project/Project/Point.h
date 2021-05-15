@@ -20,7 +20,7 @@ public:
 
 	friend double distance(const Point&, const Point&); //Расстояние между двумя точками
 
-	bool operator== (const Point&); //Перегрузка оператора равенства
+	bool operator== (const Point&)const; //Перегрузка оператора равенства
 	bool operator!= (const Point&)const; //Перегрузка оператора неравнества
 	Point operator+ (const Point&); //Перегрузка оператора сложения
 	Point operator- (const Point&); //Перегрузка оператора вычитания

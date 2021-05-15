@@ -6,7 +6,7 @@
 class Triangle : public polygon::Polygon {
 public:
 	//Конструктор по 3 точкам
-	Triangle(vector<Point> vertexes = {});
+	Triangle(vector<Point> vertexes = {Point(0, 0), Point(1, 0), Point(0, 1)});
 	~Triangle();
 
 	/*Получаем набор вершин

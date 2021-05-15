@@ -16,25 +16,16 @@ Triangle::~Triangle() {
 }
 
 void Triangle::set_vertexes(vector<Point> vertexes) {
-	try
-	{
-		if (vertexes.size() > 3 || vertexes.size() == 0)
-			throw "Try input vertexes again";
-		if (vertexes.size() == 3 && (vertexes[2].get_x() - vertexes[0].get_x()) * (vertexes[1].get_y() - vertexes[0].get_y())
-			== (vertexes[1].get_x() - vertexes[0].get_x()) * (vertexes[2].get_y() - vertexes[0].get_y()))
-			throw "Error: A degenerate triangle!";
-
-		for (size_t i = 0; i < vertexes.size(); i++)
-			_vertexes.push_back(vertexes[i]);
-
-	}
-	catch (const char* exception) {
-		cout << "Error: " << exception << endl;
-		Point p(0, 0);
-		_vertexes.push_back(p);
-		_vertexes.push_back(p);
-		_vertexes.push_back(p);
-	}
+	if (vertexes.size() != 3)
+		throw "Tiangle needs 3 vertexes";
+	Line l(vertexes[0], vertexes[1]);
+	if (l.is_undef())
+		throw "Triangle is degenerate";
+	if (point_in_halfplane(vertexes[2], l) == 0)
+		throw "Triangle is degenerate";
+	_vertexes.clear();
+	for (size_t i = 0; i < vertexes.size(); i++)
+		_vertexes.push_back(vertexes[i]);
 }
 
 bool Triangle::operator== (const Triangle& t) const {
