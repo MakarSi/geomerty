@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Ray
+class Ray : public Object
 {
 public:
 	Ray(Point p = { 0, 0 }, Vector v = {1, 0});
@@ -26,6 +26,8 @@ public:
 
 	//Печатает информацию о работе с лучами
 	void print_all_info() const;
+
+	virtual void draw();
 private:
 	Point _p; Vector _v;
 };

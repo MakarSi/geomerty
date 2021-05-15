@@ -230,10 +230,20 @@ void Line::print_all_info() const
 	cout << "The angle between these two line is: " << angle_between_lines(l1, l2) << endl;
 }
 
-void Line::draw() {
+void Line::draw() 
+{
 	glColor3d(color.R, color.G, color.B);
 	glBegin(GL_LINES);
-	glVertex2d(_p1.get_x(), _p1.get_y());
-	glVertex2d(_p2.get_x(), _p2.get_y());
+	Line l(_p1, _p2);
+	if (_b != 0)
+	{
+		glVertex2d(1000, y_through_x(l, 1000));
+		glVertex2d(-1000, y_through_x(l, -1000));
+	}
+	else
+	{
+		glVertex2d(-_c / _a, 1000);
+		glVertex2d(-_c / _a, -1000);
+	}
 	glEnd();
 }
