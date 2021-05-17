@@ -27,7 +27,7 @@ double distance(const Point& p1, const Point& p2)
 	double d2x = p2.get_x();
 	double d1y = p1.get_y();
 	double d2y = p2.get_y();
-	double d = sqrt(pow(d1x - d2x, 2) + pow(d1y - d2y, 2));
+	double d = sqrt((d1x - d2x)* (d1x - d2x) + (d1y - d2y) * (d1y - d2y));
 	return d;
 }
 

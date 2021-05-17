@@ -72,54 +72,47 @@ double distance(const Circle& c, const Point& p) {
 	return dist;
 }
 
+/*если точка не лежит на окр-ти вернем неопределенную прямую*/
 Line tangent_line(const Point& p, const Circle& c){
-	Line line;
 	double x0 = c._center.get_x();         //x координата центра окр-ти
 	double y0 = c._center.get_y();         //y координата центра окр-ти
 	double x1 = p.get_x(), y1 = p.get_y(); //x и y координаты точки 
-	double r = c._rad;
+	double r = c._rad;                     //радиус окр-ти
 	if (abs((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r) > eps)
-		return line = { INT_MAX, INT_MAX, INT_MAX };
+		return Line (INT_MAX, INT_MAX, INT_MAX);
 	double A = x1 + c._A / 2;
 	double B = y1 + c._B / 2;
 	double C = (x1 * c._A + y1 * c._B) / 2 + c._C;
-	line = { A, B, C };
-	return line;
+	return Line (A, B, C);
 }
 
+//В случае, если точка лежит внутри окружности возварщаем undef прямые
 pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
 	pair<Line, Line> lines;
-	double x0 = c._center.get_x();
-	double y0 = c._center.get_y();
-	double x1 = p.get_x(), y1 = p.get_y();
-	double r = c.get_rad();
-	if ((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r < 0) {
-		lines.first = { INT_MAX, INT_MAX, INT_MAX };
-		lines.second = { INT_MAX, INT_MAX, INT_MAX };
+	lines.first = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
+	lines.second = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
+	Point point = p;
+	Vector v1(p, c._center);
+	Vector v2(p, c._center);
+	double d = distance(c._center, p);
+	//Если оношение радиуса на раст от точки до центра больше 1, 
+	//то точка внутри окр-ти
+	double angle_sin = c.get_rad()/d;
+	if (angle_sin > 1)
 		return lines;
-	}
-	/*Прямые, которые мы возвращаем имеют вид
-	y = k1 (x-x1) + y1
-	y = k2 (x-x1) + y1*/
-	Line line1, line2;
-	double k1, k2;
-	if (abs(x0 - x1) == r) {
-		k2 = ((y1 - y0) * (y1 - y0) - r * r) / (2 * r * (y1 - y0));
-		if (x0 - x1 == r)
-			k2 = -k2;
-		lines.first = { 1, 0, -x1 };
-		lines.second = { k2, 1, y1 - k2 * x1 };
-		return lines;
-	}
+	double angle_cos = sqrt(1 - angle_sin * angle_sin);
+	
+	//Построим вектора v1 и v2 как вектор v (вектор от точки до центра окр-ти),
+	//повернутый на угол между касательными и вектором v
+	double x = v1.get_x(), y = v1.get_y();
+	v1.set_x(x * angle_cos - y * angle_sin);
+	v1.set_y(y * angle_cos + x * angle_sin);
+	lines.first = Line(p, point + v1);
 
-	k1 = (x1 - x0) * (y1 - y0) + r * sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r);
-	k1 /= (x1 - x0) * (x1 - x0) - r * r;
-
-	k2 = (x1 - x0) * (y1 - y0) - r * sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r);
-	k2 /= (x1 - x0) * (x1 - x0) - r * r;
-
-	lines.first = { -k1, 1, k1 * x1 - y1 };
-	lines.second = { -k2, 1, k2 * x1 - y1};
+	x = v2.get_x(), y = v2.get_y();
+	v2.set_x(x * angle_cos + y * angle_sin);
+	v2.set_y(y * angle_cos - x * angle_sin);
+	lines.second = Line(p, point + v2);
 	return lines;
 }
 
