@@ -45,7 +45,7 @@ public:
 	friend Line tangent_line(const Point&, const Circle&);
 	/*Ќаходит две касательные к окружности, проход€щие через точку,
 	не лежащую на окр-ти, если точка некорректна то пр€мые с коорд-ми INT_MAX*/
-	friend pair<Line, Line> tangent_lines(const Point&, const Circle&);
+	friend void tangent_lines(const Point&, const Circle&, Line&, Line&);
 	/*ѕоиск точек пересечени€ двух окружностей.
 	¬озвращает пару точек пересечени€, если точка одна - то возвращает две одинаковые.
 	≈сли точек пресечени€ 0 или беск. много возвращает точки INT_MAX*/

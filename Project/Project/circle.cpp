@@ -87,10 +87,9 @@ Line tangent_line(const Point& p, const Circle& c){
 }
 
 //В случае, если точка лежит внутри окружности возварщаем undef прямые
-pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
-	pair<Line, Line> lines;
-	lines.first = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
-	lines.second = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
+void tangent_lines(const Point& p, const Circle& c, Line& l1, Line& l2){
+	l1 = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
+	l2 = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
 	Point point = p;
 	Vector v1(p, c._center);
 	Vector v2(p, c._center);
@@ -99,7 +98,7 @@ pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
 	//то точка внутри окр-ти
 	double angle_sin = c.get_rad()/d;
 	if (angle_sin > 1)
-		return lines;
+		return;
 	double angle_cos = sqrt(1 - angle_sin * angle_sin);
 	
 	//Построим вектора v1 и v2 как вектор v (вектор от точки до центра окр-ти),
@@ -107,13 +106,13 @@ pair<Line, Line> tangent_lines(const Point& p, const Circle& c){
 	double x = v1.get_x(), y = v1.get_y();
 	v1.set_x(x * angle_cos - y * angle_sin);
 	v1.set_y(y * angle_cos + x * angle_sin);
-	lines.first = Line(p, point + v1);
+	l1 = Line(p, point + v1);
 
 	x = v2.get_x(), y = v2.get_y();
 	v2.set_x(x * angle_cos + y * angle_sin);
 	v2.set_y(y * angle_cos - x * angle_sin);
-	lines.second = Line(p, point + v2);
-	return lines;
+	l2 = Line(p, point + v2);
+	return;
 }
 
 /*если точек пересечения нет или бесконечно много возвращаем две точки с 

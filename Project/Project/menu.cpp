@@ -205,17 +205,18 @@ void print_info(const polygon::Polygon& p, ostream& out){
 
 int circle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[5];
+	string* A = new string[6];
 	A[0] = "Add new circle";
 	A[1] = "Print info about circle";
 	A[2] = "Shift circle by vector";
 	A[3] = "Finding tangents to a circle";
 	A[4] = "Finding the intersection points of two circles";
+	A[5] = "Go back";
 
 	vector<Circle> circles;
 
 	while (true) {
-		int key = print_menu(A, 5);
+		int key = print_menu(A, 6);
 		switch (key) {
 		case 1: {
 			Circle* c = new Circle;
@@ -267,20 +268,22 @@ int circle_menu(deque<Object*>* ptr) {
 				cout << "Enter the coordinates of the point through which the tangents pass" << endl;
 				Point p;
 				cin >> p;
-				Line line;
 				double ras = distance(circles[n], p);
 				if (ras < circles[n].get_rad()) cout << "The point is located inside the circle" << endl << "It's impossible to construct tangents" << endl;
 				/*Если заданная точка принадлежит окружности, то вызывается ф-ция построения касательной через точку на окружности*/
 				else if (ras == circles[n].get_rad()) {
-					line = tangent_line(p, circles[n]);
-					cout << line << endl;
+					Line* line = new Line;
+					*line = tangent_line(p, circles[n]);
+					cout << *line << endl;
+					(*ptr).push_back(line);
 				}
 				else {
 					/*Почему - то не изменяются прямые после функции*/
-					Line line1, line2;
-					pair<Line, Line>res(line1, line2);
-					res = tangent_lines(p, circles[n]);
-					cout << line1 << endl << line2 << endl;
+					Line* l1 = new Line; Line* l2 = new Line;
+					tangent_lines(p, circles[n], *l1, *l2);
+					cout << *l1 << endl << *l2 << endl;
+					(*ptr).push_back(l1);
+					(*ptr).push_back(l2);
 				}
 				break;
 			}
@@ -313,6 +316,9 @@ int circle_menu(deque<Object*>* ptr) {
 				cout << p1 << endl << p2 << endl;
 			}
 			break;
+		}
+		case 6: {
+			return 0;
 		}
 		default: break;
 		}
