@@ -5,14 +5,14 @@
 #include <math.h>
 #include "vector.h"
 #include "Ray.h"
-
+#include "segment.h"
 
 using namespace std;
 
 Ray::Ray(Point p, Vector v)
 {
 	if (v.get_x() == 0 && v.get_y() == 0)
-		throw invalid_argument("This vector cannot set the ray ");
+		throw "This vector cannot set the ray ";
 	set_point(p);
 	set_vector(v);
 }
@@ -60,38 +60,12 @@ void Ray::print_all_info() const
 }
 
 void Ray::draw()
-{
-	glColor3d(color.R, color.G, color.B);
-	glBegin(GL_LINES);
-	Point p;
-	p.set_x(_p.get_x() + _v.get_x());
-	p.set_y(_p.get_y() + _v.get_y());
-	cout << "Points" << p << " " << _p << endl;
-	Line l(_p, p);
-	double a = l.get_a(), c = l.get_c();
-	if (_v.get_x() < 0)
-	{
-		glVertex2d(-1000, y_through_x(l, -1000));
-		glVertex2d(_p.get_x(), _p.get_y());		//*l1 = Line(Point(-1000, y_through_x(l, -1000)), _p);
-	}
-	else if (_v.get_x() > 0)
-	{
-		glVertex2d(1000, y_through_x(l, 1000));//*l1 = Line(Point(1000, y_through_x(l, 1000)), _p);
-		glVertex2d(_p.get_x(), _p.get_y());
-	}
-	else
-	{
-		if (_v.get_y() < 0)
-		{
-			glVertex2d(-c / a, 1000);
-			glVertex2d(_p.get_x(), _p.get_y()); 			//l(Point(-c / a, 1000), p0);
-		}
-		else
-		{
-			glVertex2d(-c / a, -1000);
-			glVertex2d(_p.get_x(), _p.get_y());			//lLine(Point(-c / a, -1000), p0);
-		}
-	}
+{	
+	Vector v = _v;
+	v.multipl_by_num(10000);
+	Point p = _p + v;
+	Segment s(_p, p);
+	s.draw();
 }
 
 bool intersection_point_existence(const Ray& r1, const Ray& r2)

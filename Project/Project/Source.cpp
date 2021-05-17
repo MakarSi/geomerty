@@ -150,22 +150,16 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	{
 		if (points_buff.size() == 2)
 		{
-			Line l(*points_buff[0], *points_buff[1]);
-			Segment* l1 = new Segment;
-			double a = l.get_a(), c = l.get_c();
-			Point p0 = *points_buff[0], p1 = *points_buff[1];
-			if (p0.get_x() - p1.get_x() > 0)
-				*l1 = Segment(Point(-1000, y_through_x(l, -1000)), p0);
-			if (p0.get_x() - p1.get_x() < 0)
-				*l1 = Segment(Point(1000, y_through_x(l, 1000)), p0);
-			if (p0.get_x() - p1.get_x() == 0)
+			try
 			{
-				if (p0.get_y() - p1.get_y() < 0)
-					*l1 = Segment(Point(-c / a, 1000), p0);
-				else
-					*l1 = Segment(Point(-c / a, -1000), p0);
+				Vector v(*points_buff[0], *points_buff[1]);
+				Ray* r = new Ray(*points_buff[0], v);
+				obj_buff.push_back(r);
 			}
-			obj_buff.push_back(l1);
+			catch(const char* exception)
+			{
+				cerr << exception << endl;
+			}
 			points_buff.clear();
 		}
 	}
