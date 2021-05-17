@@ -129,7 +129,7 @@ namespace polygon {
 		return in;
 	}
 
-	int Polygon::rotation(Point p1, Point p2, Point p3) {
+	double Polygon::rotation(Point p1, Point p2, Point p3) {
 		Point r1 = p2 - p1;
 		Point r2 = p3 - p2;
 		double cross = r1.get_x() * r2.get_y() - r1.get_y() * r2.get_x();
@@ -155,12 +155,12 @@ namespace polygon {
 		return res;
 	}
 
-	/*vector<Point> Polygon::convex_shell(vector<Point> points) {
+	Polygon Polygon::convex_shell(vector<Point> points) {
 		//Сортировка по возрастанию
-		sort(points.begin(), points.end());
-		int n = points.size();
-		vector <Point> top = { points[0] };
-		vector <Point> bottom = { points[0] };
+		//sort(points.begin(), points.end());
+		int n = points.size();//+
+		vector <Point> top = { points[0] };//+
+		vector <Point> bottom = { points[0] };//+
 
 		for (int i = 1; i < n; i++) {
 			if (rotation(points[0], points[n - 1], points[i]) >= 0) {
@@ -174,6 +174,7 @@ namespace polygon {
 				bottom.push_back(points[i]);
 			}
 		}
+
 		while (bottom.size() > 1 && rotation(bottom[bottom.size() - 2], bottom[bottom.size() - 1], points[n - 1]) <= 0)
 			bottom.pop_back();
 
@@ -184,8 +185,15 @@ namespace polygon {
 		for (Point u : bottom)
 			top.push_back(u);
 		top.pop_back();
-		return top;
-	}*/
+
+		int r = top.size();
+		vector<Point> vertexes;
+		for (int i = 0; i < r; i++) {
+			vertexes.push_back(top[i]);
+		}
+		return vertexes;
+	}
+
 	void Polygon::draw() {
 		glColor3d(color.R, color.G, color.B);
 		if (is_field)

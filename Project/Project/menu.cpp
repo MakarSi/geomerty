@@ -210,7 +210,8 @@ int circle_menu(deque<Object*>* ptr) {
 	A[1] = "Print info about circle";
 	A[2] = "Shift circle by vector";
 	A[3] = "Finding tangents to a circle";
-	A[4] = "Go back";
+	A[4] = "Finding the intersection points of two circles";
+
 	vector<Circle> circles;
 
 	while (true) {
@@ -224,48 +225,100 @@ int circle_menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 2: {
-			int n=-1;
-			int r = circles.size();
-			while (n < 0 || n >= r) {
-				cout << "Enter num from 0 to " << r - 1 << endl;
-				cin >> n;
+			int n = -1, r = circles.size();
+			if (r > 0) {
+				while (n < 0 || n >= r) {
+					cout << "Enter number of circle from 0 to " << r - 1 << endl;
+					cin >> n;
+				}
+				print_info(circles[n], cout);
+				break;
 			}
-			print_info(circles[n], cout);
-			break;
+			else {
+				cout << "Not enough circles" << endl;
+				break;
+			}
 		}
 		case 3: {
-			/*
-			*/
-			break;
+			int n = -1, r = circles.size();
+			if (r > 0) {
+				while (n < 0 || n >= r) {
+					cout << "Enter number of circle from 0 to " << r - 1 << endl;
+					cin >> n;
+				}
+				Vector v;
+				cout << "Enter the vector" << endl;
+				cin >> v;
+				circles[n] = circles[n] + v;
+				break;
+			}
+			else {
+				cout << "Not enough circles" << endl;
+				break;
+			}
 		}
 		case 4: {
-			int n = -1;
-			int r = circles.size();
-			while (n < 0 || n >= r) {
-				cout << "Enter num from 0 to " << r - 1 << endl;
-				cin >> n;
+			int n = -1, r = circles.size();
+			if (r > 0) {
+				while (n < 0 || n >= r) {
+					cout << "Enter number of circle from 0 to " << r - 1 << endl;
+					cin >> n;
+				}
+				cout << "Enter the coordinates of the point through which the tangents pass" << endl;
+				Point p;
+				cin >> p;
+				Line line;
+				double ras = distance(circles[n], p);
+				if (ras < circles[n].get_rad()) cout << "The point is located inside the circle" << endl << "It's impossible to construct tangents" << endl;
+				/*Если заданная точка принадлежит окружности, то вызывается ф-ция построения касательной через точку на окружности*/
+				else if (ras == circles[n].get_rad()) {
+					line = tangent_line(p, circles[n]);
+					cout << line << endl;
+				}
+				else {
+					/*Почему - то не изменяются прямые после функции*/
+					Line line1, line2;
+					pair<Line, Line>res(line1, line2);
+					res = tangent_lines(p, circles[n]);
+					cout << line1 << endl << line2 << endl;
+				}
+				break;
 			}
-			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
-			Point p;
-			cin >> p;
-			Line line;
-			double ras=distance(circles[n],p);
-			if (ras < circles[n].get_rad()) cout<<"The point is located inside the circle - it's impossible to construct tangents"<<endl;
-			else if (ras == circles[n].get_rad()) {
-				line = tangent_line(p,circles[n]);
-			} else {
-				/*
-				*/
+			else {
+				cout << "Not enough circles" << endl;
+				break;
 			}
-			break;
 		}
 		case 5: {
-			return 0;
+			int n1 = -1, r = circles.size();
+			/*Проверка хватает ли количества окружностей для нахождения данной задачи*/
+			if (r < 2) {
+				cout << "Not enough circles" << endl;
+				break;
+			}
+			else {
+				while (n1 < 0 || n1 >= r) {
+					cout << "Enter number of circle from 0 to " << r - 1 << endl;
+					cin >> n1;
+				}
+				int n2 = -1;
+				while (n2 < 0 || n2 >= r || n2 == n1) {
+					cout << "Enter number of circle from 0 to " << r - 1 << endl;
+					cin >> n2;
+				}
+				Point p1, p2;
+				pair<Point, Point> res(p1, p2);
+				/*Что-то не так*/
+				res = intersection(circles[n1], circles[n2]);
+				cout << p1 << endl << p2 << endl;
+			}
+			break;
 		}
 		default: break;
 		}
 	}
 }
+
 
 void input_circle(Circle& c) {
 	cout << "Enter the center coordinates and the radius value" << endl;
