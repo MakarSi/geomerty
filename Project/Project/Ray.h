@@ -27,7 +27,7 @@ public:
 	//Печатает информацию о работе с лучами
 	void print_all_info() const;
 
-	virtual void draw();
+	virtual void draw()const;
 private:
 	Point _p; Vector _v;
 };

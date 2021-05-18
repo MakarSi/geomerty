@@ -29,12 +29,9 @@ Segment Segment::operator+ (const Vector& v) {
 	return res;
 }
 
-Point Segment::midpoint(Segment const& a) {
-	Point p1, p2;
-	p1 = a.get_v1();
-	p2 = a.get_v2();
-	double x = (p1.get_x() + p2.get_x()) / 2;
-	double y = (p1.get_y() + p2.get_y()) / 2;
+Point Segment::midpoint()const {
+	double x = (_v1.get_x() + _v2.get_x()) / 2;
+	double y = (_v1.get_y() + _v2.get_y()) / 2;
 	Point p(x, y);
 	return p;
 }
@@ -53,7 +50,7 @@ bool intersection(const Segment& a, const Segment& b) {
 	else return false;
 }
 
-void Segment::draw() {
+void Segment::draw()const {
 	glColor3d(color.R, color.G, color.B);
 	glBegin(GL_LINES);
 	glVertex2d(_v1.get_x(), _v1.get_y());

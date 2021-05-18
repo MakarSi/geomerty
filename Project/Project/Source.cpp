@@ -180,7 +180,8 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	}
 	//удалить текущий объект - клавиша delete
 	if (key == 127) {
-		obj_buff.pop_back();
+		if (!obj_buff.empty())
+			obj_buff.pop_back();
 	}
 	//удалить точки с экрана alt + x
 	if (key == 88 || key == 120 || key == 215 || key == 247) {

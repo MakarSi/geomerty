@@ -30,11 +30,11 @@ public:
 
 	/*ѕерегрузка операторов*/
 	friend istream& operator>>(istream& in, Circle& c);
-	friend ostream& operator<<(ostream& out, Circle c);
+	friend ostream& operator<<(ostream& out, const Circle& c);
 	Circle operator+ (const Vector&);
 	
 	/*ѕечать ур-ни€ в стандартном виде*/
-	void print_eq();
+	void print_eq()const;
 	/*Ќахождение длины окружности*/
 	double length()const;
 	/*Ќахождение рассто€ни€ от точки до окружности
@@ -54,5 +54,5 @@ public:
 	¬озвращает пару точек пересечени€, если точка одна - то возвращает две одинаковые.
 	≈сли точек пресечени€ 0 возвращает точки INT_MAX*/
 	friend void intersection(const Line&, const Circle&, Point&, Point&);
-	virtual void draw();
+	virtual void draw()const;
 };

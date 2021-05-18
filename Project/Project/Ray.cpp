@@ -59,7 +59,7 @@ void Ray::print_all_info() const
 	cout << "Angle between these two rays is: " << angle_between_rays(r1, r2) << endl;
 }
 
-void Ray::draw()
+void Ray::draw()const
 {	
 	Vector v = _v;
 	v.multipl_by_num(10000);

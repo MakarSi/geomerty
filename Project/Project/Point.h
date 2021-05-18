@@ -16,17 +16,17 @@ public:
 	void set_x(double);
 	void set_y(double);
 
-	void print_coordinate(); //Печатает точку
+	void print_coordinate()const; //Печатает точку
 
 	friend double distance(const Point&, const Point&); //Расстояние между двумя точками
 
 	bool operator== (const Point&)const; //Перегрузка оператора равенства
 	bool operator!= (const Point&)const; //Перегрузка оператора неравнества
-	Point operator+ (const Point&); //Перегрузка оператора сложения
-	Point operator- (const Point&); //Перегрузка оператора вычитания
+	Point operator+ (const Point&)const; //Перегрузка оператора сложения
+	Point operator- (const Point&)const; //Перегрузка оператора вычитания
 	friend istream& operator>> (istream&, Point&); //Ввод точки
 	friend ostream& operator<< (ostream&, const Point&); //Печатает точку
-	virtual void draw();
+	virtual void draw()const;
 protected:
 	double _x, _y;
 };

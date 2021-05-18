@@ -23,7 +23,7 @@ namespace polygon{
 	public:
 		Polygon(const vector<Point>& vertexes = 
 			{Point(0, 0), Point(0, 1), Point(1,1), Point(1, 0)});
-		void draw();
+		virtual void draw()const;
 
 		//установление вершин, самопересекающийся многоугольник считаем невалидным
 		void set_vertexes(vector<Point>);
@@ -39,7 +39,7 @@ namespace polygon{
 		//смещение на вектор
 		Polygon operator+ (const Vector& v);
 		//нахождение биссектрисы угла, относящегося к вершине
-		Ray bisector(Point);
+		Ray bisector(Point)const;
 
 		/*Определение ориентации треугольника*/
 		double rotation(Point p1, Point p2, Point p3);

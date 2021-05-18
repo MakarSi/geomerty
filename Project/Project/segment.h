@@ -14,10 +14,10 @@ public:
 	Segment operator+ (const Vector&);
 
 	/*Нахождение координаты середины отрезка*/
-	Point midpoint(Segment const& a);
+	Point midpoint()const;
 	//проверяем пересекаются ли два отрезка
 	friend bool intersection(const Segment&, const Segment&);
-	virtual void draw();
+	virtual void draw()const;
 private:
 	Point _v1, _v2;
 };

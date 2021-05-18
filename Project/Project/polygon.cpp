@@ -138,7 +138,7 @@ namespace polygon {
 		return 0;
 	}
 	
-	Ray Polygon::bisector(Point vertex) {
+	Ray Polygon::bisector(Point vertex)const {
 		size_t num = -1;
 		for (int i = 0; i < get_dim(); i++)
 			if (_vertexes[i] == vertex) num = i;
@@ -194,7 +194,7 @@ namespace polygon {
 		return vertexes;
 	}
 
-	void Polygon::draw() {
+	void Polygon::draw()const {
 		glColor3d(color.R, color.G, color.B);
 		if (is_field)
 			glBegin(GL_POLYGON);

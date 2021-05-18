@@ -42,13 +42,13 @@ public:
 	Line normal_line(const Point&)const;
 
 	//Печатает уравнение прямой
-	void print_equation();
+	void print_equation()const;
 	//Печатает инфомацию о работе с прямыми
-	void print_all_info() const;
+	void print_all_info()const;
 	//проверяем является ли прямая неоределенной
 	//p1 = {0, -INT_MAX}, p2 = {0, INT_MAX}
 	bool is_undef()const { return (_p1 == Point(0, -INT_MAX) && _p2 == Point(-INT_MAX, 0)); };
-	virtual void draw();
+	virtual void draw()const;
 private:
 	Point _p1, _p2;
 	double _a, _b, _c;

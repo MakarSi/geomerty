@@ -56,18 +56,18 @@ Segment middle_line(const Triangle& t, int const& k) {
 	{
 		if (k == 1)
 		{
-			k1 = s3.midpoint(s3);
-			k2 = s2.midpoint(s2);
+			k1 = s3.midpoint();
+			k2 = s2.midpoint();
 		}
 		else if (k == 2)
 		{
-			k1 = s1.midpoint(s1);
-			k2 = s3.midpoint(s3);
+			k1 = s1.midpoint();
+			k2 = s3.midpoint();
 		}
 		else if (k == 3)
 		{
-			k1 = s2.midpoint(s2);
-			k2 = s1.midpoint(s1);
+			k1 = s2.midpoint();
+			k2 = s1.midpoint();
 		}
 		return Segment(k1, k2);
 	}

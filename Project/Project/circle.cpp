@@ -48,7 +48,7 @@ double Circle::get_C() const {
 	return _C;
 }
 
-void Circle::print_eq() {
+void Circle::print_eq()const {
 	double xc = _center.get_x();
 	double yc = _center.get_y();
 	double r = _rad;
@@ -159,7 +159,7 @@ istream& operator>>(istream& in, Circle& c){
 	return in;
 }
 
-ostream& operator<<(ostream& out, Circle c){
+ostream& operator<<(ostream& out, const Circle& c){
 	c.print_eq();
 	return out;
 }
@@ -170,7 +170,7 @@ Circle Circle::operator+ (const Vector& v) {
 	return res;
 }
 
-void Circle::draw() {
+void Circle::draw()const {
 	glColor3d(color.R, color.G, color.B);
 	int N = 160;
 	if (is_field)

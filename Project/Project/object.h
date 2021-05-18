@@ -13,5 +13,5 @@ class Object
 public:
 	color color;
 	bool is_field = false;
-	virtual void draw() = 0;
+	virtual void draw()const = 0;
 };

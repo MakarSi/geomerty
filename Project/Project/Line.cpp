@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void Line::print_equation()
+void Line::print_equation()const
 {
 	double a = _a, b = _b, c = _c;
 	if (a > 0) cout << a << "x ";
@@ -235,7 +235,7 @@ Line Line::normal_line(const Point& p)const {
 	return l;
 }
 
-void Line::draw() 
+void Line::draw()const 
 {
 	glColor3d(color.R, color.G, color.B);
 	glBegin(GL_LINES);

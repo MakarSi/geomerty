@@ -56,7 +56,7 @@ void Point::set_y(double y)
 	_y = y;
 }
 
-void Point::print_coordinate()
+void Point::print_coordinate()const
 {
 	cout << "(" << _x << "," << _y << ")";
 }
@@ -73,7 +73,7 @@ bool Point::operator!=(const Point& p)const
 	return f;
 }
 
-Point Point::operator+(const Point& p)
+Point Point::operator+(const Point& p)const
 {
 	Point c;
 	c._x = this->_x + p._x;
@@ -81,7 +81,7 @@ Point Point::operator+(const Point& p)
 	return c;
 }
 
-Point Point::operator-(const Point& p)
+Point Point::operator-(const Point& p)const
 {
 	Point c;
 	c._x = this->_x - p._x;
@@ -89,7 +89,7 @@ Point Point::operator-(const Point& p)
 	return c;
 }
 
-void Point::draw() {
+void Point::draw()const {
 	glPointSize(3);
 	glColor3d(color.R, color.G, color.B);
 	glEnable(GL_POINT_SMOOTH);
