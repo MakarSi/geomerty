@@ -9,6 +9,7 @@ using namespace std;
 GLint Width = 1920, Height = 1080;
 deque<Object*> obj_buff;
 deque<Object*> undo_obj_buff;
+
 deque<Point*> points_buff;
 
 void Display(void);
@@ -163,7 +164,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			points_buff.clear();
 		}
 	}
-	//удалить объект с экрана alt + z
+	//убрать объект с экрана alt + z
 	if (key == 90 || key == 122 || key == 223 || key == 255) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !obj_buff.empty()) {
 			undo_obj_buff.push_back(obj_buff.back());
@@ -176,6 +177,10 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			obj_buff.push_back(undo_obj_buff.back());
 			undo_obj_buff.pop_back();
 		}
+	}
+	//удалить текущий объект - клавиша delete
+	if (key == 127) {
+		obj_buff.pop_back();
 	}
 	//удалить точки с экрана alt + x
 	if (key == 88 || key == 120 || key == 215 || key == 247) {
