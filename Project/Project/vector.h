@@ -26,5 +26,6 @@ public:
 	double vector_product(const Vector&); 
 	//Нормирование вектора
 	void normalize();
+	Vector normal_vec();
 	void print_all_info();
 };

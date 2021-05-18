@@ -40,6 +40,10 @@ void Vector::normalize() {
 	_y /= length();
 }
 
+Vector Vector::normal_vec() {
+	return Vector(-_y, _x);
+}
+
 void Vector::print_all_info() {
 	cout << "Given a vector with corodnites: (";
 	cout << this->_x << ", " << this->_y << ')' << endl;

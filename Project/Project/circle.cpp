@@ -79,11 +79,11 @@ Line tangent_line(const Point& p, const Circle& c){
 	double x1 = p.get_x(), y1 = p.get_y(); //x и y координаты точки 
 	double r = c._rad;                     //радиус окр-ти
 	if (abs((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r) > eps)
-		return Line (INT_MAX, INT_MAX, INT_MAX);
+		return Line(INT_MAX, INT_MAX, INT_MAX);
 	double A = x1 + c._A / 2;
 	double B = y1 + c._B / 2;
 	double C = (x1 * c._A + y1 * c._B) / 2 + c._C;
-	return Line (A, B, C);
+	return Line(A, B, C);
 }
 
 //В случае, если точка лежит внутри окружности возварщаем undef прямые
@@ -117,57 +117,37 @@ void tangent_lines(const Point& p, const Circle& c, Line& l1, Line& l2){
 
 /*если точек пересечения нет или бесконечно много возвращаем две точки с 
 коорд-ми INT_MAX, если точка одна - вернем две одинаковые точки*/
-pair<Point, Point> intersection(const Circle& c1, const Circle& c2) {
+void intersection(const Circle& c1, const Circle& c2, Point& p1, Point& p2) {
 	/*проверим необходимое и достаточное условие пересечения окр-тей
 	если окружности имеют общий центр - */
-	if (distance(c1._center, c2._center) < abs(c2._rad - c1._rad)
-		|| distance(c1._center, c2._center) > c2._rad + c1._rad 
-		|| distance(c1._center, c2._center) == 0) {
-		Point p1 = {INT_MAX, INT_MAX }, p2 = p1;
-		pair<Point, Point> res = { p1, p2 };
-		return res;
+	if (distance(c1.get_center(), c2.get_center()) < abs(c2.get_rad() - c1.get_rad())
+		|| distance(c1.get_center(), c2.get_center()) > c2.get_rad() + c1.get_rad()
+		|| distance(c1.get_center(), c2.get_center()) == 0) {
+		p1 = {INT_MAX, INT_MAX }, p2 = p1;
+		return;
 	}
-	
 	//получим прямую, которая проходит через точки персечения окр-тей
-	double A = c1._A - c2._A;
-	double B = c1._B - c2._B;
-	double C = c1._C - c2._C;
+	double A = c1.get_A() - c2.get_A();
+	double B = c1.get_B() - c2.get_B();
+	double C = c1.get_C() - c2.get_C();
 	Line line = {A, B, C};
-	return intersection(line, c1);
+	
+	intersection(line, c1, p1, p2);
 }
 
-pair<Point, Point> intersection(const Line& l1, const Circle& c){
-	Vector v { -c._center.get_x(), -c._center.get_y() };
-	Line l = l1;
-	l = l + v;
-	double A = l.get_a();
-	double B = l.get_b();
-	double C = l.get_c();
-	double r = c._rad;
-	double x0 = -A * C / (A * A + B * B), y0 = -B * C / (A * A + B * B);
-	Point p1, p2;
-
-	if (C * C > r * r * (A * A + B * B) + eps) {
-		p1 = { INT_MAX, INT_MAX }, p2 = p1;
-		pair<Point, Point> res = { p1, p2 };
-		return res;
-	}
-
-	else if (abs(C * C - r * r * (A * A + B * B)) < eps) {
-		p1 = { x0, y0}, p2 = p1;
-		pair<Point, Point> res = { p1, p2 };
-		return res;
-	}
-	double d = r * r - C * C / (A * A + B * B);
-	double mult = sqrt(d / (A * A + B * B));
-	double ax, ay, bx, by;
-	ax = x0 + B * mult;
-	bx = x0 - B * mult;
-	ay = y0 - A * mult;
-	by = y0 + A* mult;
-	p1 = { ax, ay }, p2 = { bx, by };
-	pair<Point, Point> res = { p1, p2 };
-	return res;
+void intersection(const Line& l1, const Circle& c, Point& p1, Point& p2){
+	//опустим перпендикуляр из центра окр-ти на прямую
+	Point p = intersection_point(l1, l1.normal_line(c.get_center()));
+	//найдем вектор, параллельный прямой l1, сделаем его длину равной 
+	//растоянию от p до искрмых точек
+	Vector v(c.get_center(), p);
+	double d = sqrt(c.get_rad() * c.get_rad() - v.length()*v.length());
+	v = v.normal_vec();
+	v.multipl_by_num(d/v.length());
+	//сдвинем точку в две стороны, получим искомые
+	p1 = p + v;
+	v = Vector(-v.get_x(), -v.get_y());
+	p2 = p + v;
 }
 
 istream& operator>>(istream& in, Circle& c){

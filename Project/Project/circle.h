@@ -49,10 +49,10 @@ public:
 	/*Поиск точек пересечения двух окружностей.
 	Возвращает пару точек пересечения, если точка одна - то возвращает две одинаковые.
 	Если точек пресечения 0 или беск. много возвращает точки INT_MAX*/
-	friend pair<Point, Point> intersection(const Circle&, const Circle&);
+	friend void intersection(const Circle&, const Circle&, Point&, Point&);
 	/*Поиск точек пересечения прямой и окружности.
 	Возвращает пару точек пересечения, если точка одна - то возвращает две одинаковые.
 	Если точек пресечения 0 возвращает точки INT_MAX*/
-	friend pair<Point, Point> intersection(const Line&, const Circle&);
+	friend void intersection(const Line&, const Circle&, Point&, Point&);
 	virtual void draw();
 };

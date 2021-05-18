@@ -310,9 +310,7 @@ int circle_menu(deque<Object*>* ptr) {
 					cin >> n2;
 				}
 				Point p1, p2;
-				pair<Point, Point> res(p1, p2);
-				/*Что-то не так*/
-				res = intersection(circles[n1], circles[n2]);
+				intersection(circles[n1], circles[n2], p1, p2);
 				cout << p1 << endl << p2 << endl;
 			}
 			break;
