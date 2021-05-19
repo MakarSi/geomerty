@@ -21,9 +21,8 @@ double Vector::length() {
 	return distance(a, b);
 }
 
-double Vector::scalar_product(const Vector&  v) {
-	return (_x * v._x + _y * v._y);
-	v._x;
+double scalar_product(const Vector&  v1, const Vector& v2) {
+	return (v1._x * v2._x + v1._y * v2._y);
 }
 
 void Vector::multipl_by_num(double a) {
@@ -31,17 +30,26 @@ void Vector::multipl_by_num(double a) {
 	set_y(_y * a);
 }
 
-double Vector::vector_product(const Vector& v) {
-	return _x * v._y - v._x * _y;
+double vector_product(const Vector& v1, const Vector& v2) {
+	return v1._x * v2._y - v1._x * v2._y;
 }
 
 void Vector::normalize() {
-	_x /= length();
-	_y /= length();
+	double invlength = 1 / length();
+	_x *= invlength;
+	_y *= invlength;
 }
 
 Vector Vector::normal_vec() {
 	return Vector(-_y, _x);
+}
+
+Vector Vector::operator*(const double& a) const
+{
+	Vector c;
+	c._x = a * this->_x;
+	c._y = a * this->_y;
+	return c;
 }
 
 void Vector::print_all_info() {
@@ -55,6 +63,6 @@ void Vector::print_all_info() {
 	Point p3(x3, y3);
 	Point p4(x4, y4);
 	Vector v2(p3, p4);
-	cout << endl << "Scalar product: " << this->scalar_product(v2) << endl;
-	cout << "vector product with the same vector :" << this->vector_product(v2) << endl;
+	cout << endl << "Scalar product: " << scalar_product(*this, v2) << endl;
+	cout << "vector product with the same vector :" << vector_product(*this, v2) << endl;
 }

@@ -62,7 +62,9 @@ void Ray::print_all_info() const
 void Ray::draw()const
 {	
 	Vector v = _v;
-	v.multipl_by_num(10000);
+	v.normalize();
+	//cout << v.get_x() << " " << v.get_y() << " " << v.length()  << endl;
+	v = v*10000;
 	Point p = _p + v;
 	glColor3d(color.R, color.G, color.B);
 	glBegin(GL_LINES);
@@ -113,6 +115,6 @@ double angle_between_rays(const Ray& r1, const Ray& r2)
 	Point p2 = { h2.get_x() + (r2._v).get_x(), h2.get_y() + (r2._v).get_y() };
 	Line l1 = Line(h1, p1), l2 = Line(h2, p2);
 	Vector v1 = Vector(h1, p1), v2 = Vector(h2, p2);
-	double alpha = v1.scalar_product(v2) / (v1.length() * v2.length());
+	double alpha = scalar_product(v1, v2) / (v1.length() * v2.length());
 	return acos(alpha) * 180.0 / M_PI;
 }

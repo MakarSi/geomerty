@@ -26,11 +26,11 @@ public:
 	Line operator+ (const Vector& v);
 
 	//Угол между прямыми
-	friend double angle_between_lines(const Line& l1, const Line& l2);
+	friend double angle_between_lines(const Line&, const Line&);
 	//Точка пересечения прямых
-	friend Point intersection_point(const Line& l1, const Line& l2);
+	friend Point intersection_point(const Line&, const Line&);
 	//Проверка на параллельность двух прямых
-	friend bool if_parallel(const Line& l1, const Line& l2);
+	friend bool if_parallel(const Line&, const Line&);
 	//Если прямая лежит в отрицательной полуплоскости, то функция возвращает -1,
 	//если лежит на прямой - 0, в положительной полуплоскости - 1.
 	friend int point_in_halfplane(const Point&, const Line&);

@@ -19,13 +19,15 @@ public:
 	/*Ќахождение длины вектора*/
 	double length(); 
 	/*Ќахождение скал€рного произведени€ 2-х векторов*/
-	double scalar_product(const Vector&); 
+	friend double scalar_product(const Vector&, const Vector&);
 	/*”множение вектора на число*/
 	void multipl_by_num(double a);
 	/*Ќахождение векторного произведени€ 2-х векторов на плоскости*/
-	double vector_product(const Vector&); 
+	friend double vector_product(const Vector&, const Vector&);
 	//Ќормирование вектора
 	void normalize();
 	Vector normal_vec();
+
+	Vector operator* (const double&) const;
 	void print_all_info();
 };
