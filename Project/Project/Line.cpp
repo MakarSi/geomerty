@@ -40,32 +40,24 @@ Line::Line(const Point& p1, const Point& p2)
 
 void Line::set_abc(double a, double b, double c)
 {
-	try {
-		if (a == 0 && b == 0)
-			throw "This is not a line. Try to input coefficients once again.";
-		_a = a; _b = b; _c = c;
-		//Будем делить на a или b чтобы получить точки, проверяем корректность операции
-		Point p1, p2;
-		if (a == 0) {
-			p1 = { 0, -c / b };
-			p2 = { 1, -c / b };
-		}
-		if (b == 0) {
-			p1 = { -c / a, 0 };
-			p2 = { -c / a, 1 };
-		}
-		if (a != 0 && b != 0) {
-			p1 = { 0, -c / b };
-			p2 = { -c / a, 0 };
-		}
-		_p1 = p1; _p2 = p2;
+	if (a == 0 && b == 0)
+		throw "This is not a line. Try to input coefficients once again.";
+	_a = a; _b = b; _c = c;
+	//Будем делить на a или b чтобы получить точки, проверяем корректность операции
+	Point p1, p2;
+	if (a == 0) {
+		p1 = { 0, -c / b };
+		p2 = { 1, -c / b };
 	}
-	catch (const char* exception) {
-		cout << "Error: " << exception << endl;
-		cout << "Try again"<<endl;
-		cin >> a >> b >> c;
-		set_abc(a, b, c);
+	if (b == 0) {
+		p1 = { -c / a, 0 };
+		p2 = { -c / a, 1 };
 	}
+	if (a != 0 && b != 0) {
+		p1 = { 0, -c / b };
+		p2 = { -c / a, 0 };
+	}
+	_p1 = p1; _p2 = p2;
 }
 
 void Line::set_points(const Point& p1, const Point& p2) {
@@ -186,11 +178,11 @@ Line parallel_line_through_point(const Line& l, const Point& p)
 	return Line(l.get_a(), l.get_b(), c);
 }
 
-double y_through_x(const Line& l, const double& x)
+double Line::y_through_x(const double& x)
 {
-	double a = l.get_a(), b = l.get_b(), c = l.get_c();
-	if (b != 0)
-		return -(a / b) * x - c / b;
+	//double a = this->_a, b = , c = l.get_c();
+	if (_b != 0)
+		return -(_a / _b) * x - _c / _b;
 	else
 		return 1000;
 }
@@ -239,10 +231,11 @@ void Line::draw()const
 {
 	glColor3d(color.R, color.G, color.B);
 	glBegin(GL_LINES);
+	Line l = *this;
 	if (_b != 0)
 	{
-		glVertex2d(1000, y_through_x(*this, 1000));
-		glVertex2d(-1000, y_through_x(*this, -1000));
+		glVertex2d(1000, l.y_through_x(1000));
+		glVertex2d(-1000, l.y_through_x(-1000));
 	}
 	else
 	{

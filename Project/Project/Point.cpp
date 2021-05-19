@@ -61,6 +61,11 @@ void Point::print_coordinate()const
 	cout << "(" << _x << "," << _y << ")";
 }
 
+bool Point::is_undefined() const
+{
+	return (_x == INT_MAX && _y == INT_MAX);
+}
+
 bool Point::operator==(const Point& p)const
 {
 	bool f = this->_x == p._x && this->_y == p._y;

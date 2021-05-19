@@ -18,6 +18,8 @@ public:
 
 	void print_coordinate()const; //Печатает точку
 
+	bool is_undefined()const; //Является ли точка неопределенной
+
 	friend double distance(const Point&, const Point&); //Расстояние между двумя точками
 
 	bool operator== (const Point&)const; //Перегрузка оператора равенства
@@ -26,6 +28,7 @@ public:
 	Point operator- (const Point&)const; //Перегрузка оператора вычитания
 	friend istream& operator>> (istream&, Point&); //Ввод точки
 	friend ostream& operator<< (ostream&, const Point&); //Печатает точку
+
 	virtual void draw()const;
 protected:
 	double _x, _y;

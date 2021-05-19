@@ -64,8 +64,11 @@ void Ray::draw()const
 	Vector v = _v;
 	v.multipl_by_num(10000);
 	Point p = _p + v;
-	Segment s(_p, p);
-	s.draw();
+	glColor3d(color.R, color.G, color.B);
+	glBegin(GL_LINES);
+	glVertex2d(_p.get_x(), _p.get_y());
+	glVertex2d(p.get_x(), p.get_y());
+	glEnd();
 }
 
 bool intersection_point_existence(const Ray& r1, const Ray& r2)
