@@ -2,6 +2,7 @@
 #include <string>
 #include "polygon.h"
 #include "circle.h"
+#include "triangle.h"
 #include <deque>
 using namespace std;
 
@@ -20,6 +21,10 @@ int circle_menu(deque<Object*>*);
 void input_circle(Circle& c);
 /*Печать информации об окружности (уравнение окружности и ее длина)*/
 void print_info(Circle c, ostream& out);
+
+/*Меню выбора для треугольника*/
+int triangle_menu(deque<Object*>*);
+void input_triangle(Triangle& t);
 
 ///*Меню выбора для круга*/
 //int ring_menu();

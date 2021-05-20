@@ -84,18 +84,7 @@ int menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 3: {
-			double x1, y1, x2, y2, x3, y3;
-			cout << "Enter the coordinates of the vertices of the triangle: ";
-			cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
-			Point p1(x1, y1);
-			Point p2(x2, y2);
-			Point p3(x3, y3);
-			vector<Point>v = { p1,p2,p3 };
-			Triangle t1 = Triangle(v);
-			if (t1.get_area() == 0) {
-				break;
-			}
-			print_info(t1, cout);
+			triangle_menu(ptr);
 			break;
 		}
 		case 4: {
@@ -340,6 +329,65 @@ void print_info(Circle c, ostream& out) {
 	c.print_eq();
 	out << "Length of the circle = ";
 	out<<c.length()<<endl;
+}
+
+int triangle_menu(deque<Object*>* ptr) {
+	setlocale(LC_ALL, "");
+	string* A = new string[4];
+	A[0] = "Add new triangle";
+	A[1] = "Print info about triangle";
+	A[2] = "Shift triangle by vector";
+	A[3] = "Go back";
+	vector<Triangle> triangles;
+
+	while (true) {
+		int key = print_menu(A, 4);
+		switch (key) {
+		case 1: {
+			Triangle* t = new Triangle;
+			input_triangle(*t);
+			(*ptr).push_back(t);
+			triangles.push_back(*t);
+			break;
+		}
+		case 2: {
+			int n = -1;
+			while (n < 0 || n >= triangles.size()) {
+				cout << "Enter num from 0 to " << triangles.size() - 1;
+				cin >> n;
+			}
+			print_info(triangles[n], cout);
+			break;
+		}
+		case 3: {
+			int n = -1;
+			while (n < 0 || n >= triangles.size()) {
+				cout << "Enter num from 0 to " << triangles.size() - 1;
+				cin >> n;
+			}
+			Vector v;
+			cin >> v;
+			triangles[n] = triangles[n] + v;
+			break;
+		}
+		case 4: {
+			return 0;
+		}
+		default: break;
+		}
+	}
+}
+
+void input_triangle(Triangle& t) {
+	cout << "Enter 3"<<endl;
+	cout << "Then enter the coordinates of the vertices of the triangle: " << endl;
+	try {
+		cin >> t;
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		t = {};
+	}
 }
 
 //int ring_menu() {
