@@ -18,6 +18,7 @@ public:
 	//проверяем пересекаются ли два отрезка
 	friend bool intersection(const Segment&, const Segment&);
 	virtual void draw()const;
+	friend ostream& operator<< (ostream&, const Segment&);
 private:
 	Point _v1, _v2;
 };

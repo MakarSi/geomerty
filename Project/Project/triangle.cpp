@@ -76,6 +76,26 @@ Segment middle_line(const Triangle& t, int const& k) {
 	return Segment();
 }
 
+int mod(int x, int mod) {
+	return x >= 0 ? x % mod : x%mod + mod;
+}
+
+Segment Triangle::normal(const Point& p) {
+	int vert = -1;
+	for (int i = 0; i < 3; i++) {
+		if (_vertexes[i] == p)
+			vert = i;
+	}
+	if (vert == -1) throw"Point doesnt belong to triangle";
+	Vector v(_vertexes[mod(vert-1, 3)], _vertexes[mod(vert + 1, 3)]);
+	Line l1(_vertexes[mod(vert - 1, 3)], _vertexes[mod(vert + 1, 3)]);
+	v = v.normal_vec();
+	Line l2(Point(0, 0), Point(v.get_x(), v.get_y()));
+	l2 = parallel_line_through_point(l2, _vertexes[vert]);
+	Segment res(_vertexes[vert], intersection_point(l1, l2));
+	return res;
+}
+
 Triangle Triangle::operator+ (const Vector& v) {
 	vector<Point> vertexes;
 	for (int i = 0; i < get_dim(); i++)

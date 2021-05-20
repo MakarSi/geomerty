@@ -27,5 +27,5 @@ public:
 	Для средней линии, параллельной стороне P2P3, k = 2
 	Для средней линии, параллельной стороне P1P3, k = 3*/
 	friend Segment middle_line(const Triangle& t, int const& k);
-	
+	Segment normal(const Point&);
 };

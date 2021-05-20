@@ -27,6 +27,9 @@ void processNormalKeys(unsigned char key, int x, int y);
 void indicate_drawing();
 
 int main(int argc, char* argv[]) {
+	vector<Point> v = { Point(1, 1), Point(5, 10), Point(-5, 5) };
+	Triangle t = (v);
+	t.normal(Point(1,1));
 	menu(&obj_buff);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);//начальный режим отображения

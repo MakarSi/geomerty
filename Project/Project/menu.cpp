@@ -333,15 +333,16 @@ void print_info(Circle c, ostream& out) {
 
 int triangle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[4];
+	string* A = new string[5];
 	A[0] = "Add new triangle";
 	A[1] = "Print info about triangle";
 	A[2] = "Shift triangle by vector";
-	A[3] = "Go back";
+	A[3] = "Find a normal";
+	A[4] = "Go back";
 	vector<Triangle> triangles;
 
 	while (true) {
-		int key = print_menu(A, 4);
+		int key = print_menu(A, 5);
 		switch (key) {
 		case 1: {
 			Triangle* t = new Triangle;
@@ -371,6 +372,22 @@ int triangle_menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 4: {
+			int n = -1, k = -1;
+			while (n < 0 || n >= triangles.size()) {
+				cout << "Enter num from 0 to " << triangles.size() - 1;
+				cin >> n;
+			}
+			Point p;
+			while (k > 3 || k < 1) {
+				cout << "Enter num of vertexes from 1 to 3" << endl;
+				cin >> k;
+			}
+			Segment* s = new Segment;
+			*s = triangles[n].normal(triangles[n].get_vertex(k - 1));
+			cout << *s << endl;
+			(*ptr).push_back(s);
+		}
+		case 5: {
 			return 0;
 		}
 		default: break;

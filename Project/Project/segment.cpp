@@ -50,6 +50,11 @@ bool intersection(const Segment& a, const Segment& b) {
 	else return false;
 }
 
+ostream& operator<< (ostream& out, const Segment& s) {
+	out << s._v1 << ", " << s._v2;
+	return out;
+}
+
 void Segment::draw()const {
 	glColor3d(color.R, color.G, color.B);
 	glLineWidth(width);
