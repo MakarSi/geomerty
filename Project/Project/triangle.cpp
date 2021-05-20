@@ -15,6 +15,8 @@ Triangle::~Triangle() {
 
 }
 
+
+
 void Triangle::set_vertexes(vector<Point> vertexes) {
 	if (vertexes.size() != 3)
 		throw "Tiangle needs 3 vertexes";
@@ -72,4 +74,11 @@ Segment middle_line(const Triangle& t, int const& k) {
 		return Segment(k1, k2);
 	}
 	return Segment();
+}
+
+Triangle Triangle::operator+ (const Vector& v) {
+	vector<Point> vertexes;
+	for (int i = 0; i < get_dim(); i++)
+		vertexes.push_back(_vertexes[i] + v);
+	return Triangle(vertexes);
 }

@@ -18,6 +18,8 @@ public:
 	bool operator== (const Triangle& t) const;
 	/*Перегрузка оператора неравнества*/
 	bool operator!= (const Triangle& t) const;
+	//смещение на вектор
+	Triangle operator+ (const Vector& v);
 
 	/*Вспомогательные функции*/
 	/*Нахождение средней линии треугольника
