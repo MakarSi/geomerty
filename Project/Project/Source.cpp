@@ -1,7 +1,7 @@
 #include <iostream>
 #include <glut.h>
 #include "menu.h"
-#include <deque>
+#include "deque.h"
 #include "triangle.h"
 #define BLACK {0,0,0}
 #define RED {255,0,0}
@@ -54,10 +54,16 @@ void Display(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	net_drawing();
 	indicate_drawing();
-	for (int i = 0; i < obj_buff.size(); i++)
-		obj_buff[i]->draw();
-	for (int i = 0; i < points_buff.size(); i++)
-		points_buff[i]->draw();
+	node<Object*>* obj_ptr = obj_buff.head();
+	node<Point*>* point_ptr = points_buff.head();
+	while (obj_ptr != nullptr) {
+		obj_ptr->key->draw();
+		obj_ptr = obj_ptr->next;
+	}
+	while (point_ptr != nullptr) {
+		point_ptr->key->draw();
+		point_ptr = point_ptr->next;
+	}
 	glFinish();
 	glutSwapBuffers();
 }
@@ -126,7 +132,6 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		case 2: {
 			Segment* l = new Segment(*points_buff[0], *points_buff[1]);
 			obj_buff.push_back(l);
-			points_buff.clear();
 			obj_created = true;
 			break;
 		}
@@ -142,7 +147,6 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			catch (const char* exception) {
 				cerr << exception;
 			}
-			points_buff.clear();
 			break;
 		}
 		default: {
@@ -157,7 +161,6 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			catch (const char* exception) {
 				cerr << exception;
 			}
-			points_buff.clear();
 			break;
 		}
 		}
@@ -168,7 +171,6 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			double d = distance(*points_buff[0], *points_buff[1]);
 			Circle* c = new Circle(*points_buff[0], d);
 			obj_buff.push_back(c);
-			points_buff.clear();
 			obj_created = true;
 		}
 	}
@@ -179,7 +181,6 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		{
 			Line* l = new Line(*points_buff[0], *points_buff[1]);
 			obj_buff.push_back(l);
-			points_buff.clear();
 			obj_created = true;
 		}
 	}
@@ -199,11 +200,10 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			{
 				cerr << exception << endl;
 			}
-			points_buff.clear();
 		}
 	}
 
-	//удалить объект с экрана alt + z
+	//стереть объект с экрана alt + z
 	if (key == 90 || key == 122 || key == 223 || key == 255) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !obj_buff.empty()) {
 			undo_obj_buff.push_back(obj_buff.back());
@@ -222,6 +222,11 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !points_buff.empty())
 			points_buff.pop_back();
 	}
+	//Удалить верхний объект
+	if (key == 127) {
+		if (!obj_buff.empty())
+			obj_buff.pop_back();
+	}
 	// m/ь - выход в консольно меню
 	if (key == 77 || key == 109 || key == 220 || key == 252)
 		menu(&obj_buff);
@@ -232,6 +237,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		obj_buff.back()->color = t_color;
 		obj_buff.back()->is_field = t_field;
 		obj_buff.back()->width = t_width;
+		points_buff.clear();
 	}
 	glutPostRedisplay();
 }

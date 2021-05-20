@@ -3,7 +3,7 @@
 #include "polygon.h"
 #include "circle.h"
 #include "triangle.h"
-#include <deque>
+#include "deque.h"
 using namespace std;
 
 int print_menu(string*, int);
