@@ -12,7 +12,7 @@ class Object
 {
 public:
 	color color;
-	int width;
+	int width = 3;
 	bool is_field = false;
 	virtual void draw()const = 0;
 };
