@@ -230,6 +230,7 @@ Line Line::normal_line(const Point& p)const {
 void Line::draw()const 
 {
 	glColor3d(color.R, color.G, color.B);
+	glLineWidth(width);
 	glBegin(GL_LINES);
 	Line l = *this;
 	if (_b != 0)

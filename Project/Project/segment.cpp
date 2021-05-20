@@ -52,6 +52,7 @@ bool intersection(const Segment& a, const Segment& b) {
 
 void Segment::draw()const {
 	glColor3d(color.R, color.G, color.B);
+	glLineWidth(width);
 	glBegin(GL_LINES);
 	glVertex2d(_v1.get_x(), _v1.get_y());
 	glVertex2d(_v2.get_x(), _v2.get_y());

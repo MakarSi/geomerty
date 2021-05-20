@@ -196,6 +196,7 @@ namespace polygon {
 
 	void Polygon::draw()const {
 		glColor3d(color.R, color.G, color.B);
+		glLineWidth(width);
 		if (is_field)
 			glBegin(GL_POLYGON);
 		else 

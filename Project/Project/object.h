@@ -1,6 +1,6 @@
 #pragma once
-#define eps 0.000001
 #include "glut.h"
+#define eps 0.000001
 
 struct color { 
 	double R, G, B; 
@@ -12,6 +12,7 @@ class Object
 {
 public:
 	color color;
+	int width;
 	bool is_field = false;
 	virtual void draw()const = 0;
 };

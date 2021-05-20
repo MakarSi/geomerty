@@ -1,5 +1,5 @@
 #include "Point.h"
-#include "glut.h"
+#include "glut/glut.h"
 #include <sstream>
 #include <iostream>
 #include <cmath>

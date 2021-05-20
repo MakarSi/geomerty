@@ -173,6 +173,7 @@ Circle Circle::operator+ (const Vector& v) {
 void Circle::draw()const {
 	glColor3d(color.R, color.G, color.B);
 	int N = 160;
+	glLineWidth(width);
 	if (is_field)
 		glBegin(GL_TRIANGLE_FAN);
 	else
