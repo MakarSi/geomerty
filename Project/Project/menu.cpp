@@ -9,7 +9,6 @@
 #include "line.h"
 #include "polygon.h"
 #include "segment.h"
-#include "ring.h"
 #include "vector.h"
 #include "Ray.h"
 #include "quadrangle.h"
@@ -77,9 +76,7 @@ int menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 2: {
-			Ray r;
-			r.print_all_info();
-			break;
+			ray_menu(ptr);
 		}
 		case 3: {
 			triangle_menu(ptr);
@@ -587,4 +584,118 @@ void print_info(Line l, ostream& out) {
 	out << "The line equation" << endl;
 	l.print_equation();
 	cout << endl;
+}
+
+int ray_menu(deque<Object*>* ptr) {
+	setlocale(LC_ALL, "");
+	string* A = new string[6];
+	A[0] = "Add new ray";
+	A[1] = "Print info about ray";
+	A[2] = "Shift ray by vector";
+	A[3] = "Angle between rays";
+	A[4] = "Instersection point of two rays";
+	A[5] = "Go back";
+
+	vector<Ray*> rays;
+	while (true) {
+		int key = print_menu(A, 6);
+		switch (key)
+		{
+		case 1:
+		{
+			Ray* r = input_ray(cin);//			cin >> *r;
+			if (r != nullptr)
+				rays.push_back(r);
+			else system("pause");
+			break;
+		}
+		case 2:
+		{
+			if (rays.size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > rays.size())
+			{
+				cout << "Enter num from 1 to " << rays.size() << endl;
+				cin >> n;
+			}
+			print_info(*rays[n - 1], cout);
+			break;
+		}
+		case 3:
+		{
+			if (rays.size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > rays.size()) {
+				cout << "Enter num from 1 to " << rays.size() << endl;
+				cin >> n;
+			}
+			cout << "Input vector" << endl;
+			Vector v;
+			cin >> v;
+			*rays[n - 1] = *rays[n - 1] + v;
+			break;
+		}
+		case 4:
+		{
+			int n1 = 0, n2 = 0;
+			if (rays.size() < 2) break;
+			while (n1 < 1 || n1 > rays.size())
+			{
+				cout << "Enter the number of the ray from 1  to " << rays.size() << endl;
+				cin >> n1;
+			}
+			while (n2 < 1 || n2 > rays.size() || n1 == n2)
+			{
+				cout << "Enter the number of the ray from 1 to " << rays.size() << endl;
+				cin >> n2;
+			}
+			cout << "The angle between rays is " << angle_between_rays(*rays[n1 - 1], *rays[n2 - 1]) << endl;
+			break;
+		}
+		case 5:
+		{
+			int n1 = 0, n2 = 0;
+			if (rays.size() < 2) break;
+			while (n1 < 1 || n1 > rays.size())
+			{
+				cout << "Enter the number of the ray from 1  to " << rays.size() << endl;
+				cin >> n1;
+			}
+			while (n2 < 1 || n2 > rays.size() || n1 == n2)
+			{
+				cout << "Enter the number of the ray from 1 to " << rays.size() << endl;
+				cin >> n2;
+			}
+			if (intersection_point_existence(*rays[n1 - 1], *rays[n2 - 1]))
+				cout << "These two rays have the intersection point: " << ray_intersection_point(*rays[n1 - 1], *rays[n2 - 1]) << endl;
+			else cout << "These two rays have no intersection point\n";
+			break;
+		}
+		case 6: {
+			for (int i = 0; i < rays.size(); i++)
+				(*ptr).push_back(rays[i]);
+			return 0;
+		}
+		default: break;
+		}
+	}
+}
+
+Ray* input_ray(istream& in) {
+	cout << "Input the begging of the ray and the vector ";
+	Ray* r = new Ray;
+	try {
+		in >> *r;
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		delete r;
+		r = nullptr;
+	}
+	return r;
+}
+
+void print_info(const Ray& r, ostream& out) {
+	out << "The begging of the ray: " << r.get_point() << endl;;
+	out << "The vector of the ray " << r.get_vector() << endl;
 }

@@ -17,6 +17,10 @@ public:
 	Point get_point() const;
 	Vector get_vector() const;
 
+	//Cдвиг луча на вектор
+	Ray operator+ (const Vector& v);
+	friend istream& operator>>(istream&, Ray&);
+
 	//Если существует точка пересечения между лучами возвращает true, иначе - false
 	friend bool intersection_point_existence(const Ray& r1, const Ray& r2);
 	//Возвращает точку пересечения лучей. Если её нет, то возвращает точку (INT_MAX, INT_MAX)

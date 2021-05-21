@@ -118,3 +118,18 @@ double angle_between_rays(const Ray& r1, const Ray& r2)
 	double alpha = scalar_product(v1, v2) / (v1.length() * v2.length());
 	return acos(alpha) * 180.0 / M_PI;
 }
+
+istream& operator>>(istream& in, Ray& r)
+{
+	Point p; Vector v;
+	in >> p >> v;
+	r = Ray(p, v);
+	return in;
+}
+
+Ray Ray::operator+ (const Vector& v) {
+	Point new_p = _p + v;
+	Vector new_v = _v + v;
+	Ray r(new_p, new_v);
+	return r;
+}

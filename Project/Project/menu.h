@@ -33,3 +33,8 @@ int line_menu(deque<Object*>* ptr);
 Line* input_line(istream&);
 /*Печать информации об ошибках - уравнение прямой*/
 void print_info(Line l, ostream& out);
+
+/*Меню выбора луча*/
+int ray_menu(deque<Object*>*);
+void print_info(const Ray&, ostream&);
+Ray* input_ray(istream&);
