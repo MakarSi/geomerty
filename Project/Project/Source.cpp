@@ -42,9 +42,9 @@ int main(int argc, char* argv[]) {
 
 void indicate_drawing() {
 	Circle c(Point(-Width / 2 + 45, Height / 2 - 45), 30);
-	c.color = t_color;
-	c.width = t_width;
-	c.is_field = t_field;
+	c._color = t_color;
+	c._width = t_width;
+	c._is_field = t_field;
 	c.draw();
 }
 
@@ -74,18 +74,18 @@ void net_drawing() {
 	for (int i = -1000; i <= 1000; i += 50)
 	{
 		l = Line(Point(1000, double(i)), Point(-1000, double(i)));
-		l.width = 1;
+		l._width = 1;
 		l.draw();
 		l = Line(Point(double(i), 1000), Point(double(i), -1000));
-		l.width = 1;
+		l._width = 1;
 		l.draw();
 	}
 
 	l = Line(Point(1000, 0), Point(-1000, 0));
-	l.width = 4;
+	l._width = 4;
 	l.draw();
 	l = Line(Point(0, 1000), Point(0, -1000));
-	l.width = 4;
+	l._width = 4;
 	l.draw();
 }
 
@@ -234,9 +234,9 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (key == 27)
 		exit(0);
 	if (obj_created) {
-		obj_buff.back()->color = t_color;
-		obj_buff.back()->is_field = t_field;
-		obj_buff.back()->width = t_width;
+		obj_buff.back()->_color = t_color;
+		obj_buff.back()->_is_field = t_field;
+		obj_buff.back()->_width = t_width;
 		points_buff.clear();
 	}
 	glutPostRedisplay();

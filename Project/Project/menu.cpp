@@ -314,14 +314,14 @@ int circle_menu(deque<Object*>* ptr) {
 			}
 			if (*p1 == *p2) {
 				cout << *p1 << endl;
-				p1->width = 7;
+				p1->_width = 7;
 				(*ptr).push_back(p1);
 				delete p2;
 			}
 			else {
 				cout << *p1 << endl << *p2 << endl;
-				p1->width = 7;
-				p2->width = 7;
+				p1->_width = 7;
+				p2->_width = 7;
 				(*ptr).push_back(p1);
 				(*ptr).push_back(p2);
 			}

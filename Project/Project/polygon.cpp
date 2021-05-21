@@ -195,9 +195,9 @@ namespace polygon {
 	}
 
 	void Polygon::draw()const {
-		glColor3d(color.R, color.G, color.B);
-		glLineWidth(width);
-		if (is_field)
+		glColor3d(_color.R, _color.G, _color.B);
+		glLineWidth(_width);
+		if (_is_field)
 			glBegin(GL_POLYGON);
 		else 
 			glBegin(GL_LINE_LOOP);

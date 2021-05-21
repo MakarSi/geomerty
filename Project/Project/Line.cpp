@@ -229,8 +229,8 @@ Line Line::normal_line(const Point& p)const {
 
 void Line::draw()const 
 {
-	glColor3d(color.R, color.G, color.B);
-	glLineWidth(width);
+	glColor3d(_color.R, _color.G, _color.B);
+	glLineWidth(_width);
 	glBegin(GL_LINES);
 	Line l = *this;
 	if (_b != 0)

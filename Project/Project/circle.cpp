@@ -171,10 +171,10 @@ Circle Circle::operator+ (const Vector& v) {
 }
 
 void Circle::draw()const {
-	glColor3d(color.R, color.G, color.B);
+	glColor3d(_color.R, _color.G, _color.B);
 	int N = 160;
-	glLineWidth(width);
-	if (is_field)
+	glLineWidth(_width);
+	if (_is_field)
 		glBegin(GL_TRIANGLE_FAN);
 	else
 		glBegin(GL_LINE_LOOP);

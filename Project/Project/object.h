@@ -11,8 +11,8 @@ struct color {
 class Object
 {
 public:
-	color color;
-	int width = 3;
-	bool is_field = false;
+	color _color;
+	int _width = 3;
+	bool _is_field = false;
 	virtual void draw()const = 0;
 };

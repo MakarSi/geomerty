@@ -56,8 +56,8 @@ ostream& operator<< (ostream& out, const Segment& s) {
 }
 
 void Segment::draw()const {
-	glColor3d(color.R, color.G, color.B);
-	glLineWidth(width);
+	glColor3d(_color.R, _color.G, _color.B);
+	glLineWidth(_width);
 	glBegin(GL_LINES);
 	glVertex2d(_v1.get_x(), _v1.get_y());
 	glVertex2d(_v2.get_x(), _v2.get_y());
