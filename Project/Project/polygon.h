@@ -42,11 +42,13 @@ namespace polygon{
 		Ray bisector(Point)const;
 
 		/*Определение ориентации треугольника*/
-		double rotation(Point p1, Point p2, Point p3);
+		friend double rotation(Point p1, Point p2, Point p3);
 
 		/*Построение выпуклой оболочки по точкам
 		Используется алгоритм Грэхема
 		Подробно можно изучить по ссылке: https://algorithmica.org/ru/convex-hulls*/
-		Polygon convex_shell(vector<Point> points);
+		friend Polygon convex_shell(vector<Point> points);
+		/*Компаратор*/
+		friend bool cop(const Point& p1, const Point& p2);
 	};
 }

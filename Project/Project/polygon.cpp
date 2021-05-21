@@ -129,7 +129,7 @@ namespace polygon {
 		return in;
 	}
 
-	double Polygon::rotation(Point p1, Point p2, Point p3) {
+	double rotation(Point p1, Point p2, Point p3) {
 		Point r1 = p2 - p1;
 		Point r2 = p3 - p2;
 		double cross = r1.get_x() * r2.get_y() - r1.get_y() * r2.get_x();
@@ -155,9 +155,24 @@ namespace polygon {
 		return res;
 	}
 
-	Polygon Polygon::convex_shell(vector<Point> points) {
-		//Сортировка по возрастанию
-		//sort(points.begin(), points.end());
+	bool cop(const Point& p1, const Point& p2) {
+		if (p1.get_y() == 0 && p1.get_x() > 0)
+			return true; //angle of p1 is 0, thus p2 > p1
+
+		if (p2.get_y() == 0 && p2.get_x() > 0)
+			return false; //angle of p2 is 0 , thus p1 > p2
+
+		if (p1.get_y() > 0 && p2.get_y() < 0)
+			return true; //p1 is between 0 and 180, p2 between 180 and 360
+
+		if (p1.get_y() < 0 && p2.get_y() > 0)
+			return false;
+
+		return (p1.get_x() * p2.get_y() - p1.get_y() * p2.get_x()) > 0; //return true if p1 is clockwise from p2
+	}
+
+	Polygon convex_shell(vector<Point> points) {
+		sort(points.begin(), points.end(), cop);
 		int n = points.size();//+
 		vector <Point> top = { points[0] };//+
 		vector <Point> bottom = { points[0] };//+
@@ -178,20 +193,14 @@ namespace polygon {
 		while (bottom.size() > 1 && rotation(bottom[bottom.size() - 2], bottom[bottom.size() - 1], points[n - 1]) <= 0)
 			bottom.pop_back();
 
-		//Переворот вектора
 		reverse(bottom.begin(), bottom.end());
-
-		//Объединение двух векторов
 		for (Point u : bottom)
 			top.push_back(u);
 		top.pop_back();
 
 		int r = top.size();
-		vector<Point> vertexes;
-		for (int i = 0; i < r; i++) {
-			vertexes.push_back(top[i]);
-		}
-		return vertexes;
+		Polygon p = top;
+		return p;
 	}
 
 	void Polygon::draw()const {
