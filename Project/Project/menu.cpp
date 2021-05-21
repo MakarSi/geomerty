@@ -313,14 +313,14 @@ int circle_menu(deque<Object*>* ptr) {
 			}
 			if (*p1 == *p2) {
 				cout << *p1 << endl;
-				p1->_width = 7;
+				p1->_width = 10;
 				(*ptr).push_back(p1);
 				delete p2;
 			}
 			else {
 				cout << *p1 << endl << *p2 << endl;
-				p1->_width = 7;
-				p2->_width = 7;
+				p1->_width = 10;
+				p2->_width = 10;
 				(*ptr).push_back(p1);
 				(*ptr).push_back(p2);
 			}
@@ -446,11 +446,11 @@ int line_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[8];
 	A[0] = "Add new line";
-	A[1] = "Print equation line";
+	A[1] = "Print line equation ";
 	A[2] = "Shift line by vector";
 	A[3] = "Find the angle between straight lines";
 	A[4] = "Find the point of intersection of lines";
-	A[5] = "Determine in which half-plane relative to the straight line the input point lies";
+	A[5] = "Determine in which half-plane point lays";
 	A[6] = "Find a perpendicular line through point";
 	A[7] = "Go back";
 
@@ -523,8 +523,11 @@ int line_menu(deque<Object*>* ptr) {
 			}
 			if (if_parallel(*lines[n1 - 1], *lines[n2 - 1])) cout << "This lines are parallel" << endl;
 			else {
-				Point p = intersection_point(*lines[n1 - 1], *lines[n2 - 1]);
-				cout << "Point of intersection of lines " << endl << *lines[n1 - 1] << " and " << *lines[n2 - 1] << " = " << p << endl;
+				Point* p = new Point;
+				*p = intersection_point(*lines[n1 - 1], *lines[n2 - 1]);
+				p->_width = 10;
+				ptr->push_back(p);
+				cout << "Point of intersection of lines " << endl << *lines[n1 - 1] << " and " << *lines[n2 - 1] << " = " << *p << endl;
 			}
 			break;
 		}
@@ -555,8 +558,10 @@ int line_menu(deque<Object*>* ptr) {
 			Point p;
 			cout << "Input the coordinates of the point" << endl;
 			cin >> p;
-			Line l = lines[n - 1]->normal_line(p);
-			cout << l << endl;
+			Line* l = new Line;
+			*l = lines[n - 1]->normal_line(p);
+			cout << *l << endl;
+			ptr->push_back(l);
 			break;
 		}
 		case 8: {
