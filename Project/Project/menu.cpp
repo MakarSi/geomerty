@@ -203,117 +203,133 @@ void print_info(const polygon::Polygon& p, ostream& out){
 
 int circle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[6];
+	string* A = new string[7];
 	A[0] = "Add new circle";
 	A[1] = "Print info about circle";
 	A[2] = "Shift circle by vector";
-	A[3] = "Finding tangents to a circle";
-	A[4] = "Finding the intersection points of two circles";
-	A[5] = "Go back";
+	A[3] = "Finding tangents for point on circle";
+	A[4] = "Finding tangents for point out of circle";
+	A[5] = "Finding the intersection points of two circles";
+	A[6] = "Go back";
 
-	vector<Circle> circles;
+	vector<Circle*> circles;
 
 	while (true) {
-		int key = print_menu(A, 6);
+		int key = print_menu(A, 7);
 		switch (key) {
 		case 1: {
-			Circle* c = new Circle;
-			input_circle(*c);
-			(*ptr).push_back(c);
-			circles.push_back(*c);
+			Circle* c = input_circle(cin);
+			if (c != nullptr) {
+				circles.push_back(c);
+			}
+			else system("pause");
 			break;
 		}
 		case 2: {
-			int n = -1, r = circles.size();
-			if (r > 0) {
-				while (n < 0 || n >= r) {
-					cout << "Enter number of circle from 0 to " << r - 1 << endl;
-					cin >> n;
-				}
-				print_info(circles[n], cout);
-				break;
+			if (circles.size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > circles.size()) {
+				cout << "Enter num from 1 to " << circles.size() << endl;
+				cin >> n;
 			}
-			else {
-				cout << "Not enough circles" << endl;
-				break;
-			}
+			print_info(*circles[n-1], cout);
+			break;
 		}
 		case 3: {
-			int n = -1, r = circles.size();
-			if (r > 0) {
-				while (n < 0 || n >= r) {
-					cout << "Enter number of circle from 0 to " << r - 1 << endl;
-					cin >> n;
-				}
-				Vector v;
-				cout << "Enter the vector" << endl;
-				cin >> v;
-				circles[n] = circles[n] + v;
-				break;
+			if (circles.size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > circles.size()) {
+				cout << "Enter num from 1 to " << circles.size() << endl;
+				cin >> n;
 			}
-			else {
-				cout << "Not enough circles" << endl;
-				break;
-			}
+			cout << "Input vector" << endl;
+			Vector v;
+			cin >> v;
+			*circles[n-1] = *circles[n-1] + v;
+			break;
 		}
 		case 4: {
-			int n = -1, r = circles.size();
-			if (r > 0) {
-				while (n < 0 || n >= r) {
-					cout << "Enter number of circle from 0 to " << r - 1 << endl;
-					cin >> n;
-				}
-				cout << "Enter the coordinates of the point through which the tangents pass" << endl;
-				Point p;
-				cin >> p;
-				double ras = distance(circles[n], p);
-				if (ras < circles[n].get_rad()) cout << "The point is located inside the circle" << endl << "It's impossible to construct tangents" << endl;
-				/*≈сли заданна€ точка принадлежит окружности, то вызываетс€ ф-ци€ построени€ касательной через точку на окружности*/
-				else if (ras == circles[n].get_rad()) {
-					Line* line = new Line;
-					*line = tangent_line(p, circles[n]);
-					cout << *line << endl;
-					(*ptr).push_back(line);
-				}
-				else {
-					/*ѕочему - то не измен€ютс€ пр€мые после функции*/
-					Line* l1 = new Line; Line* l2 = new Line;
-					tangent_lines(p, circles[n], *l1, *l2);
-					cout << *l1 << endl << *l2 << endl;
-					(*ptr).push_back(l1);
-					(*ptr).push_back(l2);
-				}
+			if (circles.size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > circles.size()) {
+				cout << "Enter num from 1 to " << circles.size() << endl;
+				cin >> n;
+			}
+			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
+			Point p;
+			cin >> p;
+			Line tmp = tangent_line(p, *circles[n - 1]);
+			if (tmp.is_undef()) {
+				cout << "Point is inside the circle";
+				system("pause");
 				break;
 			}
-			else {
-				cout << "Not enough circles" << endl;
-				break;
-			}
+			Line* line = new Line;
+			*line = tmp;
+			cout << *line << endl;
+			(*ptr).push_back(line);
+			break;
 		}
 		case 5: {
-			int n1 = -1, r = circles.size();
-			/*ѕроверка хватает ли количества окружностей дл€ нахождени€ данной задачи*/
-			if (r < 2) {
-				cout << "Not enough circles" << endl;
+			if (circles.size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > circles.size()) {
+				cout << "Enter num from 1 to " << circles.size() << endl;
+				cin >> n;
+			}
+			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
+			Point p;
+			cin >> p;
+			Line tmp1, tmp2;
+			tangent_lines(p, *circles[n-1], tmp1, tmp2);
+			if (tmp1.is_undef()) {
+				cout << "Point is on circle or inside it" << endl;
+				system("pause");
 				break;
 			}
-			else {
-				while (n1 < 0 || n1 >= r) {
-					cout << "Enter number of circle from 0 to " << r - 1 << endl;
-					cin >> n1;
-				}
-				int n2 = -1;
-				while (n2 < 0 || n2 >= r || n2 == n1) {
-					cout << "Enter number of circle from 0 to " << r - 1 << endl;
-					cin >> n2;
-				}
-				Point p1, p2;
-				intersection(circles[n1], circles[n2], p1, p2);
-				cout << p1 << endl << p2 << endl;
-			}
+			Line* l1 = new Line; Line* l2 = new Line;
+			*l1 = tmp1, * l2 = tmp2;
+			cout << *l1 << endl << *l2 << endl;
+			(*ptr).push_back(l1);
+			(*ptr).push_back(l2);
 			break;
 		}
 		case 6: {
+			if (circles.size() < 2) break;
+			int n1 = -1, n2 = -1;
+			while (n1 < 1 || n1 > circles.size()) {
+				cout << "Enter num from 1 to " << circles.size() << endl;
+				cin >> n1;
+			}
+			while (n2 < 1 || n2 > circles.size()) {
+				cout << "Enter num from 1 to " << circles.size() << endl;
+				cin >> n2;
+			}
+			Point *p1 = new Point, *p2 = new Point;
+			intersection(*circles[n1-1], *circles[n2-1], *p1, *p2);
+			if (p1->is_undef()) {
+				cout << "No intersection or this is the same circle" << endl;
+				system("pause");
+				break;
+			}
+			if (*p1 == *p2) {
+				cout << *p1 << endl;
+				p1->width = 7;
+				(*ptr).push_back(p1);
+				delete p2;
+			}
+			else {
+				cout << *p1 << endl << *p2 << endl;
+				p1->width = 7;
+				p2->width = 7;
+				(*ptr).push_back(p1);
+				(*ptr).push_back(p2);
+			}
+			break;
+		}
+		case 7: {
+			for (int i = 0; i < circles.size(); i++)
+				(*ptr).push_back(circles[i]);
 			return 0;
 		}
 		default: break;
@@ -322,15 +338,18 @@ int circle_menu(deque<Object*>* ptr) {
 }
 
 
-void input_circle(Circle& c) {
+Circle* input_circle(istream& in) {
 	cout << "Enter the center coordinates and the radius value" << endl;
+	Circle* c = new Circle;
 	try {
-		cin >> c;
+		in >> *c;
 	}
 	catch (const char* exception) {
 		cout << "Error: " << exception << endl;
-		c = {};
+		delete c;
+		c = nullptr;
 	}
+	return c;
 }
 
 void print_info(Circle c, ostream& out) {
@@ -415,55 +434,3 @@ void input_triangle(Triangle& t) {
 		t = {};
 	}
 }
-
-//int ring_menu() {
-//	setlocale(LC_ALL, "");
-//	string* A = new string[4];
-//	A[0] = "Add new circle";
-//	A[1] = "Print info about circle";
-//	A[2] = "Shift circle by vector";
-//
-//	vector<Ring> rings;
-//
-//	while (true) {
-//		int key = print_menu(A, 3);
-//		switch (key) {
-//		case 1: {
-//			Ring r;
-//			input_ring(r);
-//			rings.push_back(r);
-//			break;
-//		}
-//		case 2: {
-//			int n = -1;
-//			int r = rings.size();
-//			while (n < 0 || n >= r) {
-//				cout << "Enter num from 0 to " << r - 1 << endl;
-//				cin >> n;
-//			}
-//			print_info(rings[n]);
-//			break;
-//		}
-//		default: break;
-//		}
-//	}
-//};
-//
-//void input_ring(Ring& r) {
-//	cout << "Enter the center coordinates and the radius value" << endl;
-//	try {
-//		cin >> r;
-//	}
-//	catch (const char* exception) {
-//		cout << "Error: " << exception << endl;
-//		r = {};
-//	}
-//}
-//
-//void print_info(Ring r) {
-//	cout << "Area of ring =" <<r.square()<<endl;
-//	cout << "Enter the degree measure to calculate the circular segment"<<endl;
-//	double angle;
-//	cin >> angle;
-//	cout << "Area of circular segment =" << r.sector(angle) << endl;
-//};

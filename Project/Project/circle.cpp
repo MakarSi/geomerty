@@ -97,7 +97,7 @@ void tangent_lines(const Point& p, const Circle& c, Line& l1, Line& l2){
 	//≈сли оношение радиуса на раст от точки до центра больше 1, 
 	//то точка внутри окр-ти
 	double angle_sin = c.get_rad()/d;
-	if (angle_sin > 1)
+	if (angle_sin >= 1)
 		return;
 	double angle_cos = sqrt(1 - angle_sin * angle_sin);
 	

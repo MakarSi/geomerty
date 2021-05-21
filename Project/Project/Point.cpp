@@ -61,7 +61,7 @@ void Point::print_coordinate()const
 	cout << "(" << _x << "," << _y << ")";
 }
 
-bool Point::is_undefined() const
+bool Point::is_undef() const
 {
 	return (_x == INT_MAX && _y == INT_MAX);
 }
@@ -95,7 +95,7 @@ Point Point::operator-(const Point& p)const
 }
 
 void Point::draw()const {
-	glPointSize(3);
+	glPointSize(width);
 	glColor3d(color.R, color.G, color.B);
 	glEnable(GL_POINT_SMOOTH);
 	glBegin(GL_POINTS);

@@ -18,7 +18,7 @@ public:
 
 	void print_coordinate()const; //Печатает точку
 
-	bool is_undefined()const; //Является ли точка неопределенной
+	bool is_undef()const; //Является ли точка неопределенной
 
 	friend double distance(const Point&, const Point&); //Расстояние между двумя точками
 

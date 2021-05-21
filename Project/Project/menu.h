@@ -18,7 +18,7 @@ polygon::Polygon* input_polygon(istream&);
 int circle_menu(deque<Object*>*);
 /*ƒобавление новой окружности
 ≈сли радиусу присвоено значение <=0, то автоматически ему присваиваетс€ значение 1*/
-void input_circle(Circle& c);
+Circle* input_circle(istream&);
 /*ѕечать информации об окружности (уравнение окружности и ее длина)*/
 void print_info(Circle c, ostream& out);
 
