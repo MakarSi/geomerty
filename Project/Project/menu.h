@@ -26,3 +26,10 @@ void print_info(Circle c, ostream& out);
 /*Меню выбора для треугольника*/
 int triangle_menu(deque<Object*>*);
 Triangle* input_triangle(istream&);
+
+/*Меню для прямых*/
+int line_menu(deque<Object*>* ptr);
+/*Считывание прямой и отлавливание ошибок*/
+Line* input_line(istream&);
+/*Печать информации об ошибках - уравнение прямой*/
+void print_info(Line l, ostream& out);

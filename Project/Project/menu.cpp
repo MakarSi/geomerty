@@ -442,3 +442,151 @@ Triangle* input_triangle(istream& in) {
 	}
 	return t;
 }
+
+int line_menu(deque<Object*>* ptr) {
+	setlocale(LC_ALL, "");
+	string* A = new string[8];
+	A[0] = "Add new line";
+	A[1] = "Print equation line";
+	A[2] = "Shift line by vector";
+	A[3] = "Find the angle between straight lines";
+	A[4] = "Find the point of intersection of lines";
+	A[5] = "Determine in which half-plane relative to the straight line the input point lies";
+	A[6] = "Find a perpendicular line through point";
+	A[7] = "Go back";
+
+	vector<Line*> lines;
+
+	while (true) {
+		int key = print_menu(A, 8);
+		switch (key) {
+		case 1: {
+			Line* l = input_line(cin);
+			if (l != nullptr) {
+				lines.push_back(l);
+			}
+			else system("pause");
+			break;
+		}
+		case 2: {
+			int r = lines.size();
+			if (r == 0) break;
+			int n = -1;
+			while (n < 1 || n > r) {
+				cout << "Enter number of lines from 1 to " << r << endl;
+				cin >> n;
+			}
+			print_info(*lines[n - 1], cout);
+			break;
+		}
+		case 3: {
+			int r = lines.size();
+			if (r == 0) break;
+			int n = -1;
+			while (n < 1 || n > r) {
+				cout << "Enter number of lines from 1 to " << r << endl;
+				cin >> n;
+			}
+			Vector v;
+			cout << "Enter the vector" << endl;
+			cin >> v;
+			*lines[n - 1] = *lines[n - 1] + v;
+			break;
+		}
+		case 4: {
+			int r = lines.size();
+			int n1 = -1;
+			if (r < 2) break;
+			while (n1 < 0 || n1 > r) {
+				cout << "Enter number of line from 1 to " << r << endl;
+				cin >> n1;
+			}
+			int n2 = -1;
+			while (n2 < 0 || n2 > r || n2 == n1) {
+				cout << "Enter number of line from 1 to " << r << endl;
+				cin >> n2;
+			}
+			cout << "Angle between lines = " << angle_between_lines(*lines[n1 - 1], *lines[n2 - 1]) << endl;
+			break;
+		}
+		case 5: {
+			int r = lines.size();
+			if (r < 2) break;
+			int n1 = -1;
+			while (n1 < 0 || n1 > r) {
+				cout << "Enter number of line from 1 to " << r << endl;
+				cin >> n1;
+			}
+			int n2 = -1;
+			while (n2 < 0 || n2 > r || n2 == n1) {
+				cout << "Enter number of line from 1 to " << r << endl;
+				cin >> n2;
+			}
+			if (if_parallel(*lines[n1 - 1], *lines[n2 - 1])) cout << "This lines are parallel" << endl;
+			else {
+				Point p = intersection_point(*lines[n1 - 1], *lines[n2 - 1]);
+				cout << "Point of intersection of lines " << endl << *lines[n1 - 1] << " and " << *lines[n2 - 1] << " = " << p << endl;
+			}
+			break;
+		}
+		case 6: {
+			int r = lines.size();
+			int n = -1;
+			if (r == 0) break;
+			while (n < 0 || n > r) {
+				cout << "Enter number of lines from 1 to " << r << endl;
+				cin >> n;
+			}
+			Point p;
+			cout << "Input point" << endl;
+			cin >> p;
+			if (point_in_halfplane(p, *lines[n - 1]) == -1) cout << "This point lies in the negative half_plane" << endl;
+			else if (point_in_halfplane(p, *lines[n - 1]) == 0) cout << "This point lies on a line" << endl;
+			else cout << "This point lies in the positive half_plane" << endl;
+			break;
+		}
+		case 7: {
+			int r = lines.size();
+			if (r == 0) break;
+			int n = -1;
+			while (n < 0 || n > r) {
+				cout << "Enter number of lines from 1 to " << r << endl;
+				cin >> n;
+			}
+			Point p;
+			cout << "Input the coordinates of the point" << endl;
+			cin >> p;
+			Line l = lines[n - 1]->normal_line(p);
+			cout << l << endl;
+			break;
+		}
+		case 8: {
+			for (int i = 0; i < lines.size(); i++)
+				(*ptr).push_back(lines[i]);
+			return 0;
+			return 0;
+		}
+		default: break;
+		}
+	}
+}
+
+Line* input_line(istream& in) {
+	cout << "Enter the coefficients of the equation of line: Ax+By+C=0" << endl;
+	Line* l = new Line;
+	try {
+		in >> *l;
+	}
+	catch (const char* exception) {
+		cout << "Error: " << exception << endl;
+		delete l;
+		l = nullptr;
+	}
+	return l;
+}
+
+void print_info(Line l, ostream& out) {
+	out << "The line equation" << endl;
+	l.print_equation();
+	cout << endl;
+}
