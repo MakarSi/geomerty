@@ -74,8 +74,7 @@ int menu(deque<Object*>* ptr) {
 		int key = print_menu(A, 9);
 		switch (key) {
 		case 1: {
-			Line l;
-			l.print_all_info();
+			line_menu(ptr);
 			break;
 		}
 		case 2: {

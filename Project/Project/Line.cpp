@@ -187,41 +187,6 @@ double Line::y_through_x(const double& x)
 		return 1000;
 }
 
-void Line::print_all_info() const
-{
-	cout << "Input the coefficients of the line" << endl;
-	double a1, b1, c1;
-	cin >> a1 >> b1 >> c1;
-	Line l = Line(a1, b1, c1);
-	cout << l << endl;
-	Point p1, p2;
-	Line l1, l2;
-	int k;
-	bool f = false;
-	cout << "Input two points to get a line\n";
-	cin >> p1 >> p2;
-	l1 = Line(p1, p2);
-	cout << "The equation of this line: " << l1 << endl;
-	cout << "Input a point\n";
-	cin >> p1;
-	k = point_in_halfplane(p1, l1);
-	if (k == 1) cout << "The point belongs to the positive half-plane\n";
-	else if (k == 0) cout << "The point belongs to the line\n";
-	else if (k == -1) cout << "The point belongs to the negative half-plane\n";
-	cout << "\nInput two more point to get another line\n";
-	cin >> p1 >> p2;
-	l2 = Line(p1, p2);
-	cout << "The equation of the second line: " << l2 << endl;
-	if (if_parallel(l1, l2))
-	{
-		if (l1 == l2) f = true;
-		if (!f) cout << "These two line are parallel\n";
-		else cout << "These two lines are equal\n";
-	}
-	else cout << "Here's the intersection point of this two lines: " << intersection_point(l1, l2) << endl;
-	cout << "The angle between these two line is: " << angle_between_lines(l1, l2) << endl;
-}
-
 Line Line::normal_line(const Point& p)const {
 	Line l(-_b, _a, -_a*p.get_y()+_b*p.get_x());
 	return l;

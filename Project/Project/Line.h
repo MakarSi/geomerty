@@ -43,8 +43,6 @@ public:
 
 	//Печатает уравнение прямой
 	void print_equation()const;
-	//Печатает инфомацию о работе с прямыми
-	void print_all_info()const;
 	//проверяем является ли прямая неоределенной
 	//p1 = {0, -INT_MAX}, p2 = {0, INT_MAX}
 	bool is_undef()const { return (_p1 == Point(0, -INT_MAX) && _p2 == Point(-INT_MAX, 0)); };
