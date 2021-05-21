@@ -15,8 +15,6 @@ Triangle::~Triangle() {
 
 }
 
-
-
 void Triangle::set_vertexes(vector<Point> vertexes) {
 	if (vertexes.size() != 3)
 		throw "Tiangle needs 3 vertexes";
@@ -101,4 +99,16 @@ Triangle Triangle::operator+ (const Vector& v) {
 	for (int i = 0; i < get_dim(); i++)
 		vertexes.push_back(_vertexes[i] + v);
 	return Triangle(vertexes);
+}
+
+istream& operator>> (istream& in, Triangle& t) {
+	vector<Point> vertexes;
+	double x, y;
+	for (int i = 0; i < 3; i++) {
+		in >> x >> y;
+		Point t = { x, y };
+		vertexes.push_back(t);
+	}
+	t = vertexes;
+	return in;
 }

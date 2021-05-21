@@ -20,6 +20,7 @@ public:
 	bool operator!= (const Triangle& t) const;
 	//смещение на вектор
 	Triangle operator+ (const Vector& v);
+	friend istream& operator>> (istream&, Triangle&);
 
 	/*Вспомогательные функции*/
 	/*Нахождение средней линии треугольника

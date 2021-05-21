@@ -367,55 +367,61 @@ int triangle_menu(deque<Object*>* ptr) {
 	A[2] = "Shift triangle by vector";
 	A[3] = "Find a normal";
 	A[4] = "Go back";
-	vector<Triangle> triangles;
+	vector<Triangle*> triangles;
 
 	while (true) {
 		int key = print_menu(A, 5);
 		switch (key) {
 		case 1: {
-			Triangle* t = new Triangle;
-			input_triangle(*t);
-			(*ptr).push_back(t);
-			triangles.push_back(*t);
+			Triangle* t = input_triangle(cin);
+			if (t != nullptr) {
+				triangles.push_back(t);
+			}
+			else system("pause");
 			break;
 		}
 		case 2: {
+			if (triangles.size() == 0) break;
 			int n = -1;
-			while (n < 0 || n >= triangles.size()) {
-				cout << "Enter num from 0 to " << triangles.size() - 1;
+			while (n < 1 || n > triangles.size()) {
+				cout << "Enter num from 1 to " << triangles.size() << endl;
 				cin >> n;
 			}
-			print_info(triangles[n], cout);
+			print_info(*triangles[n-1], cout);
 			break;
 		}
 		case 3: {
+			if (triangles.size() == 0) break;
 			int n = -1;
-			while (n < 0 || n >= triangles.size()) {
-				cout << "Enter num from 0 to " << triangles.size() - 1;
+			while (n < 1 || n > triangles.size()) {
+				cout << "Enter num from 1 to " << triangles.size() << endl;
 				cin >> n;
 			}
 			Vector v;
 			cin >> v;
-			triangles[n] = triangles[n] + v;
+			*triangles[n-1] = *triangles[n-1] + v;
 			break;
 		}
 		case 4: {
+			if (triangles.size() == 0) break;
 			int n = -1, k = -1;
-			while (n < 0 || n >= triangles.size()) {
-				cout << "Enter num from 0 to " << triangles.size() - 1;
+			while (n < 1 || n > triangles.size()) {
+				cout << "Enter num from 1 to " << triangles.size() << endl;
 				cin >> n;
 			}
-			Point p;
 			while (k > 3 || k < 1) {
 				cout << "Enter num of vertexes from 1 to 3" << endl;
 				cin >> k;
 			}
 			Segment* s = new Segment;
-			*s = triangles[n].normal(triangles[n].get_vertex(k - 1));
+			*s = triangles[n-1]->normal(triangles[n-1]->get_vertex(k - 1));
 			cout << *s << endl;
 			(*ptr).push_back(s);
+			break;
 		}
 		case 5: {
+			for (int i = 0; i < triangles.size(); i++)
+				(*ptr).push_back(triangles[i]);
 			return 0;
 		}
 		default: break;
@@ -423,14 +429,16 @@ int triangle_menu(deque<Object*>* ptr) {
 	}
 }
 
-void input_triangle(Triangle& t) {
-	cout << "Enter 3"<<endl;
-	cout << "Then enter the coordinates of the vertices of the triangle: " << endl;
+Triangle* input_triangle(istream& in) {
+	cout << "Enter the coordinates of the vertices of the triangle: " << endl;
+	Triangle* t = new Triangle;
 	try {
-		cin >> t;
+		in >> *t;
 	}
 	catch (const char* exception) {
 		cout << "Error: " << exception << endl;
-		t = {};
+		delete t;
+		t = nullptr;
 	}
+	return t;
 }
