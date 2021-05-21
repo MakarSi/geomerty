@@ -12,7 +12,7 @@ int menu(deque<Object*>*);
 int polygon_menu(deque<Object*>*);
 void print_info(const polygon::Polygon&, ostream&);
 void print_coords(const polygon::Polygon&, ostream&);
-void input_polygon(polygon::Polygon&);
+polygon::Polygon* input_polygon(istream&);
 
 /*Меню выбора для окружности*/
 int circle_menu(deque<Object*>*);

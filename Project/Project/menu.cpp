@@ -126,38 +126,44 @@ int polygon_menu(deque<Object*>* ptr) {
 	A[2] = "Shift polygon by vector";
 	A[3] = "Go back";
 
-	vector<polygon::Polygon> polygons;
+	vector<polygon::Polygon*> polygons;
 	while (true) {
 		int key = print_menu(A, 4);
 		switch (key) {
 		case 1: {
-			polygon::Polygon* p = new polygon::Polygon;
-			input_polygon(*p);
-			(*ptr).push_back(p);
-			polygons.push_back(*p);
+			polygon::Polygon* p = input_polygon(cin);
+			if (p != nullptr) {
+				polygons.push_back(p);
+			}
+			else system("pause");
 			break;
 		}
 		case 2: {
+			if (polygons.size() == 0) break;
 			int n = -1;
-			while (n < 0 || n >= polygons.size()) {
-				cout << "Enter num from 0 to " << polygons.size() - 1;
+			while (n < 1 || n > polygons.size()) {
+				cout << "Enter num from 1 to " << polygons.size() << endl;
 				cin >> n;
 			}
-			print_info(polygons[n], cout);
+			print_info(*polygons[n-1], cout);
 			break;
 		}
 		case 3: {
+			if (polygons.size() == 0) break;
 			int n = -1;
-			while (n < 0 || n >= polygons.size()) {
-				cout << "Enter num from 0 to " << polygons.size()-1;
+			while (n < 1 || n > polygons.size()) {
+				cout << "Enter num from 1 to " << polygons.size() << endl;
 				cin >> n;
 			}
+			cout << "Input vector" << endl;
 			Vector v;
 			cin >> v;
-			polygons[n] = polygons[n] + v;
+			*polygons[n-1] = *polygons[n-1] + v;
 			break;
 		}
 		case 4: {
+			for (int i = 0; i < polygons.size(); i++)
+				(*ptr).push_back(polygons[i]);
 			return 0;
 		}
 		default: break;
@@ -165,16 +171,19 @@ int polygon_menu(deque<Object*>* ptr) {
 	}
 }
 
-void input_polygon(polygon::Polygon& p) {
+polygon::Polygon* input_polygon(istream& in) {
 	cout << "Enter num of vertexes" << endl;
 	cout << "Then enter coords of each vertexes in the right order" << endl;
+	polygon::Polygon* p = new polygon::Polygon;
 	try {
-		cin >> p;
+		in >> *p;
 	}
 	catch (const char* exception) {
 		cout << "Error: " << exception << endl;
-		p = {};
+		delete p;
+		p = nullptr;
 	}
+	return p;
 }
 
 void print_coords(const polygon::Polygon& p, ostream& out) {
