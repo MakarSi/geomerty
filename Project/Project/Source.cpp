@@ -53,7 +53,6 @@ void Display(void)
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	net_drawing();
-	indicate_drawing();
 	node<Object*>* obj_ptr = obj_buff.head();
 	node<Point*>* point_ptr = points_buff.head();
 	while (obj_ptr != nullptr) {
@@ -64,6 +63,7 @@ void Display(void)
 		point_ptr->key->draw();
 		point_ptr = point_ptr->next;
 	}
+	indicate_drawing();
 	glFinish();
 	glutSwapBuffers();
 }
@@ -145,7 +145,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 				obj_created = true;
 			}
 			catch (const char* exception) {
-				cerr << exception;
+				cerr << exception << endl ;
 			}
 			break;
 		}
@@ -159,7 +159,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 				obj_created = true;
 			}
 			catch (const char* exception) {
-				cerr << exception;
+				cerr << exception << endl;
 			}
 			break;
 		}

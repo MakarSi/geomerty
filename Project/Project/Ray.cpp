@@ -129,7 +129,6 @@ istream& operator>>(istream& in, Ray& r)
 
 Ray Ray::operator+ (const Vector& v) {
 	Point new_p = _p + v;
-	Vector new_v = _v + v;
-	Ray r(new_p, new_v);
+	Ray r(new_p, _v);
 	return r;
 }
