@@ -18,6 +18,7 @@ deque<Point*> points_buff;
 color t_color = BLACK;
 int t_width = 3;
 bool t_field = true;
+GLfloat zoom = 1.0;
 
 void Display(void);
 void net_drawing();
@@ -34,6 +35,7 @@ int main(int argc, char* argv[]) {
 	glutCreateWindow("geomerty");
 	glutDisplayFunc(Display);
 	glutReshapeFunc(Reshape);//сетка
+
 	glutMouseFunc(mouseButton);
 	glutKeyboardFunc(processNormalKeys);
 	glutMainLoop();
@@ -41,7 +43,7 @@ int main(int argc, char* argv[]) {
 }
 
 void indicate_drawing() {
-	Circle c(Point(-Width / 2 + 45, Height / 2 - 45), 30);
+	Circle c(Point((-Width / 2 + 45) / zoom, (Height / 2 - 45) / zoom), 30 / zoom);
 	c._color = t_color;
 	c._width = t_width;
 	c._is_field = t_field;
@@ -97,12 +99,16 @@ void Reshape(GLint w, GLint h) {
 	glLoadIdentity();
 	gluOrtho2D(-Width / 2, Width / 2, -Height / 2, Height / 2);//центр координат
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 void mouseButton(int button, int state, int x, int y) {
+	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
+		Point* p = new Point((x - Width / 2)/zoom, (Height / 2 - y)/zoom);
+		points_buff.push_back(p);
+		glutPostRedisplay();
+	}
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		Point* p = new Point(x - Width / 2, Height / 2 - y);
+		Point* p = new Point((x - Width / 2) / zoom, (Height / 2 - y) / zoom);
 		points_buff.push_back(p);
 		glutPostRedisplay();
 	}
@@ -116,6 +122,10 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (key == 51) t_color = YELLOW;//3 желтый
 	if (key == 52) t_color = GREEN;//4 зеленый
 	if (key == 53) t_color = BLUE;//5 синий
+
+	//на 6 увеличить на 7 уменьшить
+	if (key == 54) { zoom *= 1.1; glScalef(1.1, 1.1, 1.1);}
+	if (key == 55) { zoom *= 0.9; glScalef(0.9, 0.9, 0.9);}
 
 	/*Толщина линий*/
 	if (key == 61 && t_width < 10) t_width++;//+
