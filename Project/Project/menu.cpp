@@ -59,7 +59,7 @@ int print_menu(string* a, int N) {
 
 int menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[8];
+	string* A = new string[9];
 	A[0] = "Действия с прямыми";
 	A[1] = "Действия с лучом";
 	A[2] = "Действия с треугольником";
@@ -67,9 +67,10 @@ int menu(deque<Object*>* ptr) {
 	A[4] = "Действия с многоугольником";
 	A[5] = "Действия с четырехугольником";
 	A[6] = "Действия с векторами";
-	A[7] = "Выйти из меню в glut";
+	A[7] = "Выведи";
+	A[8] = "Выйти из меню в glut";
 	while (true) {
-		int key = print_menu(A, 8);
+		int key = print_menu(A, 9);
 		switch (key) {
 		case 1: {
 			line_menu(ptr);
@@ -102,6 +103,21 @@ int menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 8: {
+			node<Object*>* tmp_ptr = ptr->head();
+			int i = 1;
+			while (tmp_ptr != nullptr) {
+				if (dynamic_cast<Line*>(tmp_ptr->key) != NULL) {
+					cout << i << ". ";
+					dynamic_cast<Line*>(tmp_ptr->key)->print_equation();
+					cout << endl;
+					i++;
+				}
+				tmp_ptr = tmp_ptr->next;
+			}
+			system("pause");
+			break;
+		}
+		case 9: {
 			return 0;
 		}
 		default: break;
@@ -111,50 +127,75 @@ int menu(deque<Object*>* ptr) {
 
 int polygon_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[4];
+	string* A = new string[5];
 	A[0] = "Add new polygon";
 	A[1] = "Print info about polygon";
 	A[2] = "Shift polygon by vector";
-	A[3] = "Go back";
+	A[3] = "Find a bisector";
+	A[4] = "Go back";
 
-	vector<polygon::Polygon*> polygons;
 	while (true) {
-		int key = print_menu(A, 4);
+		int key = print_menu(A, 5);
 		switch (key) {
 		case 1: {
 			polygon::Polygon* p = input_polygon(cin);
 			if (p != nullptr) {
-				polygons.push_back(p);
+				ptr->push_back(p);
 			}
 			else system("pause");
 			break;
 		}
 		case 2: {
-			if (polygons.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > polygons.size()) {
-				cout << "Enter num from 1 to " << polygons.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			print_info(*polygons[n-1], cout);
+			if (dynamic_cast<polygon::Polygon*>((*ptr)[n-1]) != NULL)
+				print_info(*dynamic_cast<polygon::Polygon*>((*ptr)[n-1]), cout);
+			else cout << "This object isn`t a polygon" << endl;
 			break;
 		}
 		case 3: {
-			if (polygons.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > polygons.size()) {
-				cout << "Enter num from 1 to " << polygons.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			cout << "Input vector" << endl;
-			Vector v;
-			cin >> v;
-			*polygons[n-1] = *polygons[n-1] + v;
+			if (dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) != NULL) {
+				cout << "Input vector" << endl;
+				Vector v;
+				cin >> v;
+				Object* tmp = (*ptr)[n - 1];
+				*dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) = *dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) + v;
+			}
+			else cout << "This object isn`t a polygon" << endl;
 			break;
 		}
 		case 4: {
-			for (int i = 0; i < polygons.size(); i++)
-				(*ptr).push_back(polygons[i]);
+			if (ptr->size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num of object from 1 to " << ptr->size() << endl;
+				cin >> n;
+			}
+			polygon::Polygon* t_ptr = dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]);
+			if (t_ptr != NULL) {
+				int k = -1;
+				while (k < 1 || k > t_ptr->get_dim()) {
+					cout << "Enter num of vertex from 1 to " << t_ptr->get_dim() << endl;
+					cin >> k;
+				}
+				Ray* ray = new Ray;
+				*ray = t_ptr->bisector(t_ptr->get_vertex(k));
+				ptr->push_back(ray);
+			}
+			else cout << "This object isn`t a polygon" << endl;
+			break;
+		}
+		case 5: {
 			return 0;
 		}
 		default: break;

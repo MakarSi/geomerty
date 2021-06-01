@@ -108,6 +108,14 @@ namespace polygon {
 	}
 	*/
 
+	Polygon& Polygon::operator= (const Polygon& poly) {
+		vector<Point> v;
+		for (int i = 0; i < poly.get_dim(); i++)
+			v.push_back(poly.get_vertex(i));
+		this->set_vertexes(v);
+		return *this;
+	}
+
 	Polygon Polygon::operator+ (const Vector& v) {
 		vector<Point> vertexes;
 		for (int i = 0; i < get_dim(); i++)

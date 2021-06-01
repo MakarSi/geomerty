@@ -33,6 +33,8 @@ namespace polygon{
 		double get_area()const { return _area; }
 		double get_perimeter()const { return _perimeter; }
 
+		Polygon& operator= (const Polygon& poly);
+		
 		friend istream& operator>> (istream&, Polygon&);
 		/*bool operator== (const Polygon&);
 		bool operator!= (const Polygon&);*/
