@@ -39,8 +39,14 @@ namespace polygon {
 						throw "Intersection found";
 				}
 			}
-			_vertexes.push_back(vertexes[i]);
 		}
+		for (size_t i = 0; i < vertexes.size(); i++) {
+			Line a = { vertexes[i], vertexes[(i+1) % vertexes.size()] };
+			Line b = { vertexes[(i + 1) % vertexes.size()], vertexes[(i + 2) % vertexes.size()] };
+			if (if_parallel(a, b)) throw "Invalid polygon";
+		}
+		for (size_t i = 0; i < vertexes.size(); i++)
+			_vertexes.push_back(vertexes[i]);
 	}
 
 	void Polygon::init_perimeter() {
