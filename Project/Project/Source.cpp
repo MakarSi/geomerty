@@ -175,6 +175,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		}
 		}
 	}
+
 	// клавиша с/с - создать окружность
 	if (key == 67 || key == 99 || key == 209 || key == 241) {
 		if (points_buff.size() == 2) {
@@ -184,6 +185,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			obj_created = true;
 		}
 	}
+
 	// клавиша l/д - создать прямую
 	if (key == 76 || key == 108 || key == 228 || key == 196)
 	{
@@ -194,6 +196,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			obj_created = true;
 		}
 	}
+
 	// клавиша r/к - создать луч
 	if (key == 82 || key == 114 || key == 202 || key == 234)
 	{
@@ -213,6 +216,24 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		}
 	}
 
+	//клавиша v/м - построить выпуклую оболочку
+	if (key == 86 || key == 118 || key == 204 || key == 236) {
+		if (points_buff.size() > 2) {
+			vector <Point> v;
+			for (int i = 0; i < points_buff.size(); i++)
+				v.push_back(*points_buff[i]);
+			try {
+				polygon::Polygon* poly = new polygon::Polygon;
+				*poly = polygon::convex_shell(v);
+				obj_buff.push_back(poly);
+				obj_created = true;
+			}
+			catch (const char* exception) {
+				cerr << exception << endl;
+			}
+		}
+	}
+
 	//стереть объект с экрана alt + z
 	if (key == 90 || key == 122 || key == 223 || key == 255) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !obj_buff.empty()) {
@@ -220,6 +241,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			obj_buff.pop_back();
 		}
 	}
+
 	//вернуть объект на экран alt + y
 	if (key == 89 || key == 121 || key == 205 || key == 237) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !undo_obj_buff.empty()) {
@@ -227,16 +249,19 @@ void processNormalKeys(unsigned char key, int x, int y) {
 			undo_obj_buff.pop_back();
 		}
 	}
+
 	//удалить точки с экрана alt + x
 	if (key == 88 || key == 120 || key == 215 || key == 247) {
 		if (glutGetModifiers() == GLUT_ACTIVE_ALT && !points_buff.empty())
 			points_buff.pop_back();
 	}
+
 	//Удалить верхний объект
 	if (key == 127) {
 		if (!obj_buff.empty())
 			obj_buff.pop_back();
 	}
+
 	// m/ь - выход в консольно меню
 	if (key == 77 || key == 109 || key == 220 || key == 252)
 		menu(&obj_buff);

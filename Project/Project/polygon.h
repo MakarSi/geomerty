@@ -51,4 +51,7 @@ namespace polygon{
 		/*Компаратор*/
 		friend bool cop(const Point& p1, const Point& p2);
 	};
+	Polygon convex_shell(vector<Point> points);
+	double rotation(Point p1, Point p2, Point p3);
+	bool cop(const Point& p1, const Point& p2);
 }
