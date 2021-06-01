@@ -16,6 +16,22 @@
 
 using namespace std;
 
+string who_iam(Object* obj) {
+	if (dynamic_cast<Point*>(obj) != NULL) return "Point";
+	if (dynamic_cast<Circle*>(obj) != NULL) return "Circle";
+	if (dynamic_cast<Line*>(obj) != NULL) return "Line";
+	if (dynamic_cast<Ray*>(obj) != NULL) return "Ray";
+	if (dynamic_cast<Segment*>(obj) != NULL) return "Segment";
+	if (dynamic_cast<polygon::Polygon*>(obj) != NULL) {
+		if (dynamic_cast<Triangle*>(obj) != NULL)
+			return "Triangle";
+		if (dynamic_cast<Quadrangle*>(obj) != NULL)
+			return "Quadrangle";
+		return "Polygon";
+	}
+	return "I dont kno who you are";
+}
+
 int print_menu(string* a, int N) {
 	int key = 0, move;
 	while (true) {
@@ -67,7 +83,7 @@ int menu(deque<Object*>* ptr) {
 	A[4] = "Действия с многоугольником";
 	A[5] = "Действия с четырехугольником";
 	A[6] = "Действия с векторами";
-	A[7] = "Выведи";
+	A[7] = "Выведи список объектов";
 	A[8] = "Выйти из меню в glut";
 	while (true) {
 		int key = print_menu(A, 9);
@@ -106,13 +122,9 @@ int menu(deque<Object*>* ptr) {
 			node<Object*>* tmp_ptr = ptr->head();
 			int i = 1;
 			while (tmp_ptr != nullptr) {
-				if (dynamic_cast<Line*>(tmp_ptr->key) != NULL) {
-					cout << i << ". ";
-					dynamic_cast<Line*>(tmp_ptr->key)->print_equation();
-					cout << endl;
-					i++;
-				}
+				cout << i << ". " << who_iam(tmp_ptr->key) << endl;
 				tmp_ptr = tmp_ptr->next;
+				i++;
 			}
 			system("pause");
 			break;
