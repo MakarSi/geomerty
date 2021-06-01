@@ -95,8 +95,8 @@ Point Point::operator-(const Point& p)const
 }
 
 void Point::draw()const {
-	glPointSize(_width);
-	glColor3d(_color.R, _color.G, _color.B);
+	glPointSize(_image._width);
+	glColor3d(_image._color.R, _image._color.G, _image._color.B);
 	glEnable(GL_POINT_SMOOTH);
 	glBegin(GL_POINTS);
 		glVertex2d(_x, _y);

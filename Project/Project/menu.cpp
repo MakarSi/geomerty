@@ -358,14 +358,14 @@ int circle_menu(deque<Object*>* ptr) {
 			}
 			if (*p1 == *p2) {
 				cout << *p1 << endl;
-				p1->_width = 10;
+				p1->_image._width = 10;
 				(*ptr).push_back(p1);
 				delete p2;
 			}
 			else {
 				cout << *p1 << endl << *p2 << endl;
-				p1->_width = 10;
-				p2->_width = 10;
+				p1->_image._width = 10;
+				p2->_image._width = 10;
 				(*ptr).push_back(p1);
 				(*ptr).push_back(p2);
 			}
@@ -569,7 +569,7 @@ int line_menu(deque<Object*>* ptr) {
 			else {
 				Point* p = new Point;
 				*p = intersection_point(*lines[n1 - 1], *lines[n2 - 1]);
-				p->_width = 10;
+				p->_image._width = 10;
 				ptr->push_back(p);
 				cout << "Point of intersection of lines " << endl << *lines[n1 - 1] << " and " << *lines[n2 - 1] << " = " << *p << endl;
 			}

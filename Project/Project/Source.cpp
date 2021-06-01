@@ -15,9 +15,7 @@ GLint Width = 1920, Height = 1080;//размер окна
 deque<Object*> obj_buff;
 deque<Object*> undo_obj_buff;
 deque<Point*> points_buff;
-color t_color = BLACK;
-int t_width = 3;
-bool t_field = true;
+image t_image = {BLACK, 3, true};
 GLfloat zoom = 1.0;
 
 void Display(void);
@@ -44,9 +42,7 @@ int main(int argc, char* argv[]) {
 
 void indicate_drawing() {
 	Circle c(Point((-Width / 2 + 45) / zoom, (Height / 2 - 45) / zoom), 30 / zoom);
-	c._color = t_color;
-	c._width = t_width;
-	c._is_field = t_field;
+	c._image = t_image;
 	c.draw();
 }
 
@@ -76,18 +72,18 @@ void net_drawing() {
 	for (int i = -1000; i <= 1000; i += 50)
 	{
 		l = Line(Point(1000, double(i)), Point(-1000, double(i)));
-		l._width = 1;
+		l._image._width = 1;
 		l.draw();
 		l = Line(Point(double(i), 1000), Point(double(i), -1000));
-		l._width = 1;
+		l._image._width = 1;
 		l.draw();
 	}
 
 	l = Line(Point(1000, 0), Point(-1000, 0));
-	l._width = 4;
+	l._image._width = 4;
 	l.draw();
 	l = Line(Point(0, 1000), Point(0, -1000));
-	l._width = 4;
+	l._image._width = 4;
 	l.draw();
 }
 
@@ -117,22 +113,22 @@ void mouseButton(int button, int state, int x, int y) {
 void processNormalKeys(unsigned char key, int x, int y) {
 	bool obj_created = false;
 	/*Выбор цвета с помощью клавитуры - цифры*/
-	if (key == 49) t_color = BLACK;//1 черный
-	if (key == 50) t_color = RED;//2 красный
-	if (key == 51) t_color = YELLOW;//3 желтый
-	if (key == 52) t_color = GREEN;//4 зеленый
-	if (key == 53) t_color = BLUE;//5 синий
+	if (key == 49) t_image._color = BLACK;//1 черный
+	if (key == 50) t_image._color = RED;//2 красный
+	if (key == 51) t_image._color = YELLOW;//3 желтый
+	if (key == 52) t_image._color = GREEN;//4 зеленый
+	if (key == 53) t_image._color = BLUE;//5 синий
 
 	//на 6 увеличить на 7 уменьшить
 	if (key == 54) { zoom *= 1.1; glScalef(1.1, 1.1, 1.1);}
 	if (key == 55) { zoom *= 0.9; glScalef(0.9, 0.9, 0.9);}
 
 	/*Толщина линий*/
-	if (key == 61 && t_width < 10) t_width++;//+
-	if (key == 45 && t_width >= 2) t_width--;//-
+	if (key == 61 && t_image._width < 10) t_image._width++;//+
+	if (key == 45 && t_image._width >= 2) t_image._width--;//-
 
 	/*Закрашивать внутри*/
-	if (key == 48) t_field = !t_field;
+	if (key == 48) t_image._is_filled = !t_image._is_filled;
 
 	//клавиша а/ф - создать прямую, треугольник, многоугольник
 	if (key == 97 || key == 65 || key == 212 || key == 244) {
@@ -269,9 +265,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (key == 27)
 		exit(0);
 	if (obj_created) {
-		obj_buff.back()->_color = t_color;
-		obj_buff.back()->_is_field = t_field;
-		obj_buff.back()->_width = t_width;
+		obj_buff.back()->_image = t_image;
 		points_buff.clear();
 	}
 	glutPostRedisplay();

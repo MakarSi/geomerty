@@ -66,7 +66,8 @@ void Ray::draw()const
 	//cout << v.get_x() << " " << v.get_y() << " " << v.length()  << endl;
 	v = v*10000;
 	Point p = _p + v;
-	glColor3d(_color.R, _color.G, _color.B);
+	glColor3d(_image._color.R, _image._color.G, _image._color.B);
+	glLineWidth(_image._width);
 	glBegin(GL_LINES);
 	glVertex2d(_p.get_x(), _p.get_y());
 	glVertex2d(p.get_x(), p.get_y());

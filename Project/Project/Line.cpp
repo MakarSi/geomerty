@@ -194,8 +194,8 @@ Line Line::normal_line(const Point& p)const {
 
 void Line::draw()const 
 {
-	glColor3d(_color.R, _color.G, _color.B);
-	glLineWidth(_width);
+	glColor3d(_image._color.R, _image._color.G, _image._color.B);
+	glLineWidth(_image._width);
 	glBegin(GL_LINES);
 	Line l = *this;
 	if (_b != 0)
