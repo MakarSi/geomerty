@@ -38,3 +38,6 @@ void print_info(Line l, ostream& out);
 int ray_menu(deque<Object*>*);
 void print_info(const Ray&, ostream&);
 Ray* input_ray(istream&);
+
+//безопасный ввод(если введено ровно 1 число, то возвращается оно, иначе -1)
+int save_in(istream& cin);
