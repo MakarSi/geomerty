@@ -23,6 +23,8 @@ void Triangle::set_vertexes(vector<Point> vertexes) {
 		throw "Triangle is degenerate";
 	if (point_in_halfplane(vertexes[2], l) == 0)
 		throw "Triangle is degenerate";
+	if(vertexes[0]==vertexes[1]|| vertexes[0] == vertexes[2] || vertexes[1] == vertexes[2])
+		throw "Triangle is degenerate";
 	_vertexes.clear();
 	for (size_t i = 0; i < vertexes.size(); i++)
 		_vertexes.push_back(vertexes[i]);
