@@ -37,28 +37,6 @@ Vector Ray::get_vector() const
 	return _v;
 }
 
-void Ray::print_all_info() const
-{
-	Point p1, p2, k1, k2, k3, k4;
-	cout << "Input a point to get the start of the first ray\n";
-	cin >> p1;
-	cout << "Input two points to get the vector for the first ray\n";
-	cin >> k1 >> k2;
-	Vector v1 = Vector(k1, k2);
-	Ray r1 = Ray(p1, v1);
-	cout << "Input a point to get the start of the second ray\n";
-	cin >> p2;
-	cout << "Input two points to get the vector for the second ray\n";
-	cin >> k3 >> k4;
-	Vector v2 = Vector(k3, k4);
-	Ray r2 = Ray(p2, v2);
-	bool f = intersection_point_existence(r1, r2);
-	if (f)
-		cout << "These two rays have the intersection point: " << ray_intersection_point(r1, r2) << endl;
-	else cout << "These two rays have no intersection point\n";
-	cout << "Angle between these two rays is: " << angle_between_rays(r1, r2) << endl;
-}
-
 void Ray::draw()const
 {	
 	Vector v = _v;

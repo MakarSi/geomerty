@@ -27,10 +27,6 @@ public:
 	friend Point ray_intersection_point(const Ray& r1, const Ray& r2);
 	//Возвращает угол между лучами
 	friend double angle_between_rays(const Ray& r1, const Ray& r2);
-
-	//Печатает информацию о работе с лучами
-	void print_all_info() const;
-
 	virtual void draw()const;
 private:
 	Point _p; Vector _v;

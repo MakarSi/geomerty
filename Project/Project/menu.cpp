@@ -92,6 +92,7 @@ int menu(deque<Object*>* ptr) {
 		}
 		case 2: {
 			ray_menu(ptr);
+			break;
 		}
 		case 3: {
 			triangle_menu(ptr);
@@ -103,6 +104,7 @@ int menu(deque<Object*>* ptr) {
 		}
 		case 5: {
 			polygon_menu(ptr);
+			break;
 		}
 		case 6: {
 			node<Object*>* tmp_ptr = ptr->head();
@@ -693,93 +695,108 @@ int ray_menu(deque<Object*>* ptr) {
 	A[4] = "Instersection point of two rays";
 	A[5] = "Go back";
 
-	vector<Ray*> rays;
 	while (true) {
 		int key = print_menu(A, 6);
-		switch (key)
-		{
-		case 1:
-		{
-			Ray* r = input_ray(cin);//			cin >> *r;
-			if (r != nullptr)
-				rays.push_back(r);
+		switch (key) {
+		case 1: {
+			Ray* r = input_ray(cin);
+			if (r != nullptr) {
+				ptr->push_back(r);
+			}
 			else system("pause");
 			break;
 		}
-		case 2:
-		{
-			if (rays.size() == 0) break;
+		case 2: {
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > rays.size())
-			{
-				cout << "Enter num from 1 to " << rays.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			print_info(*rays[n - 1], cout);
+			if (dynamic_cast<Ray*>((*ptr)[n - 1]) != NULL)
+				print_info(*dynamic_cast<Ray*>((*ptr)[n - 1]), cout);
+			else cout << "This object isn`t a ray" << endl;
 			break;
 		}
-		case 3:
-		{
-			if (rays.size() == 0) break;
+		case 3: {
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > rays.size()) {
-				cout << "Enter num from 1 to " << rays.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			cout << "Input vector" << endl;
-			Vector v;
-			cin >> v;
-			*rays[n - 1] = *rays[n - 1] + v;
+			if (dynamic_cast<Ray*>((*ptr)[n - 1]) != NULL) {
+				cout << "Input vector" << endl;
+				Vector v;
+				cin >> v;
+				Object* tmp = (*ptr)[n - 1];
+				*dynamic_cast<Ray*>((*ptr)[n - 1]) = *dynamic_cast<Ray*>((*ptr)[n - 1]) + v;
+			}
+			else cout << "This object isn`t a ray" << endl;
 			break;
 		}
-		case 4:
-		{
-			int n1 = 0, n2 = 0;
-			if (rays.size() < 2) break;
-			while (n1 < 1 || n1 > rays.size())
-			{
-				cout << "Enter the number of the ray from 1  to " << rays.size() << endl;
+		case 4: {
+			if (ptr->size() == 0) break;
+			int n1 = -1;
+			while (n1 < 1 || n1 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n1;
 			}
-			while (n2 < 1 || n2 > rays.size() || n1 == n2)
-			{
-				cout << "Enter the number of the ray from 1 to " << rays.size() << endl;
+			if (dynamic_cast<Ray*>((*ptr)[n1 - 1]) == NULL) {
+				cout << "This object isn`t a ray" << endl;
+				system("pause");
+				break;
+			}
+			int n2 = -1;
+			while (n2 < 1 || n2 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n2;
 			}
-			cout << "The angle between rays is " << angle_between_rays(*rays[n1 - 1], *rays[n2 - 1]) << endl;
+			if (dynamic_cast<Ray*>((*ptr)[n2 - 1]) == NULL) {
+				cout << "This object isn`t a ray" << endl;
+				system("pause");
+				break;
+			}
+			cout << "The angle between rays is " << angle_between_rays(*dynamic_cast<Ray*>((*ptr)[n1 - 1]), *dynamic_cast<Ray*>((*ptr)[n2 - 1])) << endl;
 			break;
 		}
-		case 5:
-		{
-			int n1 = 0, n2 = 0;
-			if (rays.size() < 2) break;
-			while (n1 < 1 || n1 > rays.size())
-			{
-				cout << "Enter the number of the ray from 1  to " << rays.size() << endl;
+		case 5: {
+			if (ptr->size() == 0) break;
+			int n1 = -1;
+			while (n1 < 1 || n1 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n1;
 			}
-			while (n2 < 1 || n2 > rays.size() || n1 == n2)
-			{
-				cout << "Enter the number of the ray from 1 to " << rays.size() << endl;
+			if (dynamic_cast<Ray*>((*ptr)[n1 - 1]) == NULL) {
+				cout << "This object isn`t a ray" << endl;
+				system("pause");
+				break;
+			}
+			int n2 = -1;
+			while (n2 < 1 || n2 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n2;
 			}
-			if (intersection_point_existence(*rays[n1 - 1], *rays[n2 - 1]))
-				cout << "These two rays have the intersection point: " << ray_intersection_point(*rays[n1 - 1], *rays[n2 - 1]) << endl;
-			else cout << "These two rays have no intersection point\n";
+			if (dynamic_cast<Ray*>((*ptr)[n2 - 1]) == NULL) {
+				cout << "This object isn`t a ray" << endl;
+				system("pause");
+				break;
+			}
+			/*Косяк в функции*/
+			if (intersection_point_existence(*dynamic_cast<Ray*>((*ptr)[n1 - 1]), *dynamic_cast<Ray*>((*ptr)[n2 - 1])))
+				cout << "These two rays have the intersection point: " << ray_intersection_point(*dynamic_cast<Ray*>((*ptr)[n1 - 1]), *dynamic_cast<Ray*>((*ptr)[n2 - 1])) << endl;
+			else cout << "These two rays have no intersection point" << endl;
 			break;
 		}
 		case 6: {
-			for (int i = 0; i < rays.size(); i++)
-				(*ptr).push_back(rays[i]);
 			return 0;
 		}
 		default: break;
 		}
 	}
 }
-
 Ray* input_ray(istream& in) {
-	cout << "Input the begging of the ray and the vector ";
+	cout << "Input the begging of the ray and the vector "<<endl;
 	Ray* r = new Ray;
 	try {
 		in >> *r;
