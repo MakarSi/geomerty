@@ -343,12 +343,17 @@ int circle_menu(deque<Object*>* ptr) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n1;
 			}
+			if (dynamic_cast<Circle*>((*ptr)[n1 - 1]) == NULL) {
+				cout << "This object isn`t a circle" << endl;
+				system("pause");
+				break;
+			}
 			int n2 = -1;
 			while (n2 < 1 || n2 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n2;
 			}
-			if (dynamic_cast<Circle*>((*ptr)[n1 - 1]) == NULL && dynamic_cast<Circle*>((*ptr)[n2 - 1]) == NULL) {
+			if (dynamic_cast<Circle*>((*ptr)[n2 - 1]) == NULL) {
 				cout << "This object isn`t a circle" << endl;
 				system("pause");
 				break;
@@ -373,8 +378,6 @@ int circle_menu(deque<Object*>* ptr) {
 				p2->_image._width = 10;
 				ptr->push_back(p1);
 				ptr->push_back(p2);
-				(*ptr).push_back(p1);
-				(*ptr).push_back(p2);
 			}
 			break;
 		}
