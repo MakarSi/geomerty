@@ -516,120 +516,146 @@ int line_menu(deque<Object*>* ptr) {
 	A[6] = "Find a perpendicular line through point";
 	A[7] = "Go back";
 
-	vector<Line*> lines;
-
 	while (true) {
 		int key = print_menu(A, 8);
 		switch (key) {
 		case 1: {
 			Line* l = input_line(cin);
 			if (l != nullptr) {
-				lines.push_back(l);
+				ptr->push_back(l);
 			}
 			else system("pause");
 			break;
 		}
 		case 2: {
-			int r = lines.size();
-			if (r == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > r) {
-				cout << "Enter number of lines from 1 to " << r << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			print_info(*lines[n - 1], cout);
+			if (dynamic_cast<Line*>((*ptr)[n - 1]) != NULL)
+				print_info(*dynamic_cast<Line*>((*ptr)[n - 1]), cout);
+			else cout << "This object isn`t a line" << endl;
 			break;
 		}
 		case 3: {
-			int r = lines.size();
-			if (r == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > r) {
-				cout << "Enter number of lines from 1 to " << r << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			Vector v;
-			cout << "Enter the vector" << endl;
-			cin >> v;
-			*lines[n - 1] = *lines[n - 1] + v;
+			if (dynamic_cast<Line*>((*ptr)[n - 1]) != NULL) {
+				cout << "Input vector" << endl;
+				Vector v;
+				cin >> v;
+				Object* tmp = (*ptr)[n - 1];
+				*dynamic_cast<Line*>((*ptr)[n - 1]) = *dynamic_cast<Line*>((*ptr)[n - 1]) + v;
+			}
+			else cout << "This object isn`t a line" << endl;
 			break;
 		}
 		case 4: {
-			int r = lines.size();
+			if (ptr->size() == 0) break;
 			int n1 = -1;
-			if (r < 2) break;
-			while (n1 < 0 || n1 > r) {
-				cout << "Enter number of line from 1 to " << r << endl;
+			while (n1 < 1 || n1 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n1;
 			}
+			if (dynamic_cast<Line*>((*ptr)[n1 - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
+			}
 			int n2 = -1;
-			while (n2 < 0 || n2 > r || n2 == n1) {
-				cout << "Enter number of line from 1 to " << r << endl;
+			while (n2 < 1 || n2 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n2;
 			}
-			cout << "Angle between lines = " << angle_between_lines(*lines[n1 - 1], *lines[n2 - 1]) << endl;
+			if (dynamic_cast<Line*>((*ptr)[n2 - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
+			}
+			cout << "Angle between lines = " << angle_between_lines(*dynamic_cast<Line*>((*ptr)[n1 - 1]), *dynamic_cast<Line*>((*ptr)[n2 - 1])) << endl;
 			break;
+
 		}
 		case 5: {
-			int r = lines.size();
-			if (r < 2) break;
+			if (ptr->size() == 0) break;
 			int n1 = -1;
-			while (n1 < 0 || n1 > r) {
-				cout << "Enter number of line from 1 to " << r << endl;
+			while (n1 < 1 || n1 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n1;
 			}
+			if (dynamic_cast<Line*>((*ptr)[n1 - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
+			}
 			int n2 = -1;
-			while (n2 < 0 || n2 > r || n2 == n1) {
-				cout << "Enter number of line from 1 to " << r << endl;
+			while (n2 < 1 || n2 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n2;
 			}
-			if (if_parallel(*lines[n1 - 1], *lines[n2 - 1])) cout << "This lines are parallel" << endl;
+			if (dynamic_cast<Line*>((*ptr)[n2 - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
+			}
+			if (if_parallel(*dynamic_cast<Line*>((*ptr)[n1 - 1]), *dynamic_cast<Line*>((*ptr)[n2 - 1]))) cout << "This lines are parallel" << endl;
 			else {
 				Point* p = new Point;
-				*p = intersection_point(*lines[n1 - 1], *lines[n2 - 1]);
+				*p = intersection_point(*dynamic_cast<Line*>((*ptr)[n1 - 1]), *dynamic_cast<Line*>((*ptr)[n2 - 1]));
 				p->_image._width = 10;
 				ptr->push_back(p);
-				cout << "Point of intersection of lines " << endl << *lines[n1 - 1] << " and " << *lines[n2 - 1] << " = " << *p << endl;
+				cout << "Point of intersection of lines " << *p << endl;
 			}
 			break;
 		}
 		case 6: {
-			int r = lines.size();
+			if (ptr->size() == 0) break;
 			int n = -1;
-			if (r == 0) break;
-			while (n < 0 || n > r) {
-				cout << "Enter number of lines from 1 to " << r << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
+			}
+			if (dynamic_cast<Line*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
 			}
 			Point p;
 			cout << "Input point" << endl;
 			cin >> p;
-			if (point_in_halfplane(p, *lines[n - 1]) == -1) cout << "This point lies in the negative half_plane" << endl;
-			else if (point_in_halfplane(p, *lines[n - 1]) == 0) cout << "This point lies on a line" << endl;
+			if (point_in_halfplane(p, *dynamic_cast<Line*>((*ptr)[n - 1])) == -1) cout << "This point lies in the negative half_plane" << endl;
+			else if (point_in_halfplane(p, *dynamic_cast<Line*>((*ptr)[n - 1])) == 0) cout << "This point lies on a line" << endl;
 			else cout << "This point lies in the positive half_plane" << endl;
 			break;
 		}
 		case 7: {
-			int r = lines.size();
-			if (r == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 0 || n > r) {
-				cout << "Enter number of lines from 1 to " << r << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
+			if (dynamic_cast<Line*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
+			}
 			Point p;
-			cout << "Input the coordinates of the point" << endl;
+			cout << "Input point" << endl;
 			cin >> p;
 			Line* l = new Line;
-			*l = lines[n - 1]->normal_line(p);
+			*l = dynamic_cast<Line*>((*ptr)[n - 1])->normal_line(p);
 			cout << *l << endl;
 			ptr->push_back(l);
 			break;
 		}
 		case 8: {
-			for (int i = 0; i < lines.size(); i++)
-				(*ptr).push_back(lines[i]);
-			return 0;
 			return 0;
 		}
 		default: break;
