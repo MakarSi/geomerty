@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ios>
+#include <limits>
 #include <Windows.h>
 #include <conio.h>
 #include <algorithm>
@@ -125,6 +127,21 @@ int menu(deque<Object*>* ptr) {
 	}
 }
 
+int save_in(istream& in) {
+	string n0;
+	int n = -1;
+	getline(cin, n0);
+	if (n0.size() > 9) return -1; //если длина строки больше 9, то возвращаем -1, так как это точно не интовое значение
+	for (int i = 0; i < n0.size(); i++) {
+		if (n0[i] > '9' || n0[i] < '0') {
+			n = -1;
+			break;
+		}
+		n = stoi(n0);
+	}
+	return n;
+}
+
 int polygon_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[5];
@@ -139,6 +156,7 @@ int polygon_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			polygon::Polygon* p = input_polygon(cin);
+			cin.ignore();
 			if (p != nullptr) {
 				ptr->push_back(p);
 			}
@@ -150,7 +168,7 @@ int polygon_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<polygon::Polygon*>((*ptr)[n-1]) != NULL)
 				print_info(*dynamic_cast<polygon::Polygon*>((*ptr)[n-1]), cout);
@@ -162,12 +180,13 @@ int polygon_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) != NULL) {
 				cout << "Input vector" << endl;
 				Vector v;
 				cin >> v;
+				cin.ignore();
 				Object* tmp = (*ptr)[n - 1];
 				*dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) = *dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) + v;
 			}
@@ -179,14 +198,14 @@ int polygon_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num of object from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			polygon::Polygon* t_ptr = dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]);
 			if (t_ptr != NULL) {
 				int k = -1;
-				while (k < 1 || k > t_ptr->get_dim()) {
+				while (k < 0 || k > t_ptr->get_dim()-1) {
 					cout << "Enter num of vertex from 1 to " << t_ptr->get_dim() << endl;
-					cin >> k;
+					k = save_in(cin) - 1;
 				}
 				Ray* ray = new Ray;
 				*ray = t_ptr->bisector(t_ptr->get_vertex(k));
@@ -426,6 +445,7 @@ int triangle_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			Triangle* t = input_triangle(cin);
+			cin.ignore();
 			if (t != nullptr) {
 				ptr->push_back(t);
 			}
@@ -437,7 +457,7 @@ int triangle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Triangle*>((*ptr)[n - 1]) != NULL)
 				print_info(*dynamic_cast<Triangle*>((*ptr)[n - 1]), cout);
@@ -449,12 +469,13 @@ int triangle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) != NULL) {
 			cout << "Input vector" << endl;
 			Vector v;
 			cin >> v;
+			cin.ignore();
 			Object* tmp = (*ptr)[n - 1];
 			*dynamic_cast<Triangle*>((*ptr)[n - 1]) = *dynamic_cast<Triangle*>((*ptr)[n - 1]) + v;
 			}
@@ -466,14 +487,14 @@ int triangle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num of object from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			Triangle* t_ptr = dynamic_cast<Triangle*>((*ptr)[n - 1]);
 			if (t_ptr != NULL) {
 				int k = -1;
 				while (k > 3 || k < 1) {
 					cout << "Enter num of vertex from 1 to 3" << endl;
-					cin >> k;
+					k = save_in(cin);
 				}
 				Segment* s = new Segment;
 				*s = t_ptr->normal(t_ptr->get_vertex(k - 1));
