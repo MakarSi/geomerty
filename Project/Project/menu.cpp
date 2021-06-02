@@ -242,101 +242,120 @@ int circle_menu(deque<Object*>* ptr) {
 	A[5] = "Finding the intersection points of two circles";
 	A[6] = "Go back";
 
-	vector<Circle*> circles;
-
 	while (true) {
 		int key = print_menu(A, 7);
 		switch (key) {
 		case 1: {
 			Circle* c = input_circle(cin);
 			if (c != nullptr) {
-				circles.push_back(c);
+				ptr->push_back(c);
 			}
 			else system("pause");
 			break;
 		}
 		case 2: {
-			if (circles.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > circles.size()) {
-				cout << "Enter num from 1 to " << circles.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			print_info(*circles[n-1], cout);
+			if (dynamic_cast<Circle*>((*ptr)[n - 1]) != NULL)
+				print_info(*dynamic_cast<Circle*>((*ptr)[n - 1]), cout);
+			else cout << "This object isn`t a circle" << endl;
 			break;
 		}
 		case 3: {
-			if (circles.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > circles.size()) {
-				cout << "Enter num from 1 to " << circles.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			cout << "Input vector" << endl;
-			Vector v;
-			cin >> v;
-			*circles[n-1] = *circles[n-1] + v;
+			if (dynamic_cast<Circle*>((*ptr)[n - 1]) != NULL) {
+				cout << "Input vector" << endl;
+				Vector v;
+				cin >> v;
+				Object* tmp = (*ptr)[n - 1];
+				*dynamic_cast<Circle*>((*ptr)[n - 1]) = *dynamic_cast<Circle*>((*ptr)[n - 1]) + v;
+			}
+			else cout << "This object isn`t a circle" << endl;
 			break;
 		}
 		case 4: {
-			if (circles.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > circles.size()) {
-				cout << "Enter num from 1 to " << circles.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
+			}
+			if (dynamic_cast<Circle*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a circle" << endl;
+				system("pause");
+				break;
 			}
 			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
 			Point p;
 			cin >> p;
-			Line tmp = tangent_line(p, *circles[n - 1]);
-			if (tmp.is_undef()) {
-				cout << "Point is inside the circle";
-				system("pause");
+			Line* tmp = new Line;
+			*tmp = tangent_line(p, *dynamic_cast<Circle*>((*ptr)[n - 1]));
+			if (tmp->is_undef()) {
+				cout << "Point is inside the circle" << endl;
 				break;
 			}
-			Line* line = new Line;
-			*line = tmp;
-			cout << *line << endl;
-			(*ptr).push_back(line);
+			cout << *tmp << endl;
+			ptr->push_back(tmp);
 			break;
 		}
 		case 5: {
-			if (circles.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > circles.size()) {
-				cout << "Enter num from 1 to " << circles.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
+			}
+			if (dynamic_cast<Circle*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a circle" << endl;
+				break;
 			}
 			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
 			Point p;
 			cin >> p;
 			Line tmp1, tmp2;
-			tangent_lines(p, *circles[n-1], tmp1, tmp2);
+			tangent_lines(p, *dynamic_cast<Circle*>((*ptr)[n - 1]), tmp1, tmp2);
 			if (tmp1.is_undef()) {
 				cout << "Point is on circle or inside it" << endl;
-				system("pause");
 				break;
 			}
-			Line* l1 = new Line; Line* l2 = new Line;
-			*l1 = tmp1, * l2 = tmp2;
-			cout << *l1 << endl << *l2 << endl;
-			(*ptr).push_back(l1);
-			(*ptr).push_back(l2);
+			cout << tmp1 << endl << tmp2 << endl;
+			Line* line1 = new Line;
+			*line1 = tmp1;
+			ptr->push_back(line1);
+			Line* line2 = new Line;
+			*line2 = tmp2;
+			ptr->push_back(line2);
 			break;
 		}
 		case 6: {
-			if (circles.size() < 2) break;
-			int n1 = -1, n2 = -1;
-			while (n1 < 1 || n1 > circles.size()) {
-				cout << "Enter num from 1 to " << circles.size() << endl;
+			if (ptr->size() == 0) break;
+			int n1 = -1;
+			while (n1 < 1 || n1 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n1;
 			}
-			while (n2 < 1 || n2 > circles.size()) {
-				cout << "Enter num from 1 to " << circles.size() << endl;
+			int n2 = -1;
+			while (n2 < 1 || n2 > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n2;
 			}
-			Point *p1 = new Point, *p2 = new Point;
-			intersection(*circles[n1-1], *circles[n2-1], *p1, *p2);
+			if (dynamic_cast<Circle*>((*ptr)[n1 - 1]) == NULL && dynamic_cast<Circle*>((*ptr)[n2 - 1]) == NULL) {
+				cout << "This object isn`t a circle" << endl;
+				system("pause");
+				break;
+			}
+			Point* p1 = new Point;
+			Point* p2 = new Point;
+			intersection(*dynamic_cast<Circle*>((*ptr)[n1 - 1]), *dynamic_cast<Circle*>((*ptr)[n2 - 1]), *p1, *p2);
 			if (p1->is_undef()) {
 				cout << "No intersection or this is the same circle" << endl;
 				system("pause");
@@ -345,21 +364,21 @@ int circle_menu(deque<Object*>* ptr) {
 			if (*p1 == *p2) {
 				cout << *p1 << endl;
 				p1->_image._width = 10;
-				(*ptr).push_back(p1);
+				ptr->push_back(p1);
 				delete p2;
 			}
 			else {
 				cout << *p1 << endl << *p2 << endl;
 				p1->_image._width = 10;
 				p2->_image._width = 10;
+				ptr->push_back(p1);
+				ptr->push_back(p2);
 				(*ptr).push_back(p1);
 				(*ptr).push_back(p2);
 			}
 			break;
 		}
 		case 7: {
-			for (int i = 0; i < circles.size(); i++)
-				(*ptr).push_back(circles[i]);
 			return 0;
 		}
 		default: break;

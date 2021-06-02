@@ -82,7 +82,7 @@ Line tangent_line(const Point& p, const Circle& c){
 	double x1 = p.get_x(), y1 = p.get_y();
 	                  
 	if (abs((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r) > eps)
-		return Line(INT_MAX, INT_MAX, INT_MAX);
+		return Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
 	double A = x1 + c._A / 2;
 	double B = y1 + c._B / 2;
 	double C = (x1 * c._A + y1 * c._B) / 2 + c._C;
