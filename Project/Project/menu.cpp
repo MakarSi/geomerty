@@ -75,18 +75,16 @@ int print_menu(string* a, int N) {
 
 int menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[9];
+	string* A = new string[8];
 	A[0] = "Действия с прямыми";
 	A[1] = "Действия с лучом";
 	A[2] = "Действия с треугольником";
 	A[3] = "Действия с окружностью";
 	A[4] = "Действия с многоугольником";
-	A[5] = "Действия с четырехугольником";
-	A[6] = "Действия с векторами";
-	A[7] = "Выведи список объектов";
-	A[8] = "Выйти из меню в glut";
+	A[5] = "Выведи список объектов";
+	A[6] = "Выйти из меню в glut";
 	while (true) {
-		int key = print_menu(A, 9);
+		int key = print_menu(A, 7);
 		switch (key) {
 		case 1: {
 			line_menu(ptr);
@@ -106,19 +104,7 @@ int menu(deque<Object*>* ptr) {
 		case 5: {
 			polygon_menu(ptr);
 		}
-		case 6:
-			break;
-		case 7: {
-			double x1, y1, x2, y2;
-			cout << "Enter the coordinates of the vertices of the vector: ";
-			cin >> x1 >> y1 >> x2 >> y2;
-			Point p1(x1, y1);
-			Point p2(x2, y2);
-			Vector v1(p1, p2);
-			v1.print_all_info();
-			break;
-		}
-		case 8: {
+		case 6: {
 			node<Object*>* tmp_ptr = ptr->head();
 			int i = 1;
 			while (tmp_ptr != nullptr) {
@@ -129,7 +115,7 @@ int menu(deque<Object*>* ptr) {
 			system("pause");
 			break;
 		}
-		case 9: {
+		case 7: {
 			return 0;
 		}
 		default: break;
