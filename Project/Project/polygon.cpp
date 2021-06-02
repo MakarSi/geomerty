@@ -41,6 +41,10 @@ namespace polygon {
 			}
 		}
 		for (size_t i = 0; i < vertexes.size(); i++) {
+			if (vertexes[i] == vertexes[(i+1)% vertexes.size()])
+				throw "Invalid polygon";
+		}
+		for (size_t i = 0; i < vertexes.size(); i++) {
 			Line a = { vertexes[i], vertexes[(i+1) % vertexes.size()] };
 			Line b = { vertexes[(i + 1) % vertexes.size()], vertexes[(i + 2) % vertexes.size()] };
 			if (if_parallel(a, b)) throw "Invalid polygon";
