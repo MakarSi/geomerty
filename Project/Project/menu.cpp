@@ -410,7 +410,6 @@ int triangle_menu(deque<Object*>* ptr) {
 	A[2] = "Shift triangle by vector";
 	A[3] = "Find a normal";
 	A[4] = "Go back";
-	vector<Triangle*> triangles;
 
 	while (true) {
 		int key = print_menu(A, 5);
@@ -418,53 +417,64 @@ int triangle_menu(deque<Object*>* ptr) {
 		case 1: {
 			Triangle* t = input_triangle(cin);
 			if (t != nullptr) {
-				triangles.push_back(t);
+				ptr->push_back(t);
 			}
 			else system("pause");
 			break;
 		}
 		case 2: {
-			if (triangles.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > triangles.size()) {
-				cout << "Enter num from 1 to " << triangles.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			print_info(*triangles[n-1], cout);
+			if (dynamic_cast<Triangle*>((*ptr)[n - 1]) != NULL)
+				print_info(*dynamic_cast<Triangle*>((*ptr)[n - 1]), cout);
+			else cout << "This object isn`t a triangle" << endl;
 			break;
 		}
 		case 3: {
-			if (triangles.size() == 0) break;
+			if (ptr->size() == 0) break;
 			int n = -1;
-			while (n < 1 || n > triangles.size()) {
-				cout << "Enter num from 1 to " << triangles.size() << endl;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
+			if (dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) != NULL) {
+			cout << "Input vector" << endl;
 			Vector v;
 			cin >> v;
-			*triangles[n-1] = *triangles[n-1] + v;
+			Object* tmp = (*ptr)[n - 1];
+			*dynamic_cast<Triangle*>((*ptr)[n - 1]) = *dynamic_cast<Triangle*>((*ptr)[n - 1]) + v;
+			}
+			else cout << "This object isn`t a triangle" << endl;
 			break;
 		}
 		case 4: {
-			if (triangles.size() == 0) break;
-			int n = -1, k = -1;
-			while (n < 1 || n > triangles.size()) {
-				cout << "Enter num from 1 to " << triangles.size() << endl;
+			if (ptr->size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num of object from 1 to " << ptr->size() << endl;
 				cin >> n;
 			}
-			while (k > 3 || k < 1) {
-				cout << "Enter num of vertexes from 1 to 3" << endl;
-				cin >> k;
+			Triangle* t_ptr = dynamic_cast<Triangle*>((*ptr)[n - 1]);
+			if (t_ptr != NULL) {
+				int k = -1;
+				while (k > 3 || k < 1) {
+					cout << "Enter num of vertex from 1 to 3" << endl;
+					cin >> k;
+				}
+				Segment* s = new Segment;
+				*s = t_ptr->normal(t_ptr->get_vertex(k - 1));
+				cout << *s << endl;
+				ptr->push_back(s);
+				break;
 			}
-			Segment* s = new Segment;
-			*s = triangles[n-1]->normal(triangles[n-1]->get_vertex(k - 1));
-			cout << *s << endl;
-			(*ptr).push_back(s);
+			else cout << "This object isn`t a triangle" << endl;
 			break;
 		}
 		case 5: {
-			for (int i = 0; i < triangles.size(); i++)
-				(*ptr).push_back(triangles[i]);
 			return 0;
 		}
 		default: break;
