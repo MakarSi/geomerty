@@ -43,17 +43,18 @@ namespace polygon{
 		//нахождение биссектрисы угла, относящегося к вершине
 		Ray bisector(Point)const;
 
-		/*Определение ориентации треугольника*/
-		friend double rotation(Point p1, Point p2, Point p3);
+		/*Определение ориентации треугольника
+		Вывод: 1 - положительная ориентация, -1 - отрицательная ориентация треугольника, иначе 0*/
+		friend double rotation(const Point& p1, const Point& p2, const Point& p3);
 
 		/*Построение выпуклой оболочки по точкам
 		Используется алгоритм Грэхема
 		Подробно можно изучить по ссылке: https://algorithmica.org/ru/convex-hulls*/
 		friend Polygon convex_shell(vector<Point> points);
-		/*Компаратор*/
+		/*Компаратор для сортировки точек по полярному углу*/
 		friend bool cop(const Point& p1, const Point& p2);
 	};
 	Polygon convex_shell(vector<Point> points);
-	double rotation(Point p1, Point p2, Point p3);
+	double rotation(const Point& p1, const Point& p2, const Point& p3);
 	bool cop(const Point& p1, const Point& p2);
 }

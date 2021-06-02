@@ -74,10 +74,13 @@ double distance(const Circle& c, const Point& p) {
 
 /*если точка не лежит на окр-ти вернем неопределенную прямую*/
 Line tangent_line(const Point& p, const Circle& c){
-	double x0 = c._center.get_x();         //x координата центра окр-ти
-	double y0 = c._center.get_y();         //y координата центра окр-ти
-	double x1 = p.get_x(), y1 = p.get_y(); //x и y координаты точки 
-	double r = c._rad;                     //радиус окр-ти
+	//x0 и у0 - координаты центра окр-ти
+	double x0 = c._center.get_x(), y0 = c._center.get_y();
+	//радиус окружности
+	double r = c._rad;   
+	//x и y координаты точки 	
+	double x1 = p.get_x(), y1 = p.get_y();
+	                  
 	if (abs((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r) > eps)
 		return Line(INT_MAX, INT_MAX, INT_MAX);
 	double A = x1 + c._A / 2;

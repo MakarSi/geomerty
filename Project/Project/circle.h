@@ -37,9 +37,8 @@ public:
 	void print_eq()const;
 	/*Ќахождение длины окружности*/
 	double length()const;
-	/*Ќахождение рассто€ни€ от точки до окружности
-	¬ случае, если точка внутри окружности возвращает -1 */
-	friend double distance(const Circle&, const Point&);
+	/*Ќахождение рассто€ни€ от точки до окружности*/
+	friend double distance(const Circle& c, const Point& p);
 	/*¬озвращает касательную к окружности, проход€щую через точку, лежащую на окр-ти
 	≈сли точка не на окружности, возвращает пр€мую с коорд-ми INT_MAX*/
 	friend Line tangent_line(const Point&, const Circle&);

@@ -143,7 +143,7 @@ namespace polygon {
 		return in;
 	}
 
-	double rotation(Point p1, Point p2, Point p3) {
+	double rotation(const Point& p1,const Point& p2,const Point& p3) {
 		Point r1 = p2 - p1;
 		Point r2 = p3 - p2;
 		double cross = r1.get_x() * r2.get_y() - r1.get_y() * r2.get_x();
@@ -170,26 +170,33 @@ namespace polygon {
 	}
 
 	bool cop(const Point& p1, const Point& p2) {
+		//≈сли точка р1 лежит на оси OY и х>0, то p2>p1
 		if (p1.get_y() == 0 && p1.get_x() > 0)
-			return true; //angle of p1 is 0, thus p2 > p1
+			return true; 
 
+		//≈сли точка р2 лежит на оси ќY и х>0, то p1>p2
 		if (p2.get_y() == 0 && p2.get_x() > 0)
-			return false; //angle of p2 is 0 , thus p1 > p2
+			return false; 
 
+		/*Ћежит ли точка р1 в градусной мере от (0,180) -1 и 2 четверть
+		и лежит ли точка р2 в градусной мере от (180,360) - 3 и 4 четверть*/
 		if (p1.get_y() > 0 && p2.get_y() < 0)
-			return true; //p1 is between 0 and 180, p2 between 180 and 360
+			return true; 
 
+		/*Ћежит ли точка р1 в градусной мере от (180,360) -3 и 4 четверть
+		и лежит ли точка р2 в градусной мере от (0,180) - 1 и 2 четверть*/
 		if (p1.get_y() < 0 && p2.get_y() > 0)
 			return false;
 
-		return (p1.get_x() * p2.get_y() - p1.get_y() * p2.get_x()) > 0; //return true if p1 is clockwise from p2
+		//–асположение точки р1 по часовой стрелки отн-но точки р2
+		return (p1.get_x() * p2.get_y() - p1.get_y() * p2.get_x()) > 0; 
 	}
 
 	Polygon convex_shell(vector<Point> points) {
 		sort(points.begin(), points.end(), cop);
-		int n = points.size();//+
-		vector <Point> top = { points[0] };//+
-		vector <Point> bottom = { points[0] };//+
+		int n = points.size();
+		vector <Point> top = { points[0] };
+		vector <Point> bottom = { points[0] };
 
 		for (int i = 1; i < n; i++) {
 			if (rotation(points[0], points[n - 1], points[i]) >= 0) {
@@ -229,4 +236,3 @@ namespace polygon {
 		glEnd();
 	}
 }
-

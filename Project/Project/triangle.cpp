@@ -51,21 +51,19 @@ bool Triangle::operator!= (const Triangle& t) const {
 Segment middle_line(const Triangle& t, int const& k) {
 	Point p1 = t.get_vertex(0), p2 = t.get_vertex(1), p3 = t.get_vertex(2);
 	Point k1, k2;
-	Segment s1 = Segment(p1, p2), s2 = Segment(p2, p3), s3 = Segment(p3, p1);
-	if (k >= 1 && k <= 3)
-	{
-		if (k == 1)
-		{
+	if (k >= 1 && k <= 3) {
+		if (k == 1)	{
+			Segment s2 = Segment(p2, p3), s3 = Segment(p3, p1);
 			k1 = s3.midpoint();
 			k2 = s2.midpoint();
 		}
-		else if (k == 2)
-		{
+		else if (k == 2) {
+			Segment s1 = Segment(p1, p2), s3 = Segment(p3, p1);
 			k1 = s1.midpoint();
 			k2 = s3.midpoint();
 		}
-		else if (k == 3)
-		{
+		else if (k == 3) {
+			Segment s1 = Segment(p1, p2), s2 = Segment(p2, p3);
 			k1 = s2.midpoint();
 			k2 = s1.midpoint();
 		}
