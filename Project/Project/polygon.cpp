@@ -118,7 +118,9 @@ namespace polygon {
 		vector<Point> v;
 		for (int i = 0; i < poly.get_dim(); i++)
 			v.push_back(poly.get_vertex(i));
-		this->set_vertexes(v);
+		set_vertexes(v);
+		init_perimeter();
+		init_area();
 		return *this;
 	}
 
