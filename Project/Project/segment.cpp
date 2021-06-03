@@ -63,3 +63,9 @@ void Segment::draw()const {
 	glVertex2d(_v2.get_x(), _v2.get_y());
 	glEnd();
 }
+
+void Segment::print_info()const {
+	Segment s = *this;
+	cout << "Coordinates of segment" << endl;
+	cout << s.get_v1() << " " << s.get_v2()<<endl;
+}

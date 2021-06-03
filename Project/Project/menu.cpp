@@ -1,6 +1,4 @@
 #include <iostream>
-#include <ios>
-#include <limits>
 #include <Windows.h>
 #include <conio.h>
 #include <algorithm>
@@ -113,6 +111,7 @@ int menu(deque<Object*>* ptr) {
 			int i = 1;
 			while (tmp_ptr != nullptr) {
 				cout << i << ". " << who_iam(tmp_ptr->key) << endl;
+				tmp_ptr->key->print_info();
 				tmp_ptr = tmp_ptr->next;
 				i++;
 			}
@@ -170,8 +169,8 @@ int polygon_menu(deque<Object*>* ptr) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
 				n = save_in(cin);
 			}
-			if (dynamic_cast<polygon::Polygon*>((*ptr)[n-1]) != NULL)
-				print_info(*dynamic_cast<polygon::Polygon*>((*ptr)[n-1]), cout);
+			if (dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) != NULL)
+				dynamic_cast<polygon::Polygon*>((*ptr)[n - 1])->print_info();
 			else cout << "This object isn`t a polygon" << endl;
 			break;
 		}
@@ -245,13 +244,6 @@ void print_coords(const polygon::Polygon& p, ostream& out) {
 	out << endl;
 }
 
-void print_info(const polygon::Polygon& p, ostream& out){
-	out << "Coords of all vertexes: ";
-	print_coords(p, out);
-	out << "Area: " << p.get_area() << endl;
-	out << "Perimeter: " << p.get_perimeter() << endl;
-}
-
 int circle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[7];
@@ -282,7 +274,7 @@ int circle_menu(deque<Object*>* ptr) {
 				cin >> n;
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n - 1]) != NULL)
-				print_info(*dynamic_cast<Circle*>((*ptr)[n - 1]), cout);
+				dynamic_cast<Circle*>((*ptr)[n - 1])->print_info();
 			else cout << "This object isn`t a circle" << endl;
 			break;
 		}
@@ -424,13 +416,6 @@ Circle* input_circle(istream& in) {
 	return c;
 }
 
-void print_info(Circle c, ostream& out) {
-	out << "The circle equation" << endl;
-	c.print_eq();
-	out << "Length of the circle = ";
-	out<<c.length()<<endl;
-}
-
 int triangle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[5];
@@ -460,7 +445,7 @@ int triangle_menu(deque<Object*>* ptr) {
 				n = save_in(cin);
 			}
 			if (dynamic_cast<Triangle*>((*ptr)[n - 1]) != NULL)
-				print_info(*dynamic_cast<Triangle*>((*ptr)[n - 1]), cout);
+				dynamic_cast<Triangle*>((*ptr)[n - 1])->print_info();
 			else cout << "This object isn`t a triangle" << endl;
 			break;
 		}
@@ -558,7 +543,7 @@ int line_menu(deque<Object*>* ptr) {
 				cin >> n;
 			}
 			if (dynamic_cast<Line*>((*ptr)[n - 1]) != NULL)
-				print_info(*dynamic_cast<Line*>((*ptr)[n - 1]), cout);
+				dynamic_cast<Line*>((*ptr)[n - 1])->print_info();
 			else cout << "This object isn`t a line" << endl;
 			break;
 		}
@@ -700,12 +685,6 @@ Line* input_line(istream& in) {
 	return l;
 }
 
-void print_info(Line l, ostream& out) {
-	out << "The line equation" << endl;
-	l.print_equation();
-	cout << endl;
-}
-
 int ray_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[6];
@@ -735,7 +714,7 @@ int ray_menu(deque<Object*>* ptr) {
 				cin >> n;
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n - 1]) != NULL)
-				print_info(*dynamic_cast<Ray*>((*ptr)[n - 1]), cout);
+				dynamic_cast<Ray*>((*ptr)[n - 1])->print_info();
 			else cout << "This object isn`t a ray" << endl;
 			break;
 		}
@@ -816,6 +795,7 @@ int ray_menu(deque<Object*>* ptr) {
 		}
 	}
 }
+
 Ray* input_ray(istream& in) {
 	cout << "Input the begging of the ray and the vector "<<endl;
 	Ray* r = new Ray;
@@ -828,9 +808,4 @@ Ray* input_ray(istream& in) {
 		r = nullptr;
 	}
 	return r;
-}
-
-void print_info(const Ray& r, ostream& out) {
-	out << "The begging of the ray: " << r.get_point() << endl;;
-	out << "The vector of the ray " << r.get_vector() << endl;
 }

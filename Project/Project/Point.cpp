@@ -102,3 +102,9 @@ void Point::draw()const {
 		glVertex2d(_x, _y);
 	glEnd();
 }
+
+void Point::print_info()const {
+	Point p = *this;
+	cout << "Coordinates of point"<<endl;
+	p.print_coordinate();
+}

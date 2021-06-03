@@ -47,6 +47,7 @@ public:
 	//p1 = {0, -INT_MAX}, p2 = {0, INT_MAX}
 	bool is_undef()const { return (_p1 == Point(0, -INT_MAX) && _p2 == Point(-INT_MAX, 0)); };
 	virtual void draw()const;
+	virtual void print_info()const;
 private:
 	Point _p1, _p2;
 	double _a, _b, _c;

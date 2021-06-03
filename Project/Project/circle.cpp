@@ -186,3 +186,10 @@ void Circle::draw()const {
 	}
 	glEnd();
 }
+
+void Circle::print_info()const {
+	Circle c = *this;
+	cout << "The circle equation" << endl;
+	c.print_eq();
+	cout << "Length of the circle = " << c.length() << endl;
+}

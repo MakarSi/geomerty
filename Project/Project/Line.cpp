@@ -210,3 +210,10 @@ void Line::draw()const
 	}
 	glEnd();
 }
+
+void Line::print_info()const {
+	Line l = *this;
+	cout << "The line equation" << endl;
+	l.print_equation();
+	cout << endl;
+}

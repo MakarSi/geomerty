@@ -111,3 +111,9 @@ Ray Ray::operator+ (const Vector& v) {
 	Ray r(new_p, _v);
 	return r;
 }
+
+void Ray::print_info()const {
+	Ray r = *this;
+	cout << "The begging of the ray: " << r.get_point() << endl;;
+	cout << "The vector of the ray " << r.get_vector() << endl;
+}

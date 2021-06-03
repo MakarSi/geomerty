@@ -2,6 +2,7 @@
 #include "Line.h"
 #include "Point.h"
 #include "glut.h"
+#include "menu.h"
 
 namespace polygon {
 	Polygon::Polygon(const vector<Point>& vertexes)
@@ -240,5 +241,13 @@ namespace polygon {
 		for (int i = 0; i < this->get_dim(); i++)
 			glVertex2d(get_vertex(i).get_x(), get_vertex(i).get_y());
 		glEnd();
+	}
+
+	void Polygon::print_info()const {
+		Polygon p = *this;
+		cout << "Coordinates of all vertexes: ";
+		print_coords(p, cout);
+		cout << "Area: " << p.get_area() << endl;
+		cout << "Perimeter: " << p.get_perimeter() << endl;
 	}
 }

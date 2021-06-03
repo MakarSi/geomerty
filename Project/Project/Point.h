@@ -30,6 +30,7 @@ public:
 	friend ostream& operator<< (ostream&, const Point&); //Печатает точку
 
 	virtual void draw()const;
+	virtual void print_info()const;
 protected:
 	double _x, _y;
 };

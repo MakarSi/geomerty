@@ -53,5 +53,8 @@ public:
 	¬озвращает пару точек пересечени€, если точка одна - то возвращает две одинаковые.
 	≈сли точек пресечени€ 0 возвращает точки INT_MAX*/
 	friend void intersection(const Line&, const Circle&, Point&, Point&);
+	/*–исование окружности*/
 	virtual void draw()const;
+	/*¬ывод информации об окружности - уравнение и длина дуги*/
+	virtual void print_info()const;
 };

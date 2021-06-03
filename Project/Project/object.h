@@ -25,5 +25,6 @@ class Object
 {
 public:
 	virtual void draw()const = 0;
+	virtual void print_info()const = 0;
 	image _image;
 };

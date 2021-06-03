@@ -28,6 +28,7 @@ public:
 	//Возвращает угол между лучами
 	friend double angle_between_rays(const Ray& r1, const Ray& r2);
 	virtual void draw()const;
+	virtual void print_info()const;
 private:
 	Point _p; Vector _v;
 };
