@@ -48,7 +48,7 @@ double Circle::get_C() const {
 	return _C;
 }
 
-void Circle::print_eq()const {
+void Circle::print_eq() const {
 	double xc = _center.get_x();
 	double yc = _center.get_y();
 	double r = _rad;
@@ -60,7 +60,7 @@ void Circle::print_eq()const {
 	else if (yc == 0) cout << "y^2=" << r * r << endl;
 }
 
-double Circle::length()const {
+double Circle::length() const {
 	return 2 * M_PI * _rad;
 }
 
@@ -72,45 +72,47 @@ double distance(const Circle& c, const Point& p) {
 	return dist;
 }
 
-/*если точка не лежит на окр-ти вернем неопределенную прямую*/
-Line tangent_line(const Point& p, const Circle& c){
+/*Касательная через точку на окружности
+Если точка не лежит на окр-ти вернем неопределенную прямую*/
+Line tangent_line(const Point& p, const Circle& c) {
 	//x0 и у0 - координаты центра окр-ти
 	double x0 = c._center.get_x(), y0 = c._center.get_y();
-	//радиус окружности
+	//Радиус окружности
 	double r = c._rad;   
 	//x и y координаты точки 	
 	double x1 = p.get_x(), y1 = p.get_y();
-	                  
+	//Проверка лежит ли точка на окружности                 
 	if (abs((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) - r * r) > eps)
 		return Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
+	//Уравнение окружности
 	double A = x1 + c._A / 2;
 	double B = y1 + c._B / 2;
 	double C = (x1 * c._A + y1 * c._B) / 2 + c._C;
 	return Line(A, B, C);
 }
 
-//В случае, если точка лежит внутри окружности возварщаем undef прямые
-void tangent_lines(const Point& p, const Circle& c, Line& l1, Line& l2){
+/*Касательные через точки вне окружности
+Если точка лежит внутри или на окружности, то прямые l1 и l2 - undef*/
+void tangent_lines(const Point& p, const Circle& c, Line& l1, Line& l2) {
 	l1 = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
 	l2 = Line(Point(0, -INT_MAX), Point(-INT_MAX, 0));
-	Point point = p;
-	Vector v1(p, c._center);
-	Vector v2(p, c._center);
-	double d = distance(c._center, p);
-	//Если оношение радиуса на раст от точки до центра больше 1, 
-	//то точка внутри окр-ти
+	//Если отношение радиуса на растояние от точки до центра >= 1,
+	//то точка внутри или на окружности
+	double d = distance(c, p);
 	double angle_sin = c.get_rad()/d;
 	if (angle_sin >= 1)
 		return;
-	double angle_cos = sqrt(1 - angle_sin * angle_sin);
-	
+	double angle_cos = sqrt(1 - angle_sin * angle_sin);	
 	//Построим вектора v1 и v2 как вектор v (вектор от точки до центра окр-ти),
 	//повернутый на угол между касательными и вектором v
-	double x = v1.get_x(), y = v1.get_y();
+	Vector v1(p, c._center);
+	Vector v2(p, c._center);
+	Point point = p;
+	double x, y;
+	x = v1.get_x(), y = v1.get_y();
 	v1.set_x(x * angle_cos - y * angle_sin);
-	v1.set_y(y * angle_cos + x * angle_sin);
+	v1.set_y(y * angle_cos + x * angle_sin);	
 	l1 = Line(p, point + v1);
-
 	x = v2.get_x(), y = v2.get_y();
 	v2.set_x(x * angle_cos + y * angle_sin);
 	v2.set_y(y * angle_cos - x * angle_sin);
@@ -118,36 +120,38 @@ void tangent_lines(const Point& p, const Circle& c, Line& l1, Line& l2){
 	return;
 }
 
-/*если точек пересечения нет или бесконечно много возвращаем две точки с 
-коорд-ми INT_MAX, если точка одна - вернем две одинаковые точки*/
+/*Если точек пересечения 2-х окружнсотей нет или бесконечно много возвращаем, 
+то возращаем две точки с координами INT_MAX, если точка одна - вернем 2 одинаковые точки*/
 void intersection(const Circle& c1, const Circle& c2, Point& p1, Point& p2) {
-	/*проверим необходимое и достаточное условие пересечения окр-тей
-	если окружности имеют общий центр - */
+	//Проверка необходимого и достаточное условия пересечения окружнсотей
+	//1.Расстояние между радиусами меньше разности радиусов - вложенность окр-сти в другую
+	//2.Расстоние между центрами больше суммы радиусов
+	//3.Окружности имеют общий центр
 	if (distance(c1.get_center(), c2.get_center()) < abs(c2.get_rad() - c1.get_rad())
 		|| distance(c1.get_center(), c2.get_center()) > c2.get_rad() + c1.get_rad()
 		|| distance(c1.get_center(), c2.get_center()) == 0) {
-		p1 = {INT_MAX, INT_MAX }, p2 = p1;
+		p1 = {INT_MAX, INT_MAX }, 
+		p2 = p1;
 		return;
 	}
-	//получим прямую, которая проходит через точки персечения окр-тей
+	//Получим прямую, которая проходит через точки пересечения окружностей
 	double A = c1.get_A() - c2.get_A();
 	double B = c1.get_B() - c2.get_B();
 	double C = c1.get_C() - c2.get_C();
 	Line line = {A, B, C};
-	
 	intersection(line, c1, p1, p2);
 }
 
 void intersection(const Line& l1, const Circle& c, Point& p1, Point& p2){
-	//опустим перпендикуляр из центра окр-ти на прямую
+	//Опустим перпендикуляр из центра окр-ти на прямую
 	Point p = intersection_point(l1, l1.normal_line(c.get_center()));
-	//найдем вектор, параллельный прямой l1, сделаем его длину равной 
-	//растоянию от p до искрмых точек
+	//Найдем вектор, параллельный прямой l1, сделаем его длину равной 
+	//растоянию от p до искомых точек
 	Vector v(c.get_center(), p);
 	double d = sqrt(c.get_rad() * c.get_rad() - v.length()*v.length());
 	v = v.normal_vec();
 	v.multipl_by_num(d/v.length());
-	//сдвинем точку в две стороны, получим искомые
+	//Сдвинем точку в две стороны, получим искомые
 	p1 = p + v;
 	v = Vector(-v.get_x(), -v.get_y());
 	p2 = p + v;
