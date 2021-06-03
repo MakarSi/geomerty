@@ -40,6 +40,10 @@ void Vector::normalize() {
 	_y *= invlength;
 }
 
+double determitator(const Vector& v1, const Vector& v2) {
+	return (v1.get_x() * v2.get_y() - v1.get_y() * v2.get_x());
+}
+
 Vector Vector::normal_vec() {
 	return Vector(-_y, _x);
 }

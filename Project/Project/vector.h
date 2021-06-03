@@ -26,6 +26,8 @@ public:
 	friend double vector_product(const Vector&, const Vector&);
 	//Нормирование вектора
 	void normalize();
+	//Определитель
+	friend double determitator(const Vector&, const Vector&);
 	Vector normal_vec();
 
 	Vector operator* (const double&) const;

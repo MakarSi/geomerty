@@ -199,6 +199,23 @@ namespace polygon {
 		return (p1.get_x() * p2.get_y() - p1.get_y() * p2.get_x()) > 0; 
 	}
 
+	bool Polygon::if_convex() const
+	{
+		int dim = get_dim();
+		Vector v1(_vertexes[0], _vertexes[1]);
+		Vector v2(_vertexes[1], _vertexes[2]);
+		double det = determitator(v1, v2);
+		for (size_t i = 0; i < dim; i++) {
+			v1 = Vector(_vertexes[i % dim], _vertexes[(i + 1) % dim]);
+			v2 = Vector(_vertexes[(i + 1) % dim], _vertexes[(i + 2) % dim]);
+			double tdet = determitator(v1, v2);
+			if (det * tdet < 0)
+				return false;
+			det = tdet;
+		}
+		return true;
+	}
+
 	Polygon convex_shell(vector<Point> points) {
 		sort(points.begin(), points.end(), cop);
 		int n = points.size();

@@ -54,6 +54,8 @@ namespace polygon{
 		friend Polygon convex_shell(vector<Point> points);
 		/* омпаратор дл€ сортировки точек по пол€рному углу*/
 		friend bool cop(const Point& p1, const Point& p2);
+		/*явл€етс€ ли многоугольник выпуклым*/
+		bool if_convex() const;
 	};
 	Polygon convex_shell(vector<Point> points);
 	double rotation(const Point& p1, const Point& p2, const Point& p3);
