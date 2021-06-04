@@ -82,43 +82,6 @@ namespace polygon {
 		_area = res;
 	}
 
-	/*
-	bool Polygon::operator==(const Polygon& p) {
-		if (get_dim() != p.get_dim())
-			return false;
-		int dim = get_dim();
-		for (int i = 0; i < dim; i++) {
-			bool equal = true;
-			for (int j = 0; j < dim; j++) {
-				if (get_vertex(j) != p.get_vertex(j + i)) {
-					equal = false;
-					break;
-				}
-				
-			}
-			if (equal) return equal;
-		}
-		return false;
-	}
-
-	bool Polygon::operator!=(const Polygon& p) {
-		if (get_dim() != p.get_dim())
-			return true;
-		int dim = get_dim();
-		for (int i = 0; i < dim; i++) {
-			bool equal = false;
-			for (int j = 0; j < dim; j++) {
-				if (get_vertex(j) != p.get_vertex(j + i)) {
-					equal = true;
-					break;
-				}
-			}
-			if (!equal) return equal;
-		}
-		return true;
-	}
-	*/
-
 	Polygon& Polygon::operator= (const Polygon& poly) {
 		vector<Point> v;
 		for (int i = 0; i < poly.get_dim(); i++)

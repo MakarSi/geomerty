@@ -200,13 +200,13 @@ void Line::draw()const
 	Line l = *this;
 	if (_b != 0)
 	{
-		glVertex2d(1000, l.y_through_x(1000));
-		glVertex2d(-1000, l.y_through_x(-1000));
+		glVertex2d(30000, l.y_through_x(30000));
+		glVertex2d(-30000, l.y_through_x(-30000));
 	}
 	else
 	{
-		glVertex2d(-_c / _a, 1000);
-		glVertex2d(-_c / _a, -1000);
+		glVertex2d(-_c / _a, 30000);
+		glVertex2d(-_c / _a, -30000);
 	}
 	glEnd();
 }

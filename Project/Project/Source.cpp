@@ -69,7 +69,7 @@ void Display(void)
 /*Сетка*/
 void net_drawing() {
 	Line l;
-	for (int i = -1000; i <= 1000; i += 50)
+	for (int i = 0; i >= -30000; i -= 50/zoom)
 	{
 		l = Line(Point(1000, double(i)), Point(-1000, double(i)));
 		l._image._width = 1;
@@ -78,6 +78,17 @@ void net_drawing() {
 		l._image._width = 1;
 		l.draw();
 	}
+
+	for (int i = 0; i <= 30000; i += 50 / zoom)
+	{
+		l = Line(Point(1000, double(i)), Point(-1000, double(i)));
+		l._image._width = 1;
+		l.draw();
+		l = Line(Point(double(i), 1000), Point(double(i), -1000));
+		l._image._width = 1;
+		l.draw();
+	}
+
 
 	l = Line(Point(1000, 0), Point(-1000, 0));
 	l._image._width = 4;
@@ -120,8 +131,8 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (key == 53) t_image._color = BLUE;//5 синий
 
 	//на 6 увеличить на 7 уменьшить
-	if (key == 54) { zoom *= 1.1; glScalef(1.1, 1.1, 1.1);}
-	if (key == 55) { zoom *= 0.9; glScalef(0.9, 0.9, 0.9);}
+	if (key == 54 && zoom < 10) { zoom *= 1.1; glScalef(1.1, 1.1, 1.1);}
+	if (key == 55 && zoom > 0.05) { zoom *= 0.9; glScalef(0.9, 0.9, 0.9);}
 
 	/*Толщина линий*/
 	if (key == 61 && t_image._width < 10) t_image._width++;//+

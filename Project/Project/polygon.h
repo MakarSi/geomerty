@@ -37,8 +37,6 @@ namespace polygon{
 		Polygon& operator= (const Polygon& poly);
 		
 		friend istream& operator>> (istream&, Polygon&);
-		/*bool operator== (const Polygon&);
-		bool operator!= (const Polygon&);*/
 		//смещение на вектор
 		Polygon operator+ (const Vector& v);
 		//нахождение биссектрисы угла, относящегося к вершине
