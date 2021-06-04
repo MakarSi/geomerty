@@ -80,10 +80,15 @@ double angle_between_rays(const Ray& r1, const Ray& r2) {
 	return acos(alpha) * 180.0 / M_PI;
 }
 
+/*Точка принадлежит лучу, если выполняются свойства:
+1. Точка лежит на прямой, которой принадлежит луч
+2. Точка должна лежать и точка луча(не вершина) должны лежать по одну сторону от вершины*/
 bool Ray::if_belong(const Point& p) const {
 	Point p1 = _p + _v;
 	Line l = Line(_p, p1);
-	if (l.if_belong(p) && _p.get_x() <= p.get_x()) return true; else return false;
+	if (l.if_belong(p) && (p.get_x() - _p.get_x()) * (p1.get_x() - _p.get_x()) >= 0 &&
+		(p.get_y() - _p.get_y()) * (p1.get_y() - _p.get_y()) >= 0) return true;
+	else return false;
 }
 
 void Ray::draw() const {	
