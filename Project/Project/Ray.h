@@ -23,6 +23,8 @@ public:
 	Ray operator+ (const Vector& v);
 	friend istream& operator>>(istream&, Ray&);
 
+	/*Принадлежит ли точка лучу*/
+	bool if_belong(const Point& p) const;
 	/*Пересекаются ли два луча
 	Первый луч преобразуется в прямую, переходи к задаче поиска пересечения луча и прямой
 	Алгоритм нахождения по ссылке: https://www.interestprograms.ru/source-codes-peresechenie-lucha-i-pryamoj*/

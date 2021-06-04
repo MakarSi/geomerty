@@ -1,11 +1,5 @@
-#include "Line.h"
-#include "Point.h"
 #define _USE_MATH_DEFINES 
-#include <iostream>
-#include <math.h>
-#include "vector.h"
 #include "Ray.h"
-#include "segment.h"
 
 using namespace std;
 
@@ -84,6 +78,12 @@ double angle_between_rays(const Ray& r1, const Ray& r2) {
 	Vector v1 = Vector(h1, p1), v2 = Vector(h2, p2);
 	double alpha = scalar_product(v1, v2) / (v1.length() * v2.length());
 	return acos(alpha) * 180.0 / M_PI;
+}
+
+bool Ray::if_belong(const Point& p) const {
+	Point p1 = _p + _v;
+	Line l = Line(_p, p1);
+	if (l.if_belong(p) && _p.get_x() <= p.get_x()) return true; else return false;
 }
 
 void Ray::draw() const {	
