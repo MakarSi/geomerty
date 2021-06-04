@@ -229,5 +229,8 @@ namespace polygon {
 		print_coords(p, cout);
 		cout << "Area: " << p.get_area() << endl;
 		cout << "Perimeter: " << p.get_perimeter() << endl;
+		if (p.if_convex())
+			cout << "This polygon is convex\n";
+		else cout << "This polygon is not convex\n";
 	}
 }
