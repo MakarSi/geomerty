@@ -521,7 +521,7 @@ Triangle* input_triangle(istream& in) {
 
 int line_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[8];
+	string* A = new string[9];
 	A[0] = "Add new line";
 	A[1] = "Print line equation ";
 	A[2] = "Shift line by vector";
@@ -529,14 +529,15 @@ int line_menu(deque<Object*>* ptr) {
 	A[4] = "Find the point of intersection of lines";
 	A[5] = "Determine in which half-plane point lays";
 	A[6] = "Find a perpendicular line through point";
-	A[7] = "Go back";
+	A[7] = "Find a parallel line through point";
+	A[8] = "Go back";
 
 	while (true) {
-		int key = print_menu(A, 8);
+		int key = print_menu(A, 9);
 		switch (key) {
 		case 1: {
 			Line* l = input_line(cin);
-			cin.ignore(32767,'\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (l != nullptr) {
 				ptr->push_back(l);
 			}
@@ -675,6 +676,32 @@ int line_menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 8: {
+			if (ptr->size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
+				n = save_in(cin);
+			}
+			if (dynamic_cast<Line*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a line" << endl;
+				system("pause");
+				break;
+			}
+			Point p;
+			cout << "Input point" << endl;
+			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
+			Line* l = new Line;
+			if (dynamic_cast<Line*>((*ptr)[n - 1])->if_belong(p)) {
+				cout << "This point belong to the line" << endl;
+				break;
+			}
+			*l = parallel_line_through_point(*dynamic_cast<Line*>((*ptr)[n - 1]), p);
+			cout << *l << endl;
+			ptr->push_back(l);
+			break;
+		}
+		case 9: {
 			return 0;
 		}
 		default: break;
