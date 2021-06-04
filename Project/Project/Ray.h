@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "vector.h"
 #include "Point.h"
 #include "Line.h"
@@ -9,27 +8,39 @@ using namespace std;
 class Ray : public Object
 {
 public:
+	/*Конструктор*/
 	Ray(Point p = { 0, 0 }, Vector v = {1, 0});
 
-	void set_point(Point p);
-	void set_vector(Vector v);
+	/*Сеттеры*/
+	void set_point(Point p) {this->_p = p;}
+	void set_vector(Vector v) {this->_v = v;}
 
-	Point get_point() const;
-	Vector get_vector() const;
+	/*Геттеры*/
+	Point get_point() const {return _p;}
+	Vector get_vector() const {return _v;}
 
-	//Cдвиг луча на вектор
+	/*Сдвиг луча на вектор*/
 	Ray operator+ (const Vector& v);
 	friend istream& operator>>(istream&, Ray&);
 
-	//Если существует точка пересечения между лучами возвращает true, иначе - false
+	/*Пересекаются ли два луча
+	Первый луч преобразуется в прямую, переходи к задаче поиска пересечения луча и прямой
+	Алгоритм нахождения по ссылке: https://www.interestprograms.ru/source-codes-peresechenie-lucha-i-pryamoj*/
+	friend bool intersection_ray_ray(const Ray& r1, const Ray& r2);
+	/*Есть ли пересечение между лучами*/
 	friend bool intersection_point_existence(const Ray& r1, const Ray& r2);
 	//Возвращает точку пересечения лучей. Если её нет, то возвращает точку (INT_MAX, INT_MAX)
 	friend Point ray_intersection_point(const Ray& r1, const Ray& r2);
 	//Возвращает угол между лучами
 	friend double angle_between_rays(const Ray& r1, const Ray& r2);
+	/*Рисование*/
 	virtual void draw()const;
+	/*Печать информации об луче - начало (точка) и направляющий вектор*/
 	virtual void print_info()const;
 private:
 	Point _p; Vector _v;
 };
-
+bool intersection_ray_ray(const Ray& r1, const Ray& r2);
+bool intersection_point_existence(const Ray& r1, const Ray& r2);
+Point ray_intersection_point(const Ray& r1, const Ray& r2);
+double angle_between_rays(const Ray& r1, const Ray& r2);
