@@ -4,10 +4,10 @@
 #include "deque.h"
 #include "triangle.h"
 #define BLACK {0,0,0}
-#define RED {255,0,0}
-#define YELLOW {255,255,0}
-#define GREEN {0,255,0}
-#define BLUE {0,0,255}
+#define RED {1,0,0}
+#define YELLOW {1,0.7,0}
+#define GREEN {0,1,0.3}
+#define BLUE {0,0,1}
 
 using namespace std;
 
