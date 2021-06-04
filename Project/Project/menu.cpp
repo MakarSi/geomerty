@@ -708,6 +708,7 @@ int ray_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			Ray* r = input_ray(cin);
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (r != nullptr) {
 				ptr->push_back(r);
 			}
@@ -719,7 +720,7 @@ int ray_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n - 1]) != NULL)
 				dynamic_cast<Ray*>((*ptr)[n - 1])->print_info();
@@ -731,12 +732,13 @@ int ray_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n - 1]) != NULL) {
 				cout << "Input vector" << endl;
 				Vector v;
 				cin >> v;
+				cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 				Object* tmp = (*ptr)[n - 1];
 				*dynamic_cast<Ray*>((*ptr)[n - 1]) = *dynamic_cast<Ray*>((*ptr)[n - 1]) + v;
 			}
@@ -748,7 +750,7 @@ int ray_menu(deque<Object*>* ptr) {
 			int n1 = -1;
 			while (n1 < 1 || n1 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n1;
+				n1 = save_in(cin);
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n1 - 1]) == NULL) {
 				cout << "This object isn`t a ray" << endl;
@@ -758,7 +760,7 @@ int ray_menu(deque<Object*>* ptr) {
 			int n2 = -1;
 			while (n2 < 1 || n2 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n2;
+				n2 = save_in(cin);
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n2 - 1]) == NULL) {
 				cout << "This object isn`t a ray" << endl;
@@ -773,7 +775,7 @@ int ray_menu(deque<Object*>* ptr) {
 			int n1 = -1;
 			while (n1 < 1 || n1 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n1;
+				n1 = save_in(cin);
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n1 - 1]) == NULL) {
 				cout << "This object isn`t a ray" << endl;
@@ -783,7 +785,7 @@ int ray_menu(deque<Object*>* ptr) {
 			int n2 = -1;
 			while (n2 < 1 || n2 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n2;
+				n2 = save_in(cin);
 			}
 			if (dynamic_cast<Ray*>((*ptr)[n2 - 1]) == NULL) {
 				cout << "This object isn`t a ray" << endl;
