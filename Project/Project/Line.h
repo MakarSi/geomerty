@@ -1,8 +1,6 @@
 #pragma once
 #include "Point.h"
 #include "vector.h"
-#include <iostream>
-#include <math.h>
 
 using namespace std;
 

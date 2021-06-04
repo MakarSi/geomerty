@@ -1,7 +1,5 @@
 #define _USE_MATH_DEFINES 
 #include "Line.h"
-#include "Point.h"
-#include "vector.h"
 
 using namespace std;
 
