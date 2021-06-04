@@ -155,7 +155,7 @@ int polygon_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			polygon::Polygon* p = input_polygon(cin);
-			cin.ignore();
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (p != nullptr) {
 				ptr->push_back(p);
 			}
@@ -185,7 +185,7 @@ int polygon_menu(deque<Object*>* ptr) {
 				cout << "Input vector" << endl;
 				Vector v;
 				cin >> v;
-				cin.ignore();
+				cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 				Object* tmp = (*ptr)[n - 1];
 				*dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) = *dynamic_cast<polygon::Polygon*>((*ptr)[n - 1]) + v;
 			}
@@ -260,6 +260,7 @@ int circle_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			Circle* c = input_circle(cin);
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (c != nullptr) {
 				ptr->push_back(c);
 			}
@@ -271,7 +272,7 @@ int circle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n - 1]) != NULL)
 				dynamic_cast<Circle*>((*ptr)[n - 1])->print_info();
@@ -283,12 +284,13 @@ int circle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n - 1]) != NULL) {
 				cout << "Input vector" << endl;
 				Vector v;
 				cin >> v;
+				cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 				Object* tmp = (*ptr)[n - 1];
 				*dynamic_cast<Circle*>((*ptr)[n - 1]) = *dynamic_cast<Circle*>((*ptr)[n - 1]) + v;
 			}
@@ -300,7 +302,7 @@ int circle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n - 1]) == NULL) {
 				cout << "This object isn`t a circle" << endl;
@@ -310,6 +312,7 @@ int circle_menu(deque<Object*>* ptr) {
 			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
 			Point p;
 			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			Line* tmp = new Line;
 			*tmp = tangent_line(p, *dynamic_cast<Circle*>((*ptr)[n - 1]));
 			if (tmp->is_undef()) {
@@ -325,7 +328,7 @@ int circle_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n - 1]) == NULL) {
 				cout << "This object isn`t a circle" << endl;
@@ -334,6 +337,7 @@ int circle_menu(deque<Object*>* ptr) {
 			cout << "Enter the coordinates of the point through which the tangents pass" << endl;
 			Point p;
 			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			Line tmp1, tmp2;
 			tangent_lines(p, *dynamic_cast<Circle*>((*ptr)[n - 1]), tmp1, tmp2);
 			if (tmp1.is_undef()) {
@@ -354,7 +358,7 @@ int circle_menu(deque<Object*>* ptr) {
 			int n1 = -1;
 			while (n1 < 1 || n1 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n1;
+				n1 = save_in(cin);
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n1 - 1]) == NULL) {
 				cout << "This object isn`t a circle" << endl;
@@ -364,7 +368,7 @@ int circle_menu(deque<Object*>* ptr) {
 			int n2 = -1;
 			while (n2 < 1 || n2 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n2;
+				n2 = save_in(cin);
 			}
 			if (dynamic_cast<Circle*>((*ptr)[n2 - 1]) == NULL) {
 				cout << "This object isn`t a circle" << endl;
@@ -430,7 +434,7 @@ int triangle_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			Triangle* t = input_triangle(cin);
-			cin.ignore();
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (t != nullptr) {
 				ptr->push_back(t);
 			}
@@ -460,7 +464,7 @@ int triangle_menu(deque<Object*>* ptr) {
 			cout << "Input vector" << endl;
 			Vector v;
 			cin >> v;
-			cin.ignore();
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			Object* tmp = (*ptr)[n - 1];
 			*dynamic_cast<Triangle*>((*ptr)[n - 1]) = *dynamic_cast<Triangle*>((*ptr)[n - 1]) + v;
 			}
@@ -529,6 +533,7 @@ int line_menu(deque<Object*>* ptr) {
 		switch (key) {
 		case 1: {
 			Line* l = input_line(cin);
+			cin.ignore(32767,'\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (l != nullptr) {
 				ptr->push_back(l);
 			}
@@ -540,7 +545,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n - 1]) != NULL)
 				dynamic_cast<Line*>((*ptr)[n - 1])->print_info();
@@ -552,12 +557,13 @@ int line_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n - 1]) != NULL) {
 				cout << "Input vector" << endl;
 				Vector v;
 				cin >> v;
+				cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 				Object* tmp = (*ptr)[n - 1];
 				*dynamic_cast<Line*>((*ptr)[n - 1]) = *dynamic_cast<Line*>((*ptr)[n - 1]) + v;
 			}
@@ -569,7 +575,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n1 = -1;
 			while (n1 < 1 || n1 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n1;
+				n1 = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n1 - 1]) == NULL) {
 				cout << "This object isn`t a line" << endl;
@@ -579,7 +585,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n2 = -1;
 			while (n2 < 1 || n2 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n2;
+				n2 = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n2 - 1]) == NULL) {
 				cout << "This object isn`t a line" << endl;
@@ -595,7 +601,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n1 = -1;
 			while (n1 < 1 || n1 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n1;
+				n1 = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n1 - 1]) == NULL) {
 				cout << "This object isn`t a line" << endl;
@@ -605,7 +611,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n2 = -1;
 			while (n2 < 1 || n2 > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n2;
+				n2 = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n2 - 1]) == NULL) {
 				cout << "This object isn`t a line" << endl;
@@ -627,7 +633,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n - 1]) == NULL) {
 				cout << "This object isn`t a line" << endl;
@@ -637,6 +643,7 @@ int line_menu(deque<Object*>* ptr) {
 			Point p;
 			cout << "Input point" << endl;
 			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			if (point_in_halfplane(p, *dynamic_cast<Line*>((*ptr)[n - 1])) == -1) cout << "This point lies in the negative half_plane" << endl;
 			else if (point_in_halfplane(p, *dynamic_cast<Line*>((*ptr)[n - 1])) == 0) cout << "This point lies on a line" << endl;
 			else cout << "This point lies in the positive half_plane" << endl;
@@ -647,7 +654,7 @@ int line_menu(deque<Object*>* ptr) {
 			int n = -1;
 			while (n < 1 || n > ptr->size()) {
 				cout << "Enter num from 1 to " << ptr->size() << endl;
-				cin >> n;
+				n = save_in(cin);
 			}
 			if (dynamic_cast<Line*>((*ptr)[n - 1]) == NULL) {
 				cout << "This object isn`t a line" << endl;
@@ -657,6 +664,7 @@ int line_menu(deque<Object*>* ptr) {
 			Point p;
 			cout << "Input point" << endl;
 			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
 			Line* l = new Line;
 			*l = dynamic_cast<Line*>((*ptr)[n - 1])->normal_line(p);
 			cout << *l << endl;
