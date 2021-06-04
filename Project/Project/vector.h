@@ -16,6 +16,8 @@ public:
 	double get_x() const { return _x; }
 	double get_y() const { return _y; }
 
+	virtual void draw()const;
+
 	/*Ќахождение длины вектора*/
 	double length(); 
 	/*Ќахождение скал€рного произведени€ 2-х векторов*/

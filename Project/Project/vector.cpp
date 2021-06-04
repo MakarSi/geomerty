@@ -48,6 +48,10 @@ Vector Vector::normal_vec() {
 	return Vector(-_y, _x);
 }
 
+void Vector::draw()const {
+	return;
+}
+
 Vector Vector::operator*(const double& a) const
 {
 	Vector c;

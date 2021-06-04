@@ -13,23 +13,23 @@ class deque {
 public:
 	deque();
 	~deque();
-	T back() {
+	T back()const {
 		if (_size == 0) throw("List is empty");
 		return _tail->key;
 	}
-	T front(){ 
+	T front()const { 
 		if (_size == 0) throw("List is empty"); 
 		return _head->key; 
 	}
 	T pop_back();
 	T pop_front();
-	size_t size() { return _size; }
+	size_t size()const { return _size; }
 
-	node<T>* head() { return _head; }
-	node<T>* tail() { return _tail; }
+	node<T>* head()const { return _head; }
+	node<T>* tail()const { return _tail; }
 	void push_front(const T&);
 	void push_back(const T&);
-	bool empty() { return _size == 0; }
+	bool empty()const { return _size == 0; }
 	void clear();
 	T& operator[] (const size_t);
 private:	
