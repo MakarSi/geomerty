@@ -725,16 +725,17 @@ Line* input_line(istream& in) {
 
 int ray_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[6];
+	string* A = new string[7];
 	A[0] = "Add new ray";
 	A[1] = "Print info about ray";
 	A[2] = "Shift ray by vector";
 	A[3] = "Angle between rays";
 	A[4] = "Instersection point of two rays";
-	A[5] = "Go back";
+	A[5] = "Belong point to ray";
+	A[6] = "Go back";
 
 	while (true) {
-		int key = print_menu(A, 6);
+		int key = print_menu(A, 7);
 		switch (key) {
 		case 1: {
 			Ray* r = input_ray(cin);
@@ -822,13 +823,33 @@ int ray_menu(deque<Object*>* ptr) {
 				system("pause");
 				break;
 			}
-			/*Косяк в функции*/
 			if (intersection_point_existence(*dynamic_cast<Ray*>((*ptr)[n1 - 1]), *dynamic_cast<Ray*>((*ptr)[n2 - 1])))
 				cout << "These two rays have the intersection point: " << ray_intersection_point(*dynamic_cast<Ray*>((*ptr)[n1 - 1]), *dynamic_cast<Ray*>((*ptr)[n2 - 1])) << endl;
 			else cout << "These two rays have no intersection point" << endl;
 			break;
 		}
 		case 6: {
+			if (ptr->size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
+				n = save_in(cin);
+			}
+			if (dynamic_cast<Ray*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a ray" << endl;
+				system("pause");
+				break;
+			}
+			cout << "Enter the point" << endl;
+			Point p;
+			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления 
+			if (dynamic_cast<Ray*>((*ptr)[n - 1])->if_belong(p))
+				cout << "Point lies on the ray" << endl;
+			else cout << "Point don't lies on the ray" << endl;
+			break;
+		}
+		case 7: {
 			return 0;
 		}
 		default: break;
