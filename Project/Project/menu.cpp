@@ -36,8 +36,8 @@ int print_menu(string* a, int N) {
 	int key = 0, move;
 	while (true) {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-		cout << "Выберите пункт меню:\n\n";
-		cout << "Введите ESC, чтобы выйти\n";
+		cout << "Select what do you want to work with:\n\n";
+		cout << "Press ESC to exit\n";
 
 		for (int i = 0; i < N; i++) {
 			if (i != key) {
@@ -76,13 +76,13 @@ int print_menu(string* a, int N) {
 int menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
 	string* A = new string[8];
-	A[0] = "Действия с прямыми";
-	A[1] = "Действия с лучом";
-	A[2] = "Действия с треугольником";
-	A[3] = "Действия с окружностью";
-	A[4] = "Действия с многоугольником";
-	A[5] = "Выведи список объектов";
-	A[6] = "Выйти из меню в glut";
+	A[0] = "Line";
+	A[1] = "Ray";
+	A[2] = "Triangle";
+	A[3] = "Circle";
+	A[4] = "Polygon";
+	A[5] = "Output the list of objects";
+	A[6] = "Quit the menu to glut";
 	while (true) {
 		int key = print_menu(A, 7);
 		switch (key) {
@@ -120,6 +120,9 @@ int menu(deque<Object*>* ptr) {
 		}
 		case 7: {
 			return 0;
+		}
+		case 8: {
+			exit(0);
 		}
 		default: break;
 		}
