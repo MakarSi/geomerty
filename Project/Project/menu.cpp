@@ -249,17 +249,18 @@ void print_coords(const polygon::Polygon& p, ostream& out) {
 
 int circle_menu(deque<Object*>* ptr) {
 	setlocale(LC_ALL, "");
-	string* A = new string[7];
+	string* A = new string[8];
 	A[0] = "Add new circle";
 	A[1] = "Print info about circle";
 	A[2] = "Shift circle by vector";
 	A[3] = "Finding tangents for point on circle";
 	A[4] = "Finding tangents for point out of circle";
 	A[5] = "Finding the intersection points of two circles";
-	A[6] = "Go back";
+	A[6] = "Belong point to circle";
+	A[7] = "Go back";
 
 	while (true) {
-		int key = print_menu(A, 7);
+		int key = print_menu(A, 8);
 		switch (key) {
 		case 1: {
 			Circle* c = input_circle(cin);
@@ -402,6 +403,24 @@ int circle_menu(deque<Object*>* ptr) {
 			break;
 		}
 		case 7: {
+			if (ptr->size() == 0) break;
+			int n = -1;
+			while (n < 1 || n > ptr->size()) {
+				cout << "Enter num from 1 to " << ptr->size() << endl;
+				n = save_in(cin);
+			}
+			if (dynamic_cast<Circle*>((*ptr)[n - 1]) == NULL) {
+				cout << "This object isn`t a circle" << endl;
+				break;
+			}
+			cout << "Enter the point" << endl;
+			Point p;
+			cin >> p;
+			cin.ignore(32767, '\n'); //Игнорируем до 32767 символов из входного буфера до появления \n
+			if (dynamic_cast<Circle*>((*ptr)[n - 1])->if_belong(p)) cout << "Point is inside of circle" << endl; 
+			else cout << "Point isn't inside of circle" << endl;
+		}
+		case 8: {
 			return 0;
 		}
 		default: break;

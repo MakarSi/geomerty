@@ -18,12 +18,13 @@ public:
 	void set_rad(double _rad);
 
 	/*Геттеры*/
-	Point get_center() const;
-	double get_rad() const;
+	Point get_center() const {return _center;}
+	double get_rad() const {return _rad;}
 	/*Коэффициенты ур-ния вида x^2 + y^2 + Ax + By + C = 0*/
-	double get_A() const;
-	double get_B() const;
-	double get_C() const;
+	double get_A() const {return _A;}
+	double get_B() const {return _B;}
+	double get_C() const {return _C;}
+
 
 	/*Перегрузка операторов ввода и вывода*/
 	friend istream& operator>>(istream& in, Circle& c);
@@ -31,6 +32,8 @@ public:
 	/*Оператор сдвига окружности на вектор*/
 	Circle operator+ (const Vector&);
 	
+	/*Принадлежит ли точка окружности*/
+	bool if_belong(const Point& p) const;
 	/*Печать ур-ния в стандартном виде*/
 	void print_eq()const;
 	/*Нахождение длины окружности*/

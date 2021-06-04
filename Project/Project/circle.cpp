@@ -28,24 +28,11 @@ void Circle::init_ABC() {
 	_C = x * x + y * y - _rad * _rad;
 }
 
-Point Circle::get_center() const {
-	return _center;
-}
-
-double Circle::get_rad() const {
-	return _rad;
-}
-
-double Circle::get_A() const {
-	return _A;
-}
-
-double Circle::get_B() const {
-	return _B;
-}
-
-double Circle::get_C() const {
-	return _C;
+bool Circle::if_belong(const Point& p) const {
+	double x = p.get_x() - _center.get_x();
+	double y = p.get_y() - _center.get_y();
+	double r = _rad;
+	if (x * x + y * y > r * r) return false; else return true;
 }
 
 void Circle::print_eq() const {
