@@ -41,8 +41,7 @@ void Ray::draw()const
 {	
 	Vector v = _v;
 	v.normalize();
-	//cout << v.get_x() << " " << v.get_y() << " " << v.length()  << endl;
-	v = v*10000;
+	v = v*100000;
 	Point p = _p + v;
 	glColor3d(_image._color.R, _image._color.G, _image._color.B);
 	glLineWidth(_image._width);
