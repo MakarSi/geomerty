@@ -140,26 +140,7 @@ namespace polygon {
 	}
 
 	bool cop(const Point& p1, const Point& p2) {
-		//≈сли точка р1 лежит на оси OY и х>0, то p2>p1
-		if (p1.get_y() == 0 && p1.get_x() > 0)
-			return true; 
-
-		//≈сли точка р2 лежит на оси ќY и х>0, то p1>p2
-		if (p2.get_y() == 0 && p2.get_x() > 0)
-			return false; 
-
-		/*Ћежит ли точка р1 в градусной мере от (0,180) -1 и 2 четверть
-		и лежит ли точка р2 в градусной мере от (180,360) - 3 и 4 четверть*/
-		if (p1.get_y() > 0 && p2.get_y() < 0)
-			return true; 
-
-		/*Ћежит ли точка р1 в градусной мере от (180,360) -3 и 4 четверть
-		и лежит ли точка р2 в градусной мере от (0,180) - 1 и 2 четверть*/
-		if (p1.get_y() < 0 && p2.get_y() > 0)
-			return false;
-
-		//–асположение точки р1 по часовой стрелки отн-но точки р2
-		return (p1.get_x() * p2.get_y() - p1.get_y() * p2.get_x()) > 0; 
+		if (p1.get_x() < p2.get_x()) return true; else return false;
 	}
 
 	bool Polygon::if_convex() const
